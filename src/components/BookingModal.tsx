@@ -55,7 +55,7 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
             <div className="flex flex-col gap-2">
               <button
                 onClick={handleWhatsApp}
-                className="w-full h-11 rounded-xl bg-green-500 text-white font-medium hover:bg-green-600 transition-colors"
+                className="w-full h-11 rounded-xl bg-accent text-accent-foreground font-medium hover:opacity-90 transition-opacity"
               >
                 Chat on WhatsApp
               </button>
