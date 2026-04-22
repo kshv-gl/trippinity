@@ -32,6 +32,7 @@ const TripDetails = () => {
   const { id } = useParams();
   const trip = mockTrips.find((t) => t.id === id);
   const [bookingOpen, setBookingOpen] = useState(false);
+  const [videoOk, setVideoOk] = useState(true);
   const { isFav, toggle } = useFavourites();
 
   if (!trip) {
@@ -52,18 +53,23 @@ const TripDetails = () => {
     <div className="min-h-screen pb-32 md:pb-24">
       <Navbar />
 
-      {/* Hero video banner */}
+      {/* Hero video banner — strict: only render video if a travel videoUrl exists and loads */}
       <div className="relative h-[55vh] min-h-[380px] overflow-hidden bg-foreground">
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster={trip.image}
-        >
-          <source src={trip.videoUrl} type="video/mp4" />
-        </video>
+        {trip.videoUrl && videoOk ? (
+          <video
+            className="absolute inset-0 w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster={trip.image}
+            onError={() => setVideoOk(false)}
+          >
+            <source src={trip.videoUrl} type="video/mp4" />
+          </video>
+        ) : (
+          <img src={trip.image} alt={trip.title} className="absolute inset-0 w-full h-full object-cover" />
+        )}
         <div className="absolute inset-0 hero-overlay" />
 
         <Link
