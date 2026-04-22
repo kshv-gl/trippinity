@@ -64,41 +64,123 @@ const TripHub = () => {
     return (
       <div className="min-h-screen pb-20 md:pb-0">
         <Navbar />
-        <div className="container py-16 max-w-2xl text-center">
-          <div className="relative inline-flex items-center justify-center w-24 h-24 rounded-full bg-muted mb-6">
-            <Lock className="w-10 h-10 text-muted-foreground" />
-            <Sparkles className="w-5 h-5 text-secondary absolute top-2 right-2" />
-          </div>
-          <h1 className="text-3xl font-extrabold font-display">Trip Hub is locked</h1>
-          <p className="text-muted-foreground mt-3 max-w-md mx-auto">
-            The Trip Hub unlocks after you book a trip — your space to chat with co-travelers, message your planner, and access trip documents.
-          </p>
-
-          <div className="mt-8 grid sm:grid-cols-2 gap-3 text-left">
-            {[
-              { icon: Users, title: "Travelers list", desc: "See who else is on the trip" },
-              { icon: MessagesSquare, title: "Group chat", desc: "Message all travelers" },
-              { icon: MessageCircle, title: "Planner chat", desc: "Direct line to your planner" },
-              { icon: FileText, title: "Documents", desc: "Tickets, vouchers, PDFs" },
-            ].map((item) => (
-              <div key={item.title} className="p-4 rounded-xl bg-muted/50 border border-dashed">
-                <item.icon className="w-5 h-5 text-muted-foreground mb-2" />
-                <p className="font-semibold text-sm">{item.title}</p>
-                <p className="text-xs text-muted-foreground">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-3 justify-center mt-10">
-            <Link to="/explore" className="h-12 px-6 inline-flex items-center justify-center rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors">
-              Browse trips to book
-            </Link>
-            <button
-              onClick={() => setBooked(true)}
-              className="h-12 px-6 inline-flex items-center justify-center rounded-xl bg-muted text-foreground font-medium hover:bg-muted/70 transition-colors"
+        <div className="container py-10 max-w-5xl">
+          <div className="relative">
+            {/* Blurred preview (decorative, non-interactive) */}
+            <div
+              aria-hidden
+              className="pointer-events-none select-none"
+              style={{ filter: "blur(8px)", opacity: 0.6 }}
             >
-              ▶ Demo: simulate a booking
-            </button>
+              <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
+                <div>
+                  <h1 className="text-3xl font-extrabold font-display flex items-center gap-2">
+                    Trip Hub <CheckCircle className="w-6 h-6 text-success" />
+                  </h1>
+                  <p className="text-sm text-muted-foreground">Magical Manali & Solang Valley · Apr 15 – Apr 19</p>
+                </div>
+              </div>
+
+              <div className="flex bg-muted p-1 rounded-xl mb-6">
+                {[
+                  { label: "Travelers", icon: Users },
+                  { label: "Group Chat", icon: MessagesSquare },
+                  { label: "Planner Chat", icon: MessageCircle },
+                  { label: "Documents", icon: FileText },
+                ].map((t, i) => (
+                  <div
+                    key={t.label}
+                    className={`flex-1 h-11 rounded-lg text-sm font-medium inline-flex items-center justify-center gap-2 ${
+                      i === 0 ? "bg-background shadow-soft" : "text-muted-foreground"
+                    }`}
+                  >
+                    <t.icon className="w-4 h-4" /> {t.label}
+                  </div>
+                ))}
+              </div>
+
+              <div className="bg-card border rounded-2xl shadow-soft p-6 space-y-6">
+                {/* Travelers preview */}
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {travelers.map((t) => (
+                    <div key={t.name} className="flex items-center gap-3 p-3 rounded-xl bg-muted/40">
+                      <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold">
+                        {t.name[0]}
+                      </div>
+                      <div>
+                        <p className="font-semibold">{t.name}</p>
+                        <p className="text-xs text-muted-foreground">Age {t.age} · {t.city}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Chat preview */}
+                <div className="space-y-2">
+                  {initialGroupMessages.map((m, i) => (
+                    <div key={i} className="flex justify-start">
+                      <div className="max-w-[75%] p-3 rounded-2xl text-sm bg-muted rounded-bl-sm">
+                        <p className="text-[11px] font-semibold mb-0.5 opacity-80">{m.from}</p>
+                        <p>{m.text}</p>
+                      </div>
+                    </div>
+                  ))}
+                  <div className="flex justify-end">
+                    <div className="max-w-[75%] p-3 rounded-2xl text-sm bg-primary text-primary-foreground rounded-br-sm">
+                      <p>Can't wait! Booking my flight today 🎉</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Documents preview */}
+                <div className="space-y-2">
+                  {documents.map((d) => (
+                    <div key={d.name} className="flex items-center justify-between p-4 rounded-xl bg-muted/40">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                          <FileText className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-sm">{d.name}</p>
+                          <p className="text-xs text-muted-foreground">{d.size}</p>
+                        </div>
+                      </div>
+                      <div className="h-9 px-4 rounded-lg bg-background border text-sm font-medium inline-flex items-center gap-1">
+                        <Download className="w-4 h-4" /> Download
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Centered locked overlay */}
+            <div className="absolute inset-0 flex items-center justify-center p-4">
+              <div className="w-full max-w-md bg-card/95 backdrop-blur-md border rounded-2xl shadow-elevated p-8 text-center animate-fade-in">
+                <div className="relative inline-flex items-center justify-center w-20 h-20 rounded-full bg-muted mb-5">
+                  <Lock className="w-9 h-9 text-muted-foreground" />
+                  <Sparkles className="w-5 h-5 text-secondary absolute top-1.5 right-1.5" />
+                </div>
+                <h1 className="text-2xl font-extrabold font-display">🔒 Trip Hub Locked</h1>
+                <p className="text-sm text-muted-foreground mt-2">
+                  Unlock group chat, travelers, and trip documents after booking.
+                </p>
+                <div className="flex flex-col gap-2 mt-6">
+                  <Link
+                    to="/explore"
+                    className="h-12 px-6 inline-flex items-center justify-center rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors shadow-elevated"
+                  >
+                    Book a Trip to Unlock
+                  </Link>
+                  <button
+                    onClick={() => setBooked(true)}
+                    className="h-10 px-6 inline-flex items-center justify-center rounded-xl text-xs text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    ▶ Demo: simulate a booking
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <Footer />
