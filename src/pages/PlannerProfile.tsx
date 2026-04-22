@@ -1,9 +1,11 @@
-import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Star } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { ArrowLeft, Star, ShieldCheck, MapPin } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
+import Footer from "@/components/Footer";
 import TripCard from "@/components/TripCard";
-import { mockTrips } from "@/data/mockTrips";
+import { mockTrips, companies } from "@/data/mockTrips";
 
 const PlannerProfile = () => {
   const { slug } = useParams();
@@ -23,42 +25,70 @@ const PlannerProfile = () => {
     );
   }
 
-  const avgRating = (plannerTrips.reduce((sum, t) => sum + t.rating, 0) / plannerTrips.length).toFixed(1);
+  const company = companies[planner.companyId];
+  const avgRating = (plannerTrips.reduce((s, t) => s + t.rating, 0) / plannerTrips.length).toFixed(1);
+  const totalBooked = plannerTrips.reduce((s, t) => s + t.booked, 0);
 
   return (
-    <div className="min-h-screen pb-20 sm:pb-0">
+    <div className="min-h-screen pb-20 md:pb-0">
       <Navbar />
-      <div className="container max-w-3xl py-8">
-        <Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6">
-          <ArrowLeft className="w-4 h-4" /> Back to Trips
-        </Link>
 
-        <div className="flex items-center gap-4 mb-8">
-          <div className="w-20 h-20 rounded-full bg-primary/10 text-primary flex items-center justify-center text-3xl font-bold">
-            {planner.plannerName[0]}
+      {/* Cover */}
+      <div className="relative h-48 sm:h-64 bg-gradient-to-br from-primary to-accent overflow-hidden">
+        <img src={planner.image} alt="" className="w-full h-full object-cover opacity-30" />
+        <Link to="/" className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-background/80 backdrop-blur flex items-center justify-center">
+          <ArrowLeft className="w-5 h-5" />
+        </Link>
+      </div>
+
+      <div className="container max-w-5xl -mt-16 relative z-10 space-y-8">
+        {/* Header card */}
+        <div className="bg-card border rounded-2xl p-6 sm:p-8 shadow-card flex flex-col sm:flex-row gap-5 items-start">
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/15 to-accent/15 flex items-center justify-center text-4xl shrink-0">
+            {company?.logo}
           </div>
-          <div>
-            <h1 className="text-2xl font-extrabold">{planner.plannerName}</h1>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
-              <Star className="w-4 h-4 fill-secondary stroke-secondary" />
-              <span className="font-semibold text-foreground">{avgRating}</span>
-              <span>· {plannerTrips.length} trips listed</span>
+          <div className="flex-1">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h1 className="text-2xl sm:text-3xl font-extrabold font-display">{company?.name}</h1>
+              {company?.verified && (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-accent/10 text-accent text-xs font-semibold">
+                  <ShieldCheck className="w-3 h-3" /> Verified
+                </span>
+              )}
+            </div>
+            <p className="text-sm text-muted-foreground mt-1">Hosted by <span className="font-medium text-foreground">{planner.plannerName}</span></p>
+            <div className="flex flex-wrap gap-4 mt-4 text-sm">
+              <span className="flex items-center gap-1"><Star className="w-4 h-4 fill-secondary stroke-secondary" /> <strong>{avgRating}</strong> · {plannerTrips.length} trips</span>
+              <span className="flex items-center gap-1 text-muted-foreground">{totalBooked}+ travelers hosted</span>
+              <span className="flex items-center gap-1 text-muted-foreground"><MapPin className="w-4 h-4" /> India</span>
             </div>
           </div>
+          <Link
+            to="/contact"
+            className="h-11 px-5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold inline-flex items-center hover:bg-primary/90 transition-colors"
+          >
+            Contact planner
+          </Link>
         </div>
 
-        <div className="bg-muted rounded-2xl p-5 mb-8">
-          <h2 className="font-semibold mb-2">About</h2>
-          <p className="text-sm text-muted-foreground">{planner.plannerAbout}</p>
+        {/* About */}
+        <div className="bg-muted/40 rounded-2xl p-6">
+          <h2 className="font-bold mb-2">About</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">{company?.about}</p>
+          <p className="text-sm text-muted-foreground leading-relaxed mt-2">{planner.plannerAbout}</p>
         </div>
 
-        <h2 className="text-lg font-bold mb-4">Trips by {planner.plannerName}</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {plannerTrips.map((trip) => (
-            <TripCard key={trip.id} trip={trip} />
-          ))}
+        {/* Current listings */}
+        <div>
+          <h2 className="text-xl font-bold mb-4">Current listings</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {plannerTrips.map((trip) => (
+              <TripCard key={trip.id} trip={trip} />
+            ))}
+          </div>
         </div>
       </div>
+      <Footer />
       <BottomNav />
     </div>
   );

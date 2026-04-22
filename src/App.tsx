@@ -7,6 +7,14 @@ import Index from "./pages/Index";
 import TripDetails from "./pages/TripDetails";
 import PlannerProfile from "./pages/PlannerProfile";
 import ListTrip from "./pages/ListTrip";
+import Explore from "./pages/Explore";
+import Destinations from "./pages/Destinations";
+import Login from "./pages/Login";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Profile from "./pages/Profile";
+import Favourites from "./pages/Favourites";
+import TripHub from "./pages/TripHub";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -19,9 +27,17 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/destinations" element={<Destinations />} />
           <Route path="/trip/:id" element={<TripDetails />} />
           <Route path="/planner/:slug" element={<PlannerProfile />} />
           <Route path="/list-trip" element={<ListTrip />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/favourites" element={<Favourites />} />
+          <Route path="/trip-hub" element={<TripHub />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
