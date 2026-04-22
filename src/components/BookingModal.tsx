@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { X, CheckCircle } from "lucide-react";
+import { X, CheckCircle, Compass } from "lucide-react";
+import { Link } from "react-router-dom";
 import type { Trip } from "@/data/mockTrips";
+import { useBookingState } from "@/hooks/useBookingState";
 
 interface BookingModalProps {
   trip: Trip;
@@ -10,6 +12,7 @@ interface BookingModalProps {
 
 const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
   const [submitted, setSubmitted] = useState(false);
+  const { setBooked } = useBookingState();
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -22,8 +25,8 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In production, save to database
     console.log("Booking:", { ...form, tripId: trip.id });
+    setBooked(true);
     setSubmitted(true);
   };
 
@@ -36,8 +39,8 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-foreground/40 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-md bg-card rounded-2xl shadow-2xl overflow-hidden animate-fade-in">
+      <div className="absolute inset-0 bg-foreground/50 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative w-full max-w-md bg-card rounded-2xl shadow-2xl overflow-hidden animate-scale-in">
         <div className="flex items-center justify-between p-5 border-b">
           <h2 className="text-lg font-bold">Request to Book</h2>
           <button onClick={onClose} className="p-1 rounded-lg hover:bg-muted transition-colors">
@@ -47,15 +50,21 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
 
         {submitted ? (
           <div className="p-8 text-center space-y-4">
-            <CheckCircle className="w-16 h-16 text-accent mx-auto" />
-            <h3 className="text-xl font-bold">Booking Requested!</h3>
+            <CheckCircle className="w-16 h-16 text-success mx-auto" />
+            <h3 className="text-xl font-bold">Booking request sent ✅</h3>
             <p className="text-muted-foreground text-sm">
-              We've received your request for <strong>{trip.title}</strong>. The planner will contact you soon.
+              We've received your request for <strong>{trip.title}</strong>. Your planner will reach out shortly. Your Trip Hub is now unlocked.
             </p>
             <div className="flex flex-col gap-2">
+              <Link
+                to="/trip-hub"
+                className="w-full h-11 rounded-xl bg-primary text-primary-foreground font-medium inline-flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors"
+              >
+                <Compass className="w-4 h-4" /> Open Trip Hub
+              </Link>
               <button
                 onClick={handleWhatsApp}
-                className="w-full h-11 rounded-xl bg-accent text-accent-foreground font-medium hover:opacity-90 transition-opacity"
+                className="w-full h-11 rounded-xl bg-success text-success-foreground font-medium hover:opacity-90 transition-opacity"
               >
                 Chat on WhatsApp
               </button>
@@ -71,65 +80,35 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
           <form onSubmit={handleSubmit} className="p-5 space-y-4">
             <div>
               <label className="text-sm font-medium mb-1 block">Full Name</label>
-              <input
-                required
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-                placeholder="Your name"
-              />
+              <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
+                className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="Your name" />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-sm font-medium mb-1 block">Phone</label>
-                <input
-                  required
-                  type="tel"
-                  value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-                  placeholder="+91..."
-                />
+                <input required type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="+91..." />
               </div>
               <div>
                 <label className="text-sm font-medium mb-1 block">People</label>
-                <input
-                  required
-                  type="number"
-                  min="1"
-                  value={form.peopleCount}
-                  onChange={(e) => setForm({ ...form, peopleCount: e.target.value })}
-                  className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-                />
+                <input required type="number" min="1" value={form.peopleCount} onChange={(e) => setForm({ ...form, peopleCount: e.target.value })}
+                  className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
               </div>
             </div>
             <div>
               <label className="text-sm font-medium mb-1 block">Email</label>
-              <input
-                required
-                type="email"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-                placeholder="you@email.com"
-              />
+              <input required type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
+                className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="you@email.com" />
             </div>
             <div>
               <label className="text-sm font-medium mb-1 block">Preferred Date</label>
-              <input
-                required
-                type="date"
-                value={form.date}
-                onChange={(e) => setForm({ ...form, date: e.target.value })}
-                className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-              />
+              <input required type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })}
+                className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
             </div>
-            <button
-              type="submit"
-              className="w-full h-12 rounded-xl bg-primary text-primary-foreground font-semibold text-base hover:opacity-90 transition-opacity"
-            >
+            <button type="submit" className="w-full h-12 rounded-xl bg-primary text-primary-foreground font-semibold text-base hover:bg-primary/90 transition-colors shadow-elevated">
               Submit Booking Request
             </button>
+            <p className="text-[11px] text-center text-muted-foreground">No charge until your planner confirms.</p>
           </form>
         )}
       </div>
