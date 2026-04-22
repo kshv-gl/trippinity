@@ -12,7 +12,15 @@ import {
   ShieldCheck,
   CheckCircle2,
   ChevronRight,
+  Plane,
+  Mountain,
+  Camera,
+  Utensils,
+  Sunset,
+  Home,
 } from "lucide-react";
+
+const dayIcons = [Plane, Mountain, Camera, Sunset, Utensils, Home];
 import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
 import BookingModal from "@/components/BookingModal";
@@ -138,20 +146,23 @@ const TripDetails = () => {
           <div>
             <h2 className="text-2xl font-extrabold font-display mb-4">Day-wise itinerary</h2>
             <div className="space-y-4">
-              {trip.itinerary.map((day, i) => (
-                <div key={i} className="flex gap-4 p-4 rounded-2xl border bg-card">
-                  <div className="flex flex-col items-center">
-                    <div className="w-10 h-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">
-                      D{i + 1}
+              {trip.itinerary.map((day, i) => {
+                const Icon = dayIcons[i % dayIcons.length];
+                return (
+                  <div key={i} className="flex gap-4 p-4 rounded-2xl border bg-card hover:shadow-soft transition-shadow">
+                    <div className="flex flex-col items-center">
+                      <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary to-accent text-primary-foreground flex items-center justify-center shadow-soft">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      {i < trip.itinerary.length - 1 && <div className="w-px flex-1 bg-border mt-2" />}
                     </div>
-                    {i < trip.itinerary.length - 1 && <div className="w-px flex-1 bg-border mt-2" />}
+                    <div className="pt-1 flex-1">
+                      <p className="font-bold text-sm mb-1 text-primary">Day {i + 1}</p>
+                      <p className="text-sm text-foreground/80 leading-relaxed">{day}</p>
+                    </div>
                   </div>
-                  <div className="pt-1.5 flex-1">
-                    <p className="font-semibold text-sm mb-1">Day {i + 1}</p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{day}</p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

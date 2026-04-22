@@ -87,6 +87,27 @@ const PlannerProfile = () => {
             ))}
           </div>
         </div>
+
+        {/* Past trips (mock — other trips from same company) */}
+        <div>
+          <h2 className="text-xl font-bold mb-1">Past trips</h2>
+          <p className="text-sm text-muted-foreground mb-4">Successfully hosted journeys by {company?.name}</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {[
+              { title: "Spiti Winter Circuit", year: "2025", travelers: 18 },
+              { title: "Kasol & Kheerganga Trek", year: "2024", travelers: 24 },
+              { title: "Kashmir Great Lakes", year: "2024", travelers: 12 },
+            ].map((p) => (
+              <div key={p.title} className="p-4 rounded-2xl border bg-card hover:shadow-soft transition-shadow">
+                <div className="flex items-center gap-1 text-xs text-success mb-1">
+                  <ShieldCheck className="w-3.5 h-3.5" /> Completed · {p.year}
+                </div>
+                <p className="font-semibold text-sm">{p.title}</p>
+                <p className="text-xs text-muted-foreground mt-1">{p.travelers} travelers · ⭐ 4.8 avg</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
       <Footer />
       <BottomNav />
