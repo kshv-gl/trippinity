@@ -7,16 +7,22 @@ import { useFavourites } from "@/hooks/useFavourites";
 const TripCard = ({ trip }: { trip: Trip }) => {
   const { isFav, toggle } = useFavourites();
   const [hover, setHover] = useState(false);
+  const [videoOk, setVideoOk] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const company = companies[trip.companyId];
   const fav = isFav(trip.id);
 
+  // Strict rule: only ever attempt video if a non-empty travel videoUrl exists
+  // AND it has not previously failed to load.
+  const hasVideo = Boolean(trip.videoUrl) && videoOk;
+
   const onEnter = () => {
     setHover(true);
+    if (!hasVideo) return;
     const v = videoRef.current;
     if (v) {
       v.currentTime = 0;
-      v.play().catch(() => {});
+      v.play().catch(() => setVideoOk(false));
     }
   };
   const onLeave = () => {
@@ -37,22 +43,28 @@ const TripCard = ({ trip }: { trip: Trip }) => {
           src={trip.image}
           alt={trip.title}
           className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 ${
-            hover ? "opacity-0 scale-105" : "opacity-100 group-hover:scale-105"
+            hover && hasVideo ? "opacity-0 scale-105" : "opacity-100 group-hover:scale-105"
           }`}
           loading="lazy"
         />
-        <video
-          ref={videoRef}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-            hover ? "opacity-100" : "opacity-0"
-          }`}
-          muted
-          loop
-          playsInline
-          preload="none"
-        >
-          <source src={trip.videoUrl} type="video/mp4" />
-        </video>
+        {hasVideo && (
+          <video
+            ref={videoRef}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+              hover ? "opacity-100" : "opacity-0"
+            }`}
+            muted
+            loop
+            playsInline
+            preload="none"
+            onError={() => setVideoOk(false)}
+          >
+            <source src={trip.videoUrl} type="video/mp4" />
+          </video>
+        )}
+
+        {/* Bottom gradient for text readability */}
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/55 to-transparent pointer-events-none" />
 
         {/* Top row badges */}
         <div className="absolute top-3 left-3 flex flex-col items-start gap-1.5">
