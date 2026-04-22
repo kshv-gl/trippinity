@@ -114,7 +114,15 @@ const TripCard = ({ trip }: { trip: Trip }) => {
         <div className="flex items-center justify-between text-xs">
           <span className="text-muted-foreground">
             Sold by{" "}
-            <span className="font-semibold text-foreground inline-flex items-center gap-1">
+            <span
+              role="link"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (company) window.location.assign(`/planner/${company.id}`);
+              }}
+              className="font-semibold text-foreground inline-flex items-center gap-1 hover:text-primary transition-colors cursor-pointer"
+            >
               <span aria-hidden>{company?.logo}</span> {company?.name}
               {company?.verified && <ShieldCheck className="w-3.5 h-3.5 text-accent" />}
             </span>
