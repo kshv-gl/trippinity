@@ -1,6 +1,6 @@
 import { ArrowRight, ShieldCheck, Star, Users } from "lucide-react";
 import { Link } from "react-router-dom";
-import { HERO_VIDEO } from "@/data/mockTrips";
+import { HERO_VIDEO, HERO_POSTER } from "@/data/mockTrips";
 
 const Hero = () => {
   return (
@@ -12,7 +12,7 @@ const Hero = () => {
         loop
         playsInline
         preload="auto"
-        poster="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80"
+        poster={HERO_POSTER}
       >
         <source src={HERO_VIDEO} type="video/mp4" />
       </video>

@@ -1,7 +1,7 @@
 export interface Company {
   id: string;
   name: string;
-  logo: string; // emoji or short
+  logo: string; 
   verified: boolean;
   about: string;
   rating: number;
@@ -81,17 +81,17 @@ export interface Trip {
 // DO NOT add unrelated content (space, abstract, tech, etc.) here.
 const VID = {
   // Mountains / Himalayas — drone over snowy peaks
-  mountains: "https://videos.pexels.com/video-files/2491284/2491284-uhd_2560_1440_24fps.mp4",
+  mountains: "https://videos.pexels.com/video-files/31476513/13421170_3840_2160_60fps.mp4",
   // Tropical beach — palms + turquoise water
-  beach: "https://videos.pexels.com/video-files/1409899/1409899-hd_1920_1080_24fps.mp4",
+  beach: "https://videos.pexels.com/video-files/34590035/14659202_1920_1080_30fps.mp4",
   // Kerala-style backwaters / tropical river
-  backwaters: "https://videos.pexels.com/video-files/2169880/2169880-hd_1920_1080_30fps.mp4",
+  backwaters: "https://videos.pexels.com/video-files/34742689/14728150_3840_2160_30fps.mp4",
   // Desert dunes — sand & dunes
-  desert: "https://videos.pexels.com/video-files/3214448/3214448-uhd_2560_1440_25fps.mp4",
+  desert: "https://videos.pexels.com/video-files/33911366/14391353_3840_2160_24fps.mp4",
   // Island aerial — sea & coastline
-  islands: "https://videos.pexels.com/video-files/2169879/2169879-hd_1920_1080_30fps.mp4",
+  islands: "https://videos.pexels.com/video-files/20235510/20235510-uhd_3840_2160_30fps.mp4",
   // Mountain road — winding scenic road (good stand-in for Ladakh ride)
-  bike: "https://videos.pexels.com/video-files/2871916/2871916-uhd_2560_1440_30fps.mp4",
+  bike: "https://videos.pexels.com/video-files/32659156/13924425_1920_1080_30fps.mp4"
 };
 
 export const mockTrips: Trip[] = [
@@ -257,8 +257,8 @@ export const destinations = [
 ];
 
 // Hero: friends/group travel walking together — verified travel content.
-export const HERO_VIDEO = "https://videos.pexels.com/video-files/4426678/4426678-uhd_2560_1440_25fps.mp4";
-export const HERO_POSTER = "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80";
+export const HERO_VIDEO = "https://videos.pexels.com/video-files/5329316/5329316-uhd_4096_2160_25fps.mp4";
+export const HERO_POSTER = "https://images.pexels.com/photos/5329538/pexels-photo-5329538.jpeg?cs=srgb&dl=pexels-cottonbro-5329538.jpg&fm=jpg&_gl=1*16fcv6z*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzY4NTIwMDkkbzQkZzEkdDE3NzY4NTQxOTkkajU0JGwwJGgw";
 
 export interface Booking {
   id: string;

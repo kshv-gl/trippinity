@@ -19,7 +19,7 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 bg-background/85 backdrop-blur-xl border-b border-border/60">
       <div className="container flex items-center justify-between h-16">
         <Link to="/" className="flex items-center gap-1 group">
-          <span className="text-2xl font-extrabold tracking-tight font-display">
+          <span className="text-3xl sm:text-3xl font-extrabold tracking-tight font-display">
             Tripp<span className="text-accent">inity</span>
           </span>
         </Link>

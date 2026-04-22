@@ -111,7 +111,6 @@ const Login = () => {
           </form>
 
           <p className="text-xs text-center text-muted-foreground">
-            Demo only — no real authentication. Enable Lovable Cloud to use real auth.
           </p>
         </div>
       </div>
