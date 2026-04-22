@@ -55,10 +55,15 @@ const TripCard = ({ trip }: { trip: Trip }) => {
         </video>
 
         {/* Top row badges */}
-        <div className="absolute top-3 left-3 flex gap-2">
+        <div className="absolute top-3 left-3 flex flex-col items-start gap-1.5">
           {trip.popular && (
             <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-secondary text-secondary-foreground text-xs font-semibold shadow-soft">
               <Flame className="w-3.5 h-3.5" /> Popular
+            </span>
+          )}
+          {company?.verified && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-background/90 backdrop-blur text-accent text-[11px] font-semibold shadow-soft">
+              <ShieldCheck className="w-3.5 h-3.5" /> Verified
             </span>
           )}
         </div>
