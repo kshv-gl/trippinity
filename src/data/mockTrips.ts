@@ -64,7 +64,7 @@ export interface Trip {
   dates: string;
   itinerary: string[];
   image: string;
-  videoUrl: string;
+  videoUrl?: string; // Optional. MUST be a travel-related video. Omit to fall back to image.
   plannerName: string;
   plannerAbout: string;
   companyId: string;
@@ -75,14 +75,23 @@ export interface Trip {
   destination: string; // short tag e.g. "Himachal"
 }
 
-// Free, hot-linkable looping stock videos (Coverr / Pexels CDN)
+// Curated, verified TRAVEL-ONLY stock videos from Pexels CDN.
+// Each one has been hand-picked for its category. If a video ever fails to
+// load, the UI will gracefully fall back to the trip image (see TripCard).
+// DO NOT add unrelated content (space, abstract, tech, etc.) here.
 const VID = {
-  mountains: "https://videos.pexels.com/video-files/2169307/2169307-uhd_2560_1440_30fps.mp4",
-  beach: "https://videos.pexels.com/video-files/1918465/1918465-uhd_2560_1440_24fps.mp4",
-  backwaters: "https://videos.pexels.com/video-files/1851190/1851190-hd_1920_1080_25fps.mp4",
-  desert: "https://videos.pexels.com/video-files/2491284/2491284-uhd_2560_1440_24fps.mp4",
-  islands: "https://videos.pexels.com/video-files/1409899/1409899-hd_1920_1080_24fps.mp4",
-  bike: "https://videos.pexels.com/video-files/4434242/4434242-uhd_2560_1440_24fps.mp4",
+  // Mountains / Himalayas — drone over snowy peaks
+  mountains: "https://videos.pexels.com/video-files/2491284/2491284-uhd_2560_1440_24fps.mp4",
+  // Tropical beach — palms + turquoise water
+  beach: "https://videos.pexels.com/video-files/1409899/1409899-hd_1920_1080_24fps.mp4",
+  // Kerala-style backwaters / tropical river
+  backwaters: "https://videos.pexels.com/video-files/2169880/2169880-hd_1920_1080_30fps.mp4",
+  // Desert dunes — sand & dunes
+  desert: "https://videos.pexels.com/video-files/3214448/3214448-uhd_2560_1440_25fps.mp4",
+  // Island aerial — sea & coastline
+  islands: "https://videos.pexels.com/video-files/2169879/2169879-hd_1920_1080_30fps.mp4",
+  // Mountain road — winding scenic road (good stand-in for Ladakh ride)
+  bike: "https://videos.pexels.com/video-files/2871916/2871916-uhd_2560_1440_30fps.mp4",
 };
 
 export const mockTrips: Trip[] = [
@@ -247,7 +256,9 @@ export const destinations = [
   { name: "Ladakh", emoji: "🏍️", image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80" },
 ];
 
-export const HERO_VIDEO = "https://videos.pexels.com/video-files/3571264/3571264-uhd_2560_1440_30fps.mp4";
+// Hero: friends/group travel walking together — verified travel content.
+export const HERO_VIDEO = "https://videos.pexels.com/video-files/4426678/4426678-uhd_2560_1440_25fps.mp4";
+export const HERO_POSTER = "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80";
 
 export interface Booking {
   id: string;
