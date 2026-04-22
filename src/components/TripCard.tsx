@@ -20,15 +20,33 @@ const TripCard = ({ trip }: { trip: Trip }) => {
     setHover(true);
     if (!hasVideo) return;
     const v = videoRef.current;
-    if (v) {
-      v.currentTime = 0;
-      v.play().catch(() => setVideoOk(false));
+    if (!v) return;
+    // Ensure metadata starts loading on first hover (preload was "metadata").
+    try { v.load(); } catch { /* noop */ }
+    const tryPlay = () => {
+      v.play().catch(() => {
+        // Don't permanently disable — the user may hover again with the
+        // video now buffered. Just keep the image visible this time.
+      });
+    };
+    // If we already have enough data, play immediately; otherwise wait.
+    if (v.readyState >= 2) {
+      tryPlay();
+    } else {
+      const onReady = () => {
+        v.removeEventListener("loadeddata", onReady);
+        tryPlay();
+      };
+      v.addEventListener("loadeddata", onReady);
     }
   };
   const onLeave = () => {
     setHover(false);
     const v = videoRef.current;
-    if (v) v.pause();
+    if (v) {
+      v.pause();
+      v.currentTime = 0;
+    }
   };
 
   return (
@@ -56,7 +74,9 @@ const TripCard = ({ trip }: { trip: Trip }) => {
             muted
             loop
             playsInline
-            preload="none"
+            preload="metadata"
+            // Only mark as failed if the <source> itself errors (network/404),
+            // not for transient play() rejections.
             onError={() => setVideoOk(false)}
           >
             <source src={trip.videoUrl} type="video/mp4" />
