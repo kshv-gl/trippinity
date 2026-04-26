@@ -1,19 +1,18 @@
 import { useRef, useState } from "react";
-import { Star, Users, Flame, Heart, ShieldCheck, Clock } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Star, Flame, Heart, ShieldCheck, Clock } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { type Trip, companies } from "@/data/mockTrips";
 import { useFavourites } from "@/hooks/useFavourites";
 
 const TripCard = ({ trip }: { trip: Trip }) => {
   const { isFav, toggle } = useFavourites();
+  const navigate = useNavigate();
   const [hover, setHover] = useState(false);
   const [videoOk, setVideoOk] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const company = companies[trip.companyId];
   const fav = isFav(trip.id);
 
-  // Strict rule: only ever attempt video if a non-empty travel videoUrl exists
-  // AND it has not previously failed to load.
   const hasVideo = Boolean(trip.videoUrl) && videoOk;
 
   const onEnter = () => {
@@ -21,18 +20,10 @@ const TripCard = ({ trip }: { trip: Trip }) => {
     if (!hasVideo) return;
     const v = videoRef.current;
     if (!v) return;
-    // Ensure metadata starts loading on first hover (preload was "metadata").
     try { v.load(); } catch { /* noop */ }
-    const tryPlay = () => {
-      v.play().catch(() => {
-        // Don't permanently disable — the user may hover again with the
-        // video now buffered. Just keep the image visible this time.
-      });
-    };
-    // If we already have enough data, play immediately; otherwise wait.
-    if (v.readyState >= 2) {
-      tryPlay();
-    } else {
+    const tryPlay = () => { v.play().catch(() => {}); };
+    if (v.readyState >= 2) tryPlay();
+    else {
       const onReady = () => {
         v.removeEventListener("loadeddata", onReady);
         tryPlay();
@@ -43,10 +34,7 @@ const TripCard = ({ trip }: { trip: Trip }) => {
   const onLeave = () => {
     setHover(false);
     const v = videoRef.current;
-    if (v) {
-      v.pause();
-      v.currentTime = 0;
-    }
+    if (v) { v.pause(); v.currentTime = 0; }
   };
 
   return (
@@ -68,22 +56,17 @@ const TripCard = ({ trip }: { trip: Trip }) => {
         {hasVideo && (
           <video
             ref={videoRef}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-              hover ? "opacity-100" : "opacity-0"
-            }`}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${hover ? "opacity-100" : "opacity-0"}`}
             muted
             loop
             playsInline
             preload="metadata"
-            // Only mark as failed if the <source> itself errors (network/404),
-            // not for transient play() rejections.
             onError={() => setVideoOk(false)}
           >
             <source src={trip.videoUrl} type="video/mp4" />
           </video>
         )}
 
-        {/* Bottom gradient for text readability */}
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/55 to-transparent pointer-events-none" />
 
         {/* Top row badges */}
@@ -109,11 +92,7 @@ const TripCard = ({ trip }: { trip: Trip }) => {
           aria-label={fav ? "Remove from favourites" : "Add to favourites"}
           className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 backdrop-blur flex items-center justify-center hover:scale-110 transition-transform shadow-soft"
         >
-          <Heart
-            className={`w-[18px] h-[18px] transition-colors ${
-              fav ? "fill-destructive stroke-destructive" : "stroke-foreground"
-            }`}
-          />
+          <Heart className={`w-[18px] h-[18px] transition-colors ${fav ? "fill-destructive stroke-destructive" : "stroke-foreground"}`} />
         </button>
 
         <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
@@ -131,31 +110,45 @@ const TripCard = ({ trip }: { trip: Trip }) => {
           {trip.title}
         </h3>
 
-        <div className="flex items-center justify-between text-xs">
-          <span className="text-muted-foreground">
-            Sold by{" "}
-            <span
-              role="link"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                if (company) window.location.assign(`/planner/${company.id}`);
-              }}
-              className="font-semibold text-foreground inline-flex items-center gap-1 hover:text-primary transition-colors cursor-pointer"
-            >
-              <span aria-hidden>{company?.logo}</span> {company?.name}
-              {company?.verified && <ShieldCheck className="w-3.5 h-3.5 text-accent" />}
-            </span>
+        {/* Brand identity block: Sold by */}
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (company) navigate(`/planner/${company.id}`);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && company) {
+              e.preventDefault();
+              navigate(`/planner/${company.id}`);
+            }
+          }}
+          className="flex items-center gap-3 p-2.5 -mx-1 rounded-xl bg-muted/40 hover:bg-muted transition-colors cursor-pointer border border-transparent hover:border-border"
+        >
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/15 to-accent/15 flex items-center justify-center text-xl shrink-0">
+            {company?.logo}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">Sold by</p>
+            <p className="text-sm font-bold truncate flex items-center gap-1">
+              {company?.name}
+              {company?.verified && <ShieldCheck className="w-3.5 h-3.5 text-accent shrink-0" />}
+            </p>
+          </div>
+          <span className="text-[10px] font-semibold text-primary px-2 py-1 rounded-md bg-primary/10 shrink-0">
+            View →
           </span>
         </div>
 
-        <div className="flex items-center justify-between pt-2 border-t border-border/60 text-xs">
+        <div className="flex items-center justify-between pt-1 border-t border-border/60 text-xs">
           <span className="flex items-center gap-1 font-semibold">
             <Star className="w-3.5 h-3.5 fill-secondary stroke-secondary" />
             {trip.rating}
           </span>
           <span className="flex items-center gap-1 text-muted-foreground">
-            <Flame className="w-3.5 h-3.5 text-destructive" /> {trip.booked} people booked
+            <Flame className="w-3.5 h-3.5 text-destructive" /> {trip.booked} booked
           </span>
         </div>
       </div>
