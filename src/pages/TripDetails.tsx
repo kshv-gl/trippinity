@@ -18,22 +18,34 @@ import {
   Utensils,
   Sunset,
   Home,
+  Sun,
+  Moon,
+  Compass,
 } from "lucide-react";
 
-const dayIcons = [Plane, Mountain, Camera, Sunset, Utensils, Home];
+const dayIcons = [Plane, Mountain, Camera, Sunset, Utensils, Home, Compass];
 import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
 import BookingModal from "@/components/BookingModal";
 import Footer from "@/components/Footer";
+import InclusionsExclusions from "@/components/InclusionsExclusions";
+import LockedTripHubPreview from "@/components/LockedTripHubPreview";
+import ReviewsSection from "@/components/ReviewsSection";
+import AIChatWidget from "@/components/AIChatWidget";
 import { mockTrips, companies } from "@/data/mockTrips";
 import { useFavourites } from "@/hooks/useFavourites";
+import { useBookingState } from "@/hooks/useBookingState";
+
+type Tab = "itinerary" | "inclusions" | "reviews";
 
 const TripDetails = () => {
   const { id } = useParams();
   const trip = mockTrips.find((t) => t.id === id);
   const [bookingOpen, setBookingOpen] = useState(false);
   const [videoOk, setVideoOk] = useState(true);
+  const [tab, setTab] = useState<Tab>("itinerary");
   const { isFav, toggle } = useFavourites();
+  const { hasBooked } = useBookingState();
 
   if (!trip) {
     return (
@@ -53,7 +65,7 @@ const TripDetails = () => {
     <div className="min-h-screen pb-32 md:pb-24">
       <Navbar />
 
-      {/* Hero video banner — strict: only render video if a travel videoUrl exists and loads */}
+      {/* Hero video banner */}
       <div className="relative h-[55vh] min-h-[380px] overflow-hidden bg-foreground">
         {trip.videoUrl && videoOk ? (
           <video
@@ -116,8 +128,8 @@ const TripDetails = () => {
           <div className="grid sm:grid-cols-3 gap-3">
             {[
               { icon: ShieldCheck, label: "Verified planner" },
-              { icon: CheckCircle2, label: "Free cancellation" },
-              { icon: Users, label: "Small groups" },
+              { icon: CheckCircle2, label: "Free cancellation up to 7 days" },
+              { icon: Users, label: "Small groups · max 12" },
             ].map((b) => (
               <div key={b.label} className="flex items-center gap-2 p-3 rounded-xl bg-muted/40 border text-sm font-medium">
                 <b.icon className="w-4 h-4 text-accent" /> {b.label}
@@ -125,12 +137,12 @@ const TripDetails = () => {
             ))}
           </div>
 
-          {/* Sold by */}
+          {/* Sold by — prominent brand identity */}
           <Link
-            to={`/planner/${trip.plannerName.toLowerCase().replace(/\s+/g, "-")}`}
+            to={`/planner/${company?.id ?? ""}`}
             className="block p-5 rounded-2xl border bg-card hover:shadow-card transition-shadow"
           >
-            <p className="text-xs text-muted-foreground mb-2">Sold by</p>
+            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2 font-semibold">Sold by</p>
             <div className="flex items-center gap-4">
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/15 to-accent/15 flex items-center justify-center text-2xl">
                 {company?.logo}
@@ -148,29 +160,79 @@ const TripDetails = () => {
             </div>
           </Link>
 
-          {/* Itinerary */}
-          <div>
-            <h2 className="text-2xl font-extrabold font-display mb-4">Day-wise itinerary</h2>
-            <div className="space-y-4">
-              {trip.itinerary.map((day, i) => {
-                const Icon = dayIcons[i % dayIcons.length];
-                return (
-                  <div key={i} className="flex gap-4 p-4 rounded-2xl border bg-card hover:shadow-soft transition-shadow">
-                    <div className="flex flex-col items-center">
-                      <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary to-accent text-primary-foreground flex items-center justify-center shadow-soft">
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      {i < trip.itinerary.length - 1 && <div className="w-px flex-1 bg-border mt-2" />}
-                    </div>
-                    <div className="pt-1 flex-1">
-                      <p className="font-bold text-sm mb-1 text-primary">Day {i + 1}</p>
-                      <p className="text-sm text-foreground/80 leading-relaxed">{day}</p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+          {/* Tabs */}
+          <div className="flex bg-muted p-1 rounded-xl overflow-x-auto scrollbar-hide">
+            {[
+              { id: "itinerary", label: "Day-wise itinerary" },
+              { id: "inclusions", label: "What's included" },
+              { id: "reviews", label: `Reviews (${trip.booked})` },
+            ].map((t) => (
+              <button
+                key={t.id}
+                onClick={() => setTab(t.id as Tab)}
+                className={`flex-1 min-w-[140px] h-11 rounded-lg text-sm font-medium inline-flex items-center justify-center gap-2 transition-colors ${
+                  tab === t.id ? "bg-background shadow-soft" : "text-muted-foreground"
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
           </div>
+
+          {tab === "itinerary" && (
+            <div className="animate-fade-in">
+              <div className="space-y-4">
+                {trip.itinerary.map((day, i) => {
+                  const Icon = dayIcons[i % dayIcons.length];
+                  const isLast = i === trip.itinerary.length - 1;
+                  return (
+                    <div key={i} className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-accent text-primary-foreground flex items-center justify-center shadow-soft shrink-0">
+                          <Icon className="w-5 h-5" />
+                        </div>
+                        {!isLast && <div className="w-0.5 flex-1 bg-gradient-to-b from-accent/40 to-transparent mt-2" />}
+                      </div>
+                      <div className="flex-1 p-5 rounded-2xl border bg-card hover:shadow-soft transition-shadow mb-2">
+                        <div className="flex items-center justify-between mb-2">
+                          <p className="font-bold text-sm text-primary">DAY {i + 1}</p>
+                          <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                            <Sun className="w-3.5 h-3.5 text-secondary" />
+                            <span>Morning – Evening</span>
+                            <Moon className="w-3.5 h-3.5" />
+                          </div>
+                        </div>
+                        <p className="text-sm text-foreground/85 leading-relaxed">{day}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {tab === "inclusions" && (
+            <div className="animate-fade-in">
+              <InclusionsExclusions />
+            </div>
+          )}
+
+          {tab === "reviews" && (
+            <div className="animate-fade-in">
+              <ReviewsSection tripId={trip.id} rating={trip.rating} totalBooked={trip.booked} />
+            </div>
+          )}
+
+          {/* Locked Trip Hub teaser — only when not booked */}
+          {!hasBooked && (
+            <div>
+              <h2 className="text-2xl font-extrabold font-display mb-4 flex items-center gap-2">
+                Trip Hub
+                <span className="text-xs font-medium text-muted-foreground">· unlocks after booking</span>
+              </h2>
+              <LockedTripHubPreview />
+            </div>
+          )}
         </div>
 
         {/* Sticky booking sidebar (desktop) */}
@@ -191,7 +253,12 @@ const TripDetails = () => {
             >
               Book This Trip
             </button>
-            <p className="text-xs text-center text-muted-foreground">No charge until your planner confirms</p>
+            <div className="text-[11px] text-center text-muted-foreground space-y-1">
+              <p>Pay just 50% (₹{Math.round(trip.price * 0.5).toLocaleString("en-IN")}) to confirm</p>
+              <p className="flex items-center justify-center gap-1 font-semibold text-foreground/70">
+                <ShieldCheck className="w-3 h-3 text-accent" /> Trusted by 500+ travelers
+              </p>
+            </div>
           </div>
         </aside>
       </div>
@@ -215,6 +282,7 @@ const TripDetails = () => {
       <Footer />
       <BookingModal trip={trip} open={bookingOpen} onClose={() => setBookingOpen(false)} />
       <BottomNav />
+      <AIChatWidget />
     </div>
   );
 };

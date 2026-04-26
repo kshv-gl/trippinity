@@ -1,6 +1,16 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, ChevronDown, Heart, User, Info, MessageCircle, Compass } from "lucide-react";
+import {
+  Menu,
+  ChevronDown,
+  Heart,
+  User,
+  Info,
+  MessageCircle,
+  Compass,
+  Quote,
+  LogOut,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,10 +20,12 @@ import {
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 import { destinations } from "@/data/mockTrips";
+import { useAuth } from "@/hooks/useAuth";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [destOpen, setDestOpen] = useState(false);
+  const { user, isAuthenticated, logout } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 bg-background/85 backdrop-blur-xl border-b border-border/60">
@@ -65,21 +77,59 @@ const Navbar = () => {
           >
             Explore All Trips
           </Link>
+
+          <Link
+            to="/trip-hub"
+            className="px-4 py-2 rounded-xl text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-muted transition-colors"
+          >
+            Trip Hub
+          </Link>
+
+          <Link
+            to="/about"
+            className="px-4 py-2 rounded-xl text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-muted transition-colors"
+          >
+            About
+          </Link>
+
+          <Link
+            to="/testimonials"
+            className="px-4 py-2 rounded-xl text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-muted transition-colors"
+          >
+            Testimonials
+          </Link>
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link
-            to="/login"
-            className="hidden sm:inline-flex h-10 px-5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold items-center hover:bg-primary/90 transition-colors shadow-soft"
-          >
-            Login
-          </Link>
+          {isAuthenticated ? (
+            <Link
+              to="/profile"
+              className="hidden sm:inline-flex h-10 px-4 rounded-xl bg-primary text-primary-foreground text-sm font-semibold items-center gap-2 hover:bg-primary/90 transition-colors shadow-soft"
+            >
+              <span className="w-6 h-6 rounded-full bg-white/20 inline-flex items-center justify-center text-xs font-bold">
+                {user?.name?.[0]?.toUpperCase() ?? "U"}
+              </span>
+              Profile
+            </Link>
+          ) : (
+            <Link
+              to="/login"
+              className="hidden sm:inline-flex h-10 px-5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold items-center hover:bg-primary/90 transition-colors shadow-soft"
+            >
+              Login
+            </Link>
+          )}
 
           <DropdownMenu>
             <DropdownMenuTrigger className="h-10 w-10 rounded-xl border border-border bg-card hover:bg-muted transition-colors inline-flex items-center justify-center outline-none">
               <Menu className="w-5 h-5" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
+              {isAuthenticated && (
+                <DropdownMenuLabel className="text-xs">
+                  Signed in as <span className="font-semibold">{user?.name}</span>
+                </DropdownMenuLabel>
+              )}
               <DropdownMenuItem onClick={() => navigate("/profile")}>
                 <User className="w-4 h-4 mr-2" /> Profile
               </DropdownMenuItem>
@@ -89,6 +139,9 @@ const Navbar = () => {
               <DropdownMenuItem onClick={() => navigate("/trip-hub")}>
                 <Compass className="w-4 h-4 mr-2" /> Trip Hub
               </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/testimonials")}>
+                <Quote className="w-4 h-4 mr-2" /> Testimonials
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => navigate("/about")}>
                 <Info className="w-4 h-4 mr-2" /> About
@@ -96,6 +149,14 @@ const Navbar = () => {
               <DropdownMenuItem onClick={() => navigate("/contact")}>
                 <MessageCircle className="w-4 h-4 mr-2" /> Contact
               </DropdownMenuItem>
+              {isAuthenticated && (
+                <>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={logout} className="text-destructive focus:text-destructive">
+                    <LogOut className="w-4 h-4 mr-2" /> Log out
+                  </DropdownMenuItem>
+                </>
+              )}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

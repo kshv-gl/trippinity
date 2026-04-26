@@ -1,58 +1,64 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Mail, Lock, ShieldCheck } from "lucide-react";
-import { toast } from "@/hooks/use-toast";
+import { useNavigate, Link } from "react-router-dom";
+import { Mail, Lock, Sparkles, ArrowLeft, ShieldCheck } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [form, setForm] = useState({ name: "", email: "", password: "" });
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    localStorage.setItem("trippinity:user", JSON.stringify({ name: form.name || "Traveler", email: form.email }));
-    toast({ title: mode === "login" ? "Welcome back!" : "Account created", description: "You're signed in (demo)." });
-    navigate("/profile");
+    const name = form.name.trim() || form.email.split("@")[0] || "Traveler";
+    login({ name, email: form.email });
+    toast.success(mode === "login" ? `Welcome back, ${name}!` : `Account created — welcome, ${name}!`);
+    navigate("/");
   };
 
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
-      {/* Visual side */}
-      <div className="hidden lg:block relative">
+      {/* Left visual */}
+      <div className="relative hidden lg:block bg-gradient-to-br from-primary to-accent overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1400&q=80"
-          alt="Travel inspiration"
-          className="absolute inset-0 w-full h-full object-cover"
+          src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&q=80"
+          alt="Travel"
+          className="absolute inset-0 w-full h-full object-cover opacity-50"
         />
-        <div className="absolute inset-0 bg-gradient-to-tr from-primary/80 to-accent/40" />
-        <div className="relative z-10 h-full flex flex-col justify-between p-12 text-white">
-          <Link to="/" className="font-display text-3xl font-extrabold">
-            Tripp<span className="text-secondary">inity</span>
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/80 to-accent/60" />
+        <div className="relative h-full flex flex-col justify-between p-12 text-primary-foreground">
+          <Link to="/" className="inline-flex items-center gap-2 text-sm font-medium opacity-90 hover:opacity-100">
+            <ArrowLeft className="w-4 h-4" /> Back to Trippinity
           </Link>
           <div>
-            <h2 className="font-display text-4xl font-extrabold leading-tight">
-              Your next great trip<br />starts in seconds.
-            </h2>
-            <p className="mt-3 text-white/90 max-w-md">
-              Sign in to save favourites, track bookings, and unlock the Trip Hub for your group.
+            <Sparkles className="w-10 h-10 mb-4 opacity-90" />
+            <h1 className="text-4xl font-extrabold font-display leading-tight">
+              Your travel tribe<br />is one trip away.
+            </h1>
+            <p className="opacity-90 mt-3 max-w-sm">
+              Discover curated trips from verified planners. Book in seconds. Make memories.
             </p>
-            <div className="flex items-center gap-2 mt-6 text-sm">
-              <ShieldCheck className="w-4 h-4 text-secondary" /> 100% verified planners
+            <div className="flex items-center gap-2 mt-5 text-sm opacity-90">
+              <ShieldCheck className="w-4 h-4" /> 100% verified planners · 12,000+ travelers
             </div>
           </div>
         </div>
       </div>
 
-      {/* Form side */}
-      <div className="flex items-center justify-center p-6 sm:p-12 bg-background">
-        <div className="w-full max-w-md space-y-6">
-          <Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
-            <ArrowLeft className="w-4 h-4" /> Back home
-          </Link>
+      {/* Right form */}
+      <div className="flex items-center justify-center p-6 sm:p-10">
+        <div className="w-full max-w-sm space-y-6 animate-fade-in">
           <div>
-            <h1 className="text-3xl font-extrabold font-display">{mode === "login" ? "Welcome back" : "Create account"}</h1>
+            <Link to="/" className="text-2xl font-extrabold font-display">
+              Tripp<span className="text-accent">inity</span>
+            </Link>
+            <h2 className="text-2xl font-bold mt-6">
+              {mode === "login" ? "Welcome back 👋" : "Create your account"}
+            </h2>
             <p className="text-sm text-muted-foreground mt-1">
-              {mode === "login" ? "Sign in to continue your journey." : "Join thousands of travelers."}
+              {mode === "login" ? "Sign in to continue." : "Start exploring trips in seconds."}
             </p>
           </div>
 
@@ -60,6 +66,7 @@ const Login = () => {
             {(["login", "signup"] as const).map((m) => (
               <button
                 key={m}
+                type="button"
                 onClick={() => setMode(m)}
                 className={`flex-1 h-10 rounded-lg text-sm font-medium transition-colors ${
                   mode === m ? "bg-background shadow-soft" : "text-muted-foreground"
@@ -72,45 +79,57 @@ const Login = () => {
 
           <form onSubmit={submit} className="space-y-3">
             {mode === "signup" && (
-              <input
-                required
-                placeholder="Full name"
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full h-12 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-              />
+              <div>
+                <label className="text-sm font-medium mb-1 block">Name</label>
+                <input
+                  required
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                  placeholder="Your name"
+                />
+              </div>
             )}
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <input
-                required
-                type="email"
-                placeholder="Email"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="w-full h-12 pl-10 pr-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-              />
+            <div>
+              <label className="text-sm font-medium mb-1 block">Email</label>
+              <div className="relative">
+                <Mail className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                <input
+                  required
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  className="w-full h-11 pl-10 pr-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                  placeholder="you@email.com"
+                />
+              </div>
             </div>
-            <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <input
-                required
-                type="password"
-                placeholder="Password"
-                value={form.password}
-                onChange={(e) => setForm({ ...form, password: e.target.value })}
-                className="w-full h-12 pl-10 pr-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-              />
+            <div>
+              <label className="text-sm font-medium mb-1 block">Password</label>
+              <div className="relative">
+                <Lock className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                <input
+                  required
+                  type="password"
+                  minLength={4}
+                  value={form.password}
+                  onChange={(e) => setForm({ ...form, password: e.target.value })}
+                  className="w-full h-11 pl-10 pr-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                  placeholder="••••••••"
+                />
+              </div>
             </div>
+
             <button
               type="submit"
-              className="w-full h-12 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors"
+              className="w-full h-12 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors shadow-elevated"
             >
-              {mode === "login" ? "Login" : "Create account"}
+              {mode === "login" ? "Sign in" : "Create account"}
             </button>
           </form>
 
-          <p className="text-xs text-center text-muted-foreground">
+          <p className="text-[11px] text-center text-muted-foreground">
+            Demo auth — your session is stored locally. No emails are sent.
           </p>
         </div>
       </div>

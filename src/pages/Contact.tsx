@@ -1,3 +1,4 @@
+import AIChatWidget from "@/components/AIChatWidget";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -69,6 +70,8 @@ const Contact = () => {
       </div>
       <Footer />
       <BottomNav />
+      <AIChatWidget />
+
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import AIChatWidget from "@/components/AIChatWidget";
 import { useMemo } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -71,6 +72,8 @@ const Destinations = () => {
       </div>
       <Footer />
       <BottomNav />
+      <AIChatWidget />
+
     </div>
   );
 };

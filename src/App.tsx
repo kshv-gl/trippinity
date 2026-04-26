@@ -15,6 +15,7 @@ import Contact from "./pages/Contact";
 import Profile from "./pages/Profile";
 import Favourites from "./pages/Favourites";
 import TripHub from "./pages/TripHub";
+import Testimonials from "./pages/Testimonials";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ const App = () => (
           <Route path="/profile" element={<Profile />} />
           <Route path="/favourites" element={<Favourites />} />
           <Route path="/trip-hub" element={<TripHub />} />
+          <Route path="/testimonials" element={<Testimonials />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -1,3 +1,4 @@
+import AIChatWidget from "@/components/AIChatWidget";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -336,6 +337,8 @@ const TripHub = () => {
       </div>
       <Footer />
       <BottomNav />
+      <AIChatWidget />
+
     </div>
   );
 };
