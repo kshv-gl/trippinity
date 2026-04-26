@@ -1,3 +1,4 @@
+import AIChatWidget from "@/components/AIChatWidget";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BottomNav from "@/components/BottomNav";
@@ -61,6 +62,8 @@ const About = () => {
       </div>
       <Footer />
       <BottomNav />
+      <AIChatWidget />
+
     </div>
   );
 };

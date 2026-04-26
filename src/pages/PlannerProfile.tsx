@@ -1,3 +1,4 @@
+import AIChatWidget from "@/components/AIChatWidget";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { ArrowLeft, Star, ShieldCheck, MapPin } from "lucide-react";
@@ -111,6 +112,8 @@ const PlannerProfile = () => {
       </div>
       <Footer />
       <BottomNav />
+      <AIChatWidget />
+
     </div>
   );
 };

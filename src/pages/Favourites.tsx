@@ -1,3 +1,4 @@
+import AIChatWidget from "@/components/AIChatWidget";
 import { Link } from "react-router-dom";
 import { Heart } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -37,6 +38,8 @@ const Favourites = () => {
       </div>
       <Footer />
       <BottomNav />
+      <AIChatWidget />
+
     </div>
   );
 };

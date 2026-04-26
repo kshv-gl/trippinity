@@ -1,3 +1,4 @@
+import AIChatWidget from "@/components/AIChatWidget";
 import { useMemo, useState } from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -91,6 +92,8 @@ const Explore = () => {
       </div>
       <Footer />
       <BottomNav />
+      <AIChatWidget />
+
     </div>
   );
 };
