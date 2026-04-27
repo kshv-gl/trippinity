@@ -106,123 +106,115 @@ const Index = () => {
         ))}
       </section>
 
-      {/* VISUAL PROBLEM — Instagram DM chaos */}
-      <section className="py-12 overflow-hidden">
-        <div className="container mb-6 flex items-end justify-between gap-4">
-          <div>
-            <span className="inline-block px-3 py-1 rounded-full bg-destructive/10 text-destructive text-xs font-bold uppercase tracking-wider mb-2">Before Trippinity</span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold font-display">DM chaos. Zero clarity.</h2>
-          </div>
-          <span className="hidden sm:inline text-xs text-muted-foreground">← swipe</span>
+      {/* PROBLEM ↔ SOLUTION — side-by-side visual contrast */}
+      <section className="py-16">
+        <div className="container mb-8 text-center max-w-2xl mx-auto">
+          <span className="inline-block px-3 py-1 rounded-full bg-muted text-xs font-bold uppercase tracking-wider mb-3">Why Trippinity</span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold font-display leading-tight">
+            From DM chaos <span className="text-muted-foreground">→</span> <span className="text-primary">to one tap.</span>
+          </h2>
         </div>
-        <div className="flex gap-4 overflow-x-auto scrollbar-hide px-[max(1rem,calc((100vw-1280px)/2))] pb-4 snap-x snap-mandatory">
-          {[
-            { from: "you", text: "Hi, is the Manali trip available in April?", time: "2:14 PM", read: true },
-            { from: "them", text: "Seen ✓✓", time: "2 days ago", muted: true },
-            { from: "you", text: "Hello? What's the price for 4 ppl?", time: "Yesterday", read: false },
-            { from: "you", text: "Anyone there??", time: "Today", read: false },
-            { from: "them", text: "Bhai DM kar do, price discuss karenge 🙏", time: "Just now", muted: true },
-          ].map((m, i) => (
-            <div key={i} className="snap-start shrink-0 w-[260px] sm:w-[300px] rounded-2xl border bg-card shadow-soft overflow-hidden">
+
+        <div className="container grid md:grid-cols-2 gap-5 lg:gap-6 items-stretch">
+          {/* LEFT — messy DM UI */}
+          <div className="relative rounded-3xl border border-destructive/20 bg-gradient-to-br from-destructive/5 via-background to-background p-5 sm:p-6 overflow-hidden">
+            <div className="flex items-center justify-between mb-4">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-destructive/10 text-destructive text-[10px] font-bold uppercase tracking-wider">
+                <MessageSquareX className="w-3 h-3" /> Before
+              </span>
+              <span className="text-xs text-muted-foreground">Instagram DMs</span>
+            </div>
+
+            {/* DM phone mock */}
+            <div className="rounded-2xl bg-card border shadow-card overflow-hidden">
               <div className="flex items-center gap-2 px-4 py-3 border-b bg-muted/40">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-destructive to-secondary" />
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-destructive to-secondary" />
                 <div className="flex-1 min-w-0">
                   <p className="text-xs font-bold truncate">@trips_byrandomguy</p>
-                  <p className="text-[10px] text-muted-foreground">last seen 3 days ago</p>
+                  <p className="text-[10px] text-destructive font-semibold">last seen 3 days ago</p>
                 </div>
-                <MessageSquareX className="w-4 h-4 text-destructive" />
+                <AlertTriangle className="w-4 h-4 text-destructive" />
               </div>
-              <div className="p-4 min-h-[140px] bg-gradient-to-b from-background to-muted/30">
-                <div className={`max-w-[85%] p-3 rounded-2xl text-sm ${m.from === "you" ? "ml-auto bg-primary/15 rounded-br-sm" : "bg-muted rounded-bl-sm"}`}>
-                  {m.text}
+              <div className="p-4 space-y-2 bg-gradient-to-b from-background to-muted/30 min-h-[260px]">
+                <div className="max-w-[80%] ml-auto p-3 rounded-2xl rounded-br-sm text-sm bg-primary/15">
+                  Hi, is the Manali trip available in April?
                 </div>
-                <p className={`text-[10px] mt-1.5 ${m.from === "you" ? "text-right" : ""} ${m.muted ? "text-destructive font-semibold" : "text-muted-foreground"}`}>
-                  {m.time} {m.from === "you" && (m.read ? "· Seen" : "· Delivered")}
-                </p>
+                <p className="text-[10px] text-right text-muted-foreground">2:14 PM · Seen</p>
+                <div className="max-w-[80%] ml-auto p-3 rounded-2xl rounded-br-sm text-sm bg-primary/15">
+                  Hello? Price for 4 ppl?
+                </div>
+                <p className="text-[10px] text-right text-destructive font-semibold">Yesterday · No reply</p>
+                <div className="max-w-[80%] ml-auto p-3 rounded-2xl rounded-br-sm text-sm bg-primary/15">
+                  Anyone there?? 😩
+                </div>
+                <p className="text-[10px] text-right text-destructive font-semibold">Today · Delivered</p>
               </div>
             </div>
-          ))}
-          <div className="snap-start shrink-0 w-[200px] rounded-2xl border-2 border-dashed border-destructive/40 bg-destructive/5 flex flex-col items-center justify-center p-6 text-center">
-            <AlertTriangle className="w-8 h-8 text-destructive mb-2" />
-            <p className="text-sm font-bold text-destructive">No price.<br />No trust.<br />No reply.</p>
-          </div>
-        </div>
-      </section>
 
-      {/* VISUAL SOLUTION — clean marketplace UI */}
-      <section className="py-14 bg-gradient-to-b from-primary/5 via-accent/5 to-transparent overflow-hidden">
-        <div className="container mb-6 flex items-end justify-between gap-4">
-          <div>
-            <span className="inline-block px-3 py-1 rounded-full bg-success/15 text-success text-xs font-bold uppercase tracking-wider mb-2">With Trippinity</span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold font-display">Clear. Compared. Confirmed.</h2>
-          </div>
-          <span className="hidden sm:inline text-xs text-muted-foreground">← swipe</span>
-        </div>
-        <div className="flex gap-4 overflow-x-auto scrollbar-hide px-[max(1rem,calc((100vw-1280px)/2))] pb-4 snap-x snap-mandatory">
-          {/* Card 1 — clean trip card */}
-          <div className="snap-start shrink-0 w-[280px] rounded-2xl border bg-card shadow-card overflow-hidden">
-            <div className="relative aspect-[4/3]">
-              <img src={mockTrips[0].image} alt="Trip preview" className="w-full h-full object-cover" loading="lazy" />
-              <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-secondary text-secondary-foreground text-[10px] font-bold inline-flex items-center gap-1">
-                <Flame className="w-3 h-3" /> Popular
-              </span>
-              <span className="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg bg-primary text-primary-foreground text-xs font-bold">₹12,999</span>
-            </div>
-            <div className="p-3">
-              <p className="text-sm font-bold truncate">Magical Manali · 4N/5D</p>
-              <p className="text-[11px] text-muted-foreground flex items-center gap-1"><Star className="w-3 h-3 fill-secondary stroke-secondary" /> 4.8 · 47 booked</p>
-            </div>
-          </div>
-          {/* Card 2 — verified badge */}
-          <div className="snap-start shrink-0 w-[260px] rounded-2xl border bg-card shadow-card p-5 flex flex-col">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent to-primary text-primary-foreground flex items-center justify-center mb-3 shadow-soft">
-              <ShieldCheck className="w-7 h-7" />
-            </div>
-            <p className="text-sm font-bold">Verified planner</p>
-            <p className="text-xs text-muted-foreground mt-1 mb-3">KYC, GST & past traveler reviews — all checked.</p>
-            <div className="mt-auto flex items-center gap-2 pt-3 border-t">
-              <CheckCircle2 className="w-4 h-4 text-success" />
-              <span className="text-[11px] font-semibold">Himalayan Trails Co.</span>
-            </div>
-          </div>
-          {/* Card 3 — pricing breakdown */}
-          <div className="snap-start shrink-0 w-[280px] rounded-2xl border bg-card shadow-card p-5">
-            <p className="text-[10px] font-bold uppercase tracking-wider text-primary mb-2">Transparent pricing</p>
-            <div className="space-y-1.5 text-sm">
-              <div className="flex justify-between"><span className="text-muted-foreground">Trip total</span><span className="font-semibold">₹12,999</span></div>
-              <div className="flex justify-between"><span className="text-muted-foreground">Stays + meals</span><span>Included</span></div>
-              <div className="flex justify-between"><span className="text-muted-foreground">Transport</span><span>Included</span></div>
-              <div className="flex justify-between text-success"><span>No hidden fees</span><CheckCircle2 className="w-4 h-4" /></div>
-            </div>
-            <div className="mt-3 pt-3 border-t flex items-baseline justify-between">
-              <span className="text-xs font-semibold">Pay now (50%)</span>
-              <span className="text-lg font-extrabold text-primary">₹6,500</span>
-            </div>
-          </div>
-          {/* Card 4 — comparison */}
-          <div className="snap-start shrink-0 w-[280px] rounded-2xl border bg-card shadow-card p-5">
-            <p className="text-[10px] font-bold uppercase tracking-wider text-accent mb-2">Compare planners</p>
-            {[
-              { name: "Himalayan Trails", rating: 4.8, price: "₹12.9k" },
-              { name: "Mountain Mavericks", rating: 4.6, price: "₹13.5k" },
-              { name: "Peak Co.", rating: 4.4, price: "₹11.8k" },
-            ].map((p) => (
-              <div key={p.name} className="flex items-center justify-between py-2 border-b last:border-0 text-xs">
-                <span className="font-semibold truncate">{p.name}</span>
-                <span className="flex items-center gap-2">
-                  <span className="flex items-center gap-0.5 text-muted-foreground"><Star className="w-3 h-3 fill-secondary stroke-secondary" />{p.rating}</span>
-                  <span className="font-bold text-primary">{p.price}</span>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {["No price shared", "No trust signals", "Slow replies", "Scam risk"].map((t) => (
+                <span key={t} className="text-[11px] px-2.5 py-1 rounded-full bg-destructive/10 text-destructive font-semibold">
+                  ✕ {t}
                 </span>
-              </div>
-            ))}
-          </div>
-          {/* Card 5 — instant confirmation */}
-          <div className="snap-start shrink-0 w-[260px] rounded-2xl bg-gradient-to-br from-success/15 to-success/5 border border-success/30 p-5 flex flex-col">
-            <div className="w-14 h-14 rounded-full bg-success/20 text-success flex items-center justify-center mb-3">
-              <CheckCircle2 className="w-7 h-7" />
+              ))}
             </div>
-            <p className="text-sm font-bold">Booking confirmed ✅</p>
-            <p className="text-xs text-muted-foreground mt-1">Pay 50%. Get your Trip Hub. Done in 60 seconds.</p>
+          </div>
+
+          {/* RIGHT — clean trip UI */}
+          <div className="relative rounded-3xl border border-success/30 bg-gradient-to-br from-success/5 via-primary/5 to-background p-5 sm:p-6 overflow-hidden">
+            <div className="flex items-center justify-between mb-4">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/15 text-success text-[10px] font-bold uppercase tracking-wider">
+                <CheckCircle2 className="w-3 h-3" /> After
+              </span>
+              <span className="text-xs text-muted-foreground">Trippinity</span>
+            </div>
+
+            {/* clean trip card stack */}
+            <div className="space-y-3">
+              <div className="rounded-2xl border bg-card shadow-card overflow-hidden">
+                <div className="relative aspect-[16/8]">
+                  <img src={mockTrips[0].image} alt="Trip preview" className="w-full h-full object-cover" loading="lazy" />
+                  <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-secondary text-secondary-foreground text-[10px] font-bold inline-flex items-center gap-1">
+                    <Flame className="w-3 h-3" /> Popular
+                  </span>
+                  <span className="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-success text-success-foreground text-[10px] font-bold inline-flex items-center gap-1">
+                    <ShieldCheck className="w-3 h-3" /> Verified
+                  </span>
+                </div>
+                <div className="p-3 flex items-center justify-between">
+                  <div className="min-w-0">
+                    <p className="text-sm font-bold truncate">Magical Manali · 4N/5D</p>
+                    <p className="text-[11px] text-muted-foreground flex items-center gap-1">
+                      <Star className="w-3 h-3 fill-secondary stroke-secondary" /> 4.8 · 47 booked this month
+                    </p>
+                  </div>
+                  <span className="text-base font-extrabold text-primary shrink-0">₹12,999</span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-2xl border bg-card p-3">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-primary mb-1">Pay 50% now</p>
+                  <p className="text-lg font-extrabold">₹6,500</p>
+                  <p className="text-[10px] text-success font-semibold mt-0.5">✓ Instant confirm</p>
+                </div>
+                <div className="rounded-2xl border bg-card p-3">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-accent mb-1">Sold by</p>
+                  <p className="text-xs font-bold flex items-center gap-1 truncate">
+                    🏔️ Himalayan Trails <ShieldCheck className="w-3 h-3 text-accent shrink-0" />
+                  </p>
+                  <p className="text-[10px] text-muted-foreground mt-0.5">1,200+ travelers hosted</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {["Transparent price", "Verified planner", "Compare options", "Instant booking"].map((t) => (
+                <span key={t} className="text-[11px] px-2.5 py-1 rounded-full bg-success/15 text-success font-semibold">
+                  ✓ {t}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
