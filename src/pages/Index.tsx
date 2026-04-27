@@ -563,7 +563,7 @@ const Index = () => {
               to="/explore"
               className="group inline-flex h-13 px-7 py-3.5 rounded-xl bg-white text-primary font-bold items-center gap-2 hover:scale-105 transition-transform shadow-elevated"
             >
-              Explore Trips <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              Start Exploring Trips <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               to="/explore"
