@@ -52,7 +52,7 @@ const Hero = () => {
               to="/explore"
               className="group inline-flex items-center gap-2 h-14 px-7 rounded-2xl bg-secondary text-secondary-foreground font-semibold text-base hover:bg-secondary/90 transition-all shadow-elevated hover:scale-[1.03]"
             >
-              Explore Trips <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              Start Exploring Trips <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               to="/destinations"
