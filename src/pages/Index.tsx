@@ -106,52 +106,124 @@ const Index = () => {
         ))}
       </section>
 
-      {/* PROBLEM */}
-      <section className="container py-12">
-        <div className="text-center max-w-2xl mx-auto mb-8">
-          <span className="inline-block px-3 py-1 rounded-full bg-destructive/10 text-destructive text-xs font-bold uppercase tracking-wider mb-3">The Problem</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold font-display">Booking trips today is a mess.</h2>
-          <p className="text-muted-foreground mt-2">Random Instagram pages. Endless DMs. Pricing that changes when you ask twice.</p>
+      {/* VISUAL PROBLEM — Instagram DM chaos */}
+      <section className="py-12 overflow-hidden">
+        <div className="container mb-6 flex items-end justify-between gap-4">
+          <div>
+            <span className="inline-block px-3 py-1 rounded-full bg-destructive/10 text-destructive text-xs font-bold uppercase tracking-wider mb-2">Before Trippinity</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold font-display">DM chaos. Zero clarity.</h2>
+          </div>
+          <span className="hidden sm:inline text-xs text-muted-foreground">← swipe</span>
         </div>
-        <div className="grid sm:grid-cols-3 gap-4">
+        <div className="flex gap-4 overflow-x-auto scrollbar-hide px-[max(1rem,calc((100vw-1280px)/2))] pb-4 snap-x snap-mandatory">
           {[
-            { icon: MessageSquareX, title: "Instagram DM chaos", desc: "Hundreds of pages, slow replies, lost messages." },
-            { icon: AlertTriangle, title: "No pricing clarity", desc: "Hidden charges, last-minute upsells, no comparisons." },
-            { icon: Lock, title: "Zero trust", desc: "Who's the planner? Where do bookings actually go?" },
-          ].map((item) => (
-            <div key={item.title} className="p-6 rounded-2xl border bg-card hover:border-destructive/40 transition-colors">
-              <div className="w-12 h-12 rounded-xl bg-destructive/10 text-destructive flex items-center justify-center mb-3">
-                <item.icon className="w-6 h-6" />
+            { from: "you", text: "Hi, is the Manali trip available in April?", time: "2:14 PM", read: true },
+            { from: "them", text: "Seen ✓✓", time: "2 days ago", muted: true },
+            { from: "you", text: "Hello? What's the price for 4 ppl?", time: "Yesterday", read: false },
+            { from: "you", text: "Anyone there??", time: "Today", read: false },
+            { from: "them", text: "Bhai DM kar do, price discuss karenge 🙏", time: "Just now", muted: true },
+          ].map((m, i) => (
+            <div key={i} className="snap-start shrink-0 w-[260px] sm:w-[300px] rounded-2xl border bg-card shadow-soft overflow-hidden">
+              <div className="flex items-center gap-2 px-4 py-3 border-b bg-muted/40">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-destructive to-secondary" />
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-bold truncate">@trips_byrandomguy</p>
+                  <p className="text-[10px] text-muted-foreground">last seen 3 days ago</p>
+                </div>
+                <MessageSquareX className="w-4 h-4 text-destructive" />
               </div>
-              <h3 className="font-bold mb-1.5">{item.title}</h3>
-              <p className="text-sm text-muted-foreground">{item.desc}</p>
+              <div className="p-4 min-h-[140px] bg-gradient-to-b from-background to-muted/30">
+                <div className={`max-w-[85%] p-3 rounded-2xl text-sm ${m.from === "you" ? "ml-auto bg-primary/15 rounded-br-sm" : "bg-muted rounded-bl-sm"}`}>
+                  {m.text}
+                </div>
+                <p className={`text-[10px] mt-1.5 ${m.from === "you" ? "text-right" : ""} ${m.muted ? "text-destructive font-semibold" : "text-muted-foreground"}`}>
+                  {m.time} {m.from === "you" && (m.read ? "· Seen" : "· Delivered")}
+                </p>
+              </div>
             </div>
           ))}
+          <div className="snap-start shrink-0 w-[200px] rounded-2xl border-2 border-dashed border-destructive/40 bg-destructive/5 flex flex-col items-center justify-center p-6 text-center">
+            <AlertTriangle className="w-8 h-8 text-destructive mb-2" />
+            <p className="text-sm font-bold text-destructive">No price.<br />No trust.<br />No reply.</p>
+          </div>
         </div>
       </section>
 
-      {/* SOLUTION */}
-      <section className="container py-12 bg-gradient-to-b from-transparent via-primary/5 to-transparent rounded-3xl">
-        <div className="text-center max-w-2xl mx-auto mb-8">
-          <span className="inline-block px-3 py-1 rounded-full bg-success/15 text-success text-xs font-bold uppercase tracking-wider mb-3">The Solution</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold font-display">One marketplace. All the trips.</h2>
-          <p className="text-muted-foreground mt-2">Discover, compare, and book curated trips from verified planners — all in one place.</p>
+      {/* VISUAL SOLUTION — clean marketplace UI */}
+      <section className="py-14 bg-gradient-to-b from-primary/5 via-accent/5 to-transparent overflow-hidden">
+        <div className="container mb-6 flex items-end justify-between gap-4">
+          <div>
+            <span className="inline-block px-3 py-1 rounded-full bg-success/15 text-success text-xs font-bold uppercase tracking-wider mb-2">With Trippinity</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold font-display">Clear. Compared. Confirmed.</h2>
+          </div>
+          <span className="hidden sm:inline text-xs text-muted-foreground">← swipe</span>
         </div>
-        <div className="grid sm:grid-cols-3 gap-4">
-          {[
-            { icon: Compass, title: "Discover trips", desc: "Curated by region, vibe and group size." },
-            { icon: ShieldCheck, title: "Compare planners", desc: "See ratings, reviews, past trips at a glance." },
-            { icon: CreditCard, title: "Book securely", desc: "Pay 50% online. Booking is confirmed instantly." },
-          ].map((item, i) => (
-            <div key={item.title} className="p-6 rounded-2xl border bg-card hover:shadow-card transition-shadow">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent text-primary-foreground flex items-center justify-center mb-3 shadow-soft">
-                <item.icon className="w-6 h-6" />
-              </div>
-              <p className="text-xs font-semibold text-primary mb-1">Step {i + 1}</p>
-              <h3 className="font-bold mb-1.5">{item.title}</h3>
-              <p className="text-sm text-muted-foreground">{item.desc}</p>
+        <div className="flex gap-4 overflow-x-auto scrollbar-hide px-[max(1rem,calc((100vw-1280px)/2))] pb-4 snap-x snap-mandatory">
+          {/* Card 1 — clean trip card */}
+          <div className="snap-start shrink-0 w-[280px] rounded-2xl border bg-card shadow-card overflow-hidden">
+            <div className="relative aspect-[4/3]">
+              <img src={mockTrips[0].image} alt="Trip preview" className="w-full h-full object-cover" loading="lazy" />
+              <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-secondary text-secondary-foreground text-[10px] font-bold inline-flex items-center gap-1">
+                <Flame className="w-3 h-3" /> Popular
+              </span>
+              <span className="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg bg-primary text-primary-foreground text-xs font-bold">₹12,999</span>
             </div>
-          ))}
+            <div className="p-3">
+              <p className="text-sm font-bold truncate">Magical Manali · 4N/5D</p>
+              <p className="text-[11px] text-muted-foreground flex items-center gap-1"><Star className="w-3 h-3 fill-secondary stroke-secondary" /> 4.8 · 47 booked</p>
+            </div>
+          </div>
+          {/* Card 2 — verified badge */}
+          <div className="snap-start shrink-0 w-[260px] rounded-2xl border bg-card shadow-card p-5 flex flex-col">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent to-primary text-primary-foreground flex items-center justify-center mb-3 shadow-soft">
+              <ShieldCheck className="w-7 h-7" />
+            </div>
+            <p className="text-sm font-bold">Verified planner</p>
+            <p className="text-xs text-muted-foreground mt-1 mb-3">KYC, GST & past traveler reviews — all checked.</p>
+            <div className="mt-auto flex items-center gap-2 pt-3 border-t">
+              <CheckCircle2 className="w-4 h-4 text-success" />
+              <span className="text-[11px] font-semibold">Himalayan Trails Co.</span>
+            </div>
+          </div>
+          {/* Card 3 — pricing breakdown */}
+          <div className="snap-start shrink-0 w-[280px] rounded-2xl border bg-card shadow-card p-5">
+            <p className="text-[10px] font-bold uppercase tracking-wider text-primary mb-2">Transparent pricing</p>
+            <div className="space-y-1.5 text-sm">
+              <div className="flex justify-between"><span className="text-muted-foreground">Trip total</span><span className="font-semibold">₹12,999</span></div>
+              <div className="flex justify-between"><span className="text-muted-foreground">Stays + meals</span><span>Included</span></div>
+              <div className="flex justify-between"><span className="text-muted-foreground">Transport</span><span>Included</span></div>
+              <div className="flex justify-between text-success"><span>No hidden fees</span><CheckCircle2 className="w-4 h-4" /></div>
+            </div>
+            <div className="mt-3 pt-3 border-t flex items-baseline justify-between">
+              <span className="text-xs font-semibold">Pay now (50%)</span>
+              <span className="text-lg font-extrabold text-primary">₹6,500</span>
+            </div>
+          </div>
+          {/* Card 4 — comparison */}
+          <div className="snap-start shrink-0 w-[280px] rounded-2xl border bg-card shadow-card p-5">
+            <p className="text-[10px] font-bold uppercase tracking-wider text-accent mb-2">Compare planners</p>
+            {[
+              { name: "Himalayan Trails", rating: 4.8, price: "₹12.9k" },
+              { name: "Mountain Mavericks", rating: 4.6, price: "₹13.5k" },
+              { name: "Peak Co.", rating: 4.4, price: "₹11.8k" },
+            ].map((p) => (
+              <div key={p.name} className="flex items-center justify-between py-2 border-b last:border-0 text-xs">
+                <span className="font-semibold truncate">{p.name}</span>
+                <span className="flex items-center gap-2">
+                  <span className="flex items-center gap-0.5 text-muted-foreground"><Star className="w-3 h-3 fill-secondary stroke-secondary" />{p.rating}</span>
+                  <span className="font-bold text-primary">{p.price}</span>
+                </span>
+              </div>
+            ))}
+          </div>
+          {/* Card 5 — instant confirmation */}
+          <div className="snap-start shrink-0 w-[260px] rounded-2xl bg-gradient-to-br from-success/15 to-success/5 border border-success/30 p-5 flex flex-col">
+            <div className="w-14 h-14 rounded-full bg-success/20 text-success flex items-center justify-center mb-3">
+              <CheckCircle2 className="w-7 h-7" />
+            </div>
+            <p className="text-sm font-bold">Booking confirmed ✅</p>
+            <p className="text-xs text-muted-foreground mt-1">Pay 50%. Get your Trip Hub. Done in 60 seconds.</p>
+          </div>
         </div>
       </section>
 
@@ -246,55 +318,119 @@ const Index = () => {
         )}
       </section>
 
-      {/* TRIP HUB TEASER */}
-      <section className="container py-12">
-        <div className="rounded-3xl border bg-gradient-to-br from-primary/8 to-accent/8 p-8 sm:p-10 grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <span className="inline-block px-3 py-1 rounded-full bg-secondary/20 text-secondary-foreground text-xs font-bold uppercase tracking-wider mb-3">Trip Hub</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold font-display leading-tight">
-              Your private trip community,<br />
-              <span className="text-primary">unlocked the moment you book.</span>
-            </h2>
-            <p className="text-muted-foreground mt-3 text-sm sm:text-base">
-              Group chat with co-travelers. Direct line to your planner. Tickets, vouchers and itineraries — all in one place.
-            </p>
-            <div className="flex flex-wrap gap-2 mt-5">
-              {["Travelers list", "Group chat", "Planner DMs", "Trip docs"].map((t) => (
-                <span key={t} className="text-xs px-3 py-1.5 rounded-full bg-background border font-medium">{t}</span>
-              ))}
-            </div>
-            <Link
-              to="/trip-hub"
-              className="inline-flex h-11 px-5 mt-6 rounded-xl bg-primary text-primary-foreground font-semibold items-center gap-2 hover:bg-primary/90 transition-colors shadow-elevated"
-            >
-              Preview Trip Hub <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          <div className="relative rounded-2xl overflow-hidden border bg-card shadow-card aspect-[4/3] md:aspect-auto md:h-72">
-            <div aria-hidden className="absolute inset-0 p-5 space-y-3" style={{ filter: "blur(5px)", opacity: 0.55 }}>
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-primary/30" />
-                <div className="h-2.5 w-24 bg-foreground/30 rounded" />
-              </div>
-              {[1, 2, 3].map((i) => (
-                <div key={i} className={`flex ${i % 2 ? "justify-start" : "justify-end"}`}>
-                  <div className={`max-w-[70%] p-2.5 rounded-xl ${i % 2 ? "bg-muted" : "bg-primary/40"}`}>
-                    <div className="h-2 w-32 bg-foreground/30 rounded mb-1" />
-                    <div className="h-2 w-20 bg-foreground/20 rounded" />
+      {/* TRIP HUB — full-width premium teaser */}
+      <section className="relative my-16 overflow-hidden">
+        <div className="relative w-full min-h-[460px] bg-gradient-to-br from-primary via-primary/90 to-accent text-primary-foreground overflow-hidden">
+          {/* decorative blurred UI background */}
+          <div aria-hidden className="absolute inset-0 grid grid-cols-3 gap-4 p-8 opacity-20 pointer-events-none" style={{ filter: "blur(8px)" }}>
+            {/* travelers list mock */}
+            <div className="space-y-2">
+              {[1,2,3,4,5].map(i => (
+                <div key={i} className="flex items-center gap-2 p-2 rounded-xl bg-primary-foreground/15">
+                  <div className="w-9 h-9 rounded-full bg-primary-foreground/40" />
+                  <div className="flex-1">
+                    <div className="h-2 w-20 bg-primary-foreground/50 rounded mb-1" />
+                    <div className="h-1.5 w-12 bg-primary-foreground/30 rounded" />
                   </div>
                 </div>
               ))}
             </div>
-            <div className="absolute inset-0 bg-background/30 backdrop-blur-[1px] flex items-center justify-center">
-              <div className="bg-card/95 border rounded-xl shadow-elevated p-5 text-center max-w-xs">
-                <div className="w-12 h-12 rounded-full bg-muted mx-auto flex items-center justify-center mb-2">
-                  <Lock className="w-5 h-5 text-muted-foreground" />
+            {/* chat mock */}
+            <div className="space-y-2">
+              {[0,1,0,1,0].map((side, i) => (
+                <div key={i} className={`flex ${side ? "justify-start" : "justify-end"}`}>
+                  <div className={`max-w-[80%] p-3 rounded-2xl ${side ? "bg-primary-foreground/15" : "bg-secondary/40"}`}>
+                    <div className="h-2 w-24 bg-primary-foreground/50 rounded mb-1" />
+                    <div className="h-2 w-16 bg-primary-foreground/30 rounded" />
+                  </div>
                 </div>
-                <p className="font-bold text-sm">🔒 Unlock your trip community after booking</p>
-              </div>
+              ))}
+            </div>
+            {/* documents mock */}
+            <div className="space-y-2">
+              {["Itinerary","Hotel voucher","Flight ticket","Insurance","Group rules"].map(d => (
+                <div key={d} className="flex items-center gap-2 p-2.5 rounded-xl bg-primary-foreground/15">
+                  <div className="w-8 h-10 rounded bg-primary-foreground/40" />
+                  <div className="flex-1">
+                    <div className="h-2 w-24 bg-primary-foreground/50 rounded mb-1" />
+                    <div className="h-1.5 w-10 bg-primary-foreground/30 rounded" />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
+          {/* dark wash for legibility */}
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/70 to-transparent" />
+
+          <div className="relative container py-16 md:py-20 max-w-2xl">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-bold uppercase tracking-wider mb-4">
+              <Sparkles className="w-3.5 h-3.5" /> Trip Hub
+            </span>
+            <h2 className="text-4xl sm:text-5xl font-extrabold font-display leading-[1.05]">
+              Meet your travel group<br />before the trip.
+            </h2>
+            <p className="mt-4 text-base sm:text-lg text-primary-foreground/85 max-w-lg">
+              Group chat with co-travelers. Direct line to your planner. Tickets, vouchers and itineraries — all in one private space.
+            </p>
+            <div className="flex flex-wrap gap-2 mt-5">
+              {[
+                { icon: Users, label: "Travelers list" },
+                { icon: MessagesSquare, label: "Group chat" },
+                { icon: ShieldCheck, label: "Planner DMs" },
+              ].map(p => (
+                <span key={p.label} className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-primary-foreground/15 backdrop-blur border border-primary-foreground/25 font-medium">
+                  <p.icon className="w-3.5 h-3.5" /> {p.label}
+                </span>
+              ))}
+            </div>
+            <div className="flex flex-wrap items-center gap-3 mt-7">
+              <Link
+                to="/explore"
+                className="inline-flex items-center gap-2 h-12 px-6 rounded-xl bg-secondary text-secondary-foreground font-bold hover:bg-secondary/90 transition-colors shadow-elevated"
+              >
+                <Lock className="w-4 h-4" /> Unlock after booking
+              </Link>
+              <Link
+                to="/trip-hub"
+                className="inline-flex items-center gap-2 h-12 px-5 rounded-xl bg-primary-foreground/10 backdrop-blur border border-primary-foreground/30 font-medium hover:bg-primary-foreground/20 transition-colors"
+              >
+                Preview <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* VERIFIED PLANNERS — trust strip */}
+      <section className="py-12 overflow-hidden">
+        <div className="container mb-6">
+          <span className="inline-block px-3 py-1 rounded-full bg-accent/15 text-accent text-xs font-bold uppercase tracking-wider mb-2">Trusted partners</span>
+          <h2 className="text-2xl sm:text-3xl font-extrabold font-display">Trusted by top travel planners</h2>
+          <p className="text-sm text-muted-foreground">Hand-picked, KYC-verified companies behind every trip.</p>
+        </div>
+        <div className="flex gap-4 overflow-x-auto scrollbar-hide px-[max(1rem,calc((100vw-1280px)/2))] pb-4 snap-x">
+          {Object.values(companies).map((c) => (
+            <Link
+              key={c.id}
+              to={`/planner/${c.id}`}
+              className="snap-start shrink-0 w-[240px] rounded-2xl border bg-card p-5 hover:shadow-card hover-lift transition-all group"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/15 to-accent/15 flex items-center justify-center text-3xl mb-3 group-hover:scale-110 transition-transform">
+                {c.logo}
+              </div>
+              <p className="font-bold text-sm flex items-center gap-1">
+                {c.name}
+                {c.verified && <ShieldCheck className="w-3.5 h-3.5 text-accent" />}
+              </p>
+              <p className="text-[11px] text-muted-foreground line-clamp-2 mt-1 mb-3">{c.about}</p>
+              <div className="flex items-center justify-between text-xs pt-3 border-t">
+                <span className="flex items-center gap-1 font-semibold">
+                  <Star className="w-3 h-3 fill-secondary stroke-secondary" /> {c.rating}
+                </span>
+                <span className="text-muted-foreground">{c.trips} trips</span>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 
