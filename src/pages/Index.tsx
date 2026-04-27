@@ -125,7 +125,7 @@ const Index = () => {
           ].map((m, i) => (
             <div key={i} className="snap-start shrink-0 w-[260px] sm:w-[300px] rounded-2xl border bg-card shadow-soft overflow-hidden">
               <div className="flex items-center gap-2 px-4 py-3 border-b bg-muted/40">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-500 to-orange-400" />
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-destructive to-secondary" />
                 <div className="flex-1 min-w-0">
                   <p className="text-xs font-bold truncate">@trips_byrandomguy</p>
                   <p className="text-[10px] text-muted-foreground">last seen 3 days ago</p>
