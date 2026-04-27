@@ -106,123 +106,115 @@ const Index = () => {
         ))}
       </section>
 
-      {/* VISUAL PROBLEM — Instagram DM chaos */}
-      <section className="py-12 overflow-hidden">
-        <div className="container mb-6 flex items-end justify-between gap-4">
-          <div>
-            <span className="inline-block px-3 py-1 rounded-full bg-destructive/10 text-destructive text-xs font-bold uppercase tracking-wider mb-2">Before Trippinity</span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold font-display">DM chaos. Zero clarity.</h2>
-          </div>
-          <span className="hidden sm:inline text-xs text-muted-foreground">← swipe</span>
+      {/* PROBLEM ↔ SOLUTION — side-by-side visual contrast */}
+      <section className="py-16">
+        <div className="container mb-8 text-center max-w-2xl mx-auto">
+          <span className="inline-block px-3 py-1 rounded-full bg-muted text-xs font-bold uppercase tracking-wider mb-3">Why Trippinity</span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold font-display leading-tight">
+            From DM chaos <span className="text-muted-foreground">→</span> <span className="text-primary">to one tap.</span>
+          </h2>
         </div>
-        <div className="flex gap-4 overflow-x-auto scrollbar-hide px-[max(1rem,calc((100vw-1280px)/2))] pb-4 snap-x snap-mandatory">
-          {[
-            { from: "you", text: "Hi, is the Manali trip available in April?", time: "2:14 PM", read: true },
-            { from: "them", text: "Seen ✓✓", time: "2 days ago", muted: true },
-            { from: "you", text: "Hello? What's the price for 4 ppl?", time: "Yesterday", read: false },
-            { from: "you", text: "Anyone there??", time: "Today", read: false },
-            { from: "them", text: "Bhai DM kar do, price discuss karenge 🙏", time: "Just now", muted: true },
-          ].map((m, i) => (
-            <div key={i} className="snap-start shrink-0 w-[260px] sm:w-[300px] rounded-2xl border bg-card shadow-soft overflow-hidden">
+
+        <div className="container grid md:grid-cols-2 gap-5 lg:gap-6 items-stretch">
+          {/* LEFT — messy DM UI */}
+          <div className="relative rounded-3xl border border-destructive/20 bg-gradient-to-br from-destructive/5 via-background to-background p-5 sm:p-6 overflow-hidden">
+            <div className="flex items-center justify-between mb-4">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-destructive/10 text-destructive text-[10px] font-bold uppercase tracking-wider">
+                <MessageSquareX className="w-3 h-3" /> Before
+              </span>
+              <span className="text-xs text-muted-foreground">Instagram DMs</span>
+            </div>
+
+            {/* DM phone mock */}
+            <div className="rounded-2xl bg-card border shadow-card overflow-hidden">
               <div className="flex items-center gap-2 px-4 py-3 border-b bg-muted/40">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-destructive to-secondary" />
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-destructive to-secondary" />
                 <div className="flex-1 min-w-0">
                   <p className="text-xs font-bold truncate">@trips_byrandomguy</p>
-                  <p className="text-[10px] text-muted-foreground">last seen 3 days ago</p>
+                  <p className="text-[10px] text-destructive font-semibold">last seen 3 days ago</p>
                 </div>
-                <MessageSquareX className="w-4 h-4 text-destructive" />
+                <AlertTriangle className="w-4 h-4 text-destructive" />
               </div>
-              <div className="p-4 min-h-[140px] bg-gradient-to-b from-background to-muted/30">
-                <div className={`max-w-[85%] p-3 rounded-2xl text-sm ${m.from === "you" ? "ml-auto bg-primary/15 rounded-br-sm" : "bg-muted rounded-bl-sm"}`}>
-                  {m.text}
+              <div className="p-4 space-y-2 bg-gradient-to-b from-background to-muted/30 min-h-[260px]">
+                <div className="max-w-[80%] ml-auto p-3 rounded-2xl rounded-br-sm text-sm bg-primary/15">
+                  Hi, is the Manali trip available in April?
                 </div>
-                <p className={`text-[10px] mt-1.5 ${m.from === "you" ? "text-right" : ""} ${m.muted ? "text-destructive font-semibold" : "text-muted-foreground"}`}>
-                  {m.time} {m.from === "you" && (m.read ? "· Seen" : "· Delivered")}
-                </p>
+                <p className="text-[10px] text-right text-muted-foreground">2:14 PM · Seen</p>
+                <div className="max-w-[80%] ml-auto p-3 rounded-2xl rounded-br-sm text-sm bg-primary/15">
+                  Hello? Price for 4 ppl?
+                </div>
+                <p className="text-[10px] text-right text-destructive font-semibold">Yesterday · No reply</p>
+                <div className="max-w-[80%] ml-auto p-3 rounded-2xl rounded-br-sm text-sm bg-primary/15">
+                  Anyone there?? 😩
+                </div>
+                <p className="text-[10px] text-right text-destructive font-semibold">Today · Delivered</p>
               </div>
             </div>
-          ))}
-          <div className="snap-start shrink-0 w-[200px] rounded-2xl border-2 border-dashed border-destructive/40 bg-destructive/5 flex flex-col items-center justify-center p-6 text-center">
-            <AlertTriangle className="w-8 h-8 text-destructive mb-2" />
-            <p className="text-sm font-bold text-destructive">No price.<br />No trust.<br />No reply.</p>
-          </div>
-        </div>
-      </section>
 
-      {/* VISUAL SOLUTION — clean marketplace UI */}
-      <section className="py-14 bg-gradient-to-b from-primary/5 via-accent/5 to-transparent overflow-hidden">
-        <div className="container mb-6 flex items-end justify-between gap-4">
-          <div>
-            <span className="inline-block px-3 py-1 rounded-full bg-success/15 text-success text-xs font-bold uppercase tracking-wider mb-2">With Trippinity</span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold font-display">Clear. Compared. Confirmed.</h2>
-          </div>
-          <span className="hidden sm:inline text-xs text-muted-foreground">← swipe</span>
-        </div>
-        <div className="flex gap-4 overflow-x-auto scrollbar-hide px-[max(1rem,calc((100vw-1280px)/2))] pb-4 snap-x snap-mandatory">
-          {/* Card 1 — clean trip card */}
-          <div className="snap-start shrink-0 w-[280px] rounded-2xl border bg-card shadow-card overflow-hidden">
-            <div className="relative aspect-[4/3]">
-              <img src={mockTrips[0].image} alt="Trip preview" className="w-full h-full object-cover" loading="lazy" />
-              <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-secondary text-secondary-foreground text-[10px] font-bold inline-flex items-center gap-1">
-                <Flame className="w-3 h-3" /> Popular
-              </span>
-              <span className="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg bg-primary text-primary-foreground text-xs font-bold">₹12,999</span>
-            </div>
-            <div className="p-3">
-              <p className="text-sm font-bold truncate">Magical Manali · 4N/5D</p>
-              <p className="text-[11px] text-muted-foreground flex items-center gap-1"><Star className="w-3 h-3 fill-secondary stroke-secondary" /> 4.8 · 47 booked</p>
-            </div>
-          </div>
-          {/* Card 2 — verified badge */}
-          <div className="snap-start shrink-0 w-[260px] rounded-2xl border bg-card shadow-card p-5 flex flex-col">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent to-primary text-primary-foreground flex items-center justify-center mb-3 shadow-soft">
-              <ShieldCheck className="w-7 h-7" />
-            </div>
-            <p className="text-sm font-bold">Verified planner</p>
-            <p className="text-xs text-muted-foreground mt-1 mb-3">KYC, GST & past traveler reviews — all checked.</p>
-            <div className="mt-auto flex items-center gap-2 pt-3 border-t">
-              <CheckCircle2 className="w-4 h-4 text-success" />
-              <span className="text-[11px] font-semibold">Himalayan Trails Co.</span>
-            </div>
-          </div>
-          {/* Card 3 — pricing breakdown */}
-          <div className="snap-start shrink-0 w-[280px] rounded-2xl border bg-card shadow-card p-5">
-            <p className="text-[10px] font-bold uppercase tracking-wider text-primary mb-2">Transparent pricing</p>
-            <div className="space-y-1.5 text-sm">
-              <div className="flex justify-between"><span className="text-muted-foreground">Trip total</span><span className="font-semibold">₹12,999</span></div>
-              <div className="flex justify-between"><span className="text-muted-foreground">Stays + meals</span><span>Included</span></div>
-              <div className="flex justify-between"><span className="text-muted-foreground">Transport</span><span>Included</span></div>
-              <div className="flex justify-between text-success"><span>No hidden fees</span><CheckCircle2 className="w-4 h-4" /></div>
-            </div>
-            <div className="mt-3 pt-3 border-t flex items-baseline justify-between">
-              <span className="text-xs font-semibold">Pay now (50%)</span>
-              <span className="text-lg font-extrabold text-primary">₹6,500</span>
-            </div>
-          </div>
-          {/* Card 4 — comparison */}
-          <div className="snap-start shrink-0 w-[280px] rounded-2xl border bg-card shadow-card p-5">
-            <p className="text-[10px] font-bold uppercase tracking-wider text-accent mb-2">Compare planners</p>
-            {[
-              { name: "Himalayan Trails", rating: 4.8, price: "₹12.9k" },
-              { name: "Mountain Mavericks", rating: 4.6, price: "₹13.5k" },
-              { name: "Peak Co.", rating: 4.4, price: "₹11.8k" },
-            ].map((p) => (
-              <div key={p.name} className="flex items-center justify-between py-2 border-b last:border-0 text-xs">
-                <span className="font-semibold truncate">{p.name}</span>
-                <span className="flex items-center gap-2">
-                  <span className="flex items-center gap-0.5 text-muted-foreground"><Star className="w-3 h-3 fill-secondary stroke-secondary" />{p.rating}</span>
-                  <span className="font-bold text-primary">{p.price}</span>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {["No price shared", "No trust signals", "Slow replies", "Scam risk"].map((t) => (
+                <span key={t} className="text-[11px] px-2.5 py-1 rounded-full bg-destructive/10 text-destructive font-semibold">
+                  ✕ {t}
                 </span>
-              </div>
-            ))}
-          </div>
-          {/* Card 5 — instant confirmation */}
-          <div className="snap-start shrink-0 w-[260px] rounded-2xl bg-gradient-to-br from-success/15 to-success/5 border border-success/30 p-5 flex flex-col">
-            <div className="w-14 h-14 rounded-full bg-success/20 text-success flex items-center justify-center mb-3">
-              <CheckCircle2 className="w-7 h-7" />
+              ))}
             </div>
-            <p className="text-sm font-bold">Booking confirmed ✅</p>
-            <p className="text-xs text-muted-foreground mt-1">Pay 50%. Get your Trip Hub. Done in 60 seconds.</p>
+          </div>
+
+          {/* RIGHT — clean trip UI */}
+          <div className="relative rounded-3xl border border-success/30 bg-gradient-to-br from-success/5 via-primary/5 to-background p-5 sm:p-6 overflow-hidden">
+            <div className="flex items-center justify-between mb-4">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/15 text-success text-[10px] font-bold uppercase tracking-wider">
+                <CheckCircle2 className="w-3 h-3" /> After
+              </span>
+              <span className="text-xs text-muted-foreground">Trippinity</span>
+            </div>
+
+            {/* clean trip card stack */}
+            <div className="space-y-3">
+              <div className="rounded-2xl border bg-card shadow-card overflow-hidden">
+                <div className="relative aspect-[16/8]">
+                  <img src={mockTrips[0].image} alt="Trip preview" className="w-full h-full object-cover" loading="lazy" />
+                  <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-secondary text-secondary-foreground text-[10px] font-bold inline-flex items-center gap-1">
+                    <Flame className="w-3 h-3" /> Popular
+                  </span>
+                  <span className="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-success text-success-foreground text-[10px] font-bold inline-flex items-center gap-1">
+                    <ShieldCheck className="w-3 h-3" /> Verified
+                  </span>
+                </div>
+                <div className="p-3 flex items-center justify-between">
+                  <div className="min-w-0">
+                    <p className="text-sm font-bold truncate">Magical Manali · 4N/5D</p>
+                    <p className="text-[11px] text-muted-foreground flex items-center gap-1">
+                      <Star className="w-3 h-3 fill-secondary stroke-secondary" /> 4.8 · 47 booked this month
+                    </p>
+                  </div>
+                  <span className="text-base font-extrabold text-primary shrink-0">₹12,999</span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-2xl border bg-card p-3">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-primary mb-1">Pay 50% now</p>
+                  <p className="text-lg font-extrabold">₹6,500</p>
+                  <p className="text-[10px] text-success font-semibold mt-0.5">✓ Instant confirm</p>
+                </div>
+                <div className="rounded-2xl border bg-card p-3">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-accent mb-1">Sold by</p>
+                  <p className="text-xs font-bold flex items-center gap-1 truncate">
+                    🏔️ Himalayan Trails <ShieldCheck className="w-3 h-3 text-accent shrink-0" />
+                  </p>
+                  <p className="text-[10px] text-muted-foreground mt-0.5">1,200+ travelers hosted</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {["Transparent price", "Verified planner", "Compare options", "Instant booking"].map((t) => (
+                <span key={t} className="text-[11px] px-2.5 py-1 rounded-full bg-success/15 text-success font-semibold">
+                  ✓ {t}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -318,119 +310,143 @@ const Index = () => {
         )}
       </section>
 
-      {/* TRIP HUB — full-width premium teaser */}
+      {/* TRIP HUB — premium teaser with real avatars + chat preview */}
       <section className="relative my-16 overflow-hidden">
-        <div className="relative w-full min-h-[460px] bg-gradient-to-br from-primary via-primary/90 to-accent text-primary-foreground overflow-hidden">
-          {/* decorative blurred UI background */}
-          <div aria-hidden className="absolute inset-0 grid grid-cols-3 gap-4 p-8 opacity-20 pointer-events-none" style={{ filter: "blur(8px)" }}>
-            {/* travelers list mock */}
-            <div className="space-y-2">
-              {[1,2,3,4,5].map(i => (
-                <div key={i} className="flex items-center gap-2 p-2 rounded-xl bg-primary-foreground/15">
-                  <div className="w-9 h-9 rounded-full bg-primary-foreground/40" />
-                  <div className="flex-1">
-                    <div className="h-2 w-20 bg-primary-foreground/50 rounded mb-1" />
-                    <div className="h-1.5 w-12 bg-primary-foreground/30 rounded" />
-                  </div>
-                </div>
-              ))}
-            </div>
-            {/* chat mock */}
-            <div className="space-y-2">
-              {[0,1,0,1,0].map((side, i) => (
-                <div key={i} className={`flex ${side ? "justify-start" : "justify-end"}`}>
-                  <div className={`max-w-[80%] p-3 rounded-2xl ${side ? "bg-primary-foreground/15" : "bg-secondary/40"}`}>
-                    <div className="h-2 w-24 bg-primary-foreground/50 rounded mb-1" />
-                    <div className="h-2 w-16 bg-primary-foreground/30 rounded" />
-                  </div>
-                </div>
-              ))}
-            </div>
-            {/* documents mock */}
-            <div className="space-y-2">
-              {["Itinerary","Hotel voucher","Flight ticket","Insurance","Group rules"].map(d => (
-                <div key={d} className="flex items-center gap-2 p-2.5 rounded-xl bg-primary-foreground/15">
-                  <div className="w-8 h-10 rounded bg-primary-foreground/40" />
-                  <div className="flex-1">
-                    <div className="h-2 w-24 bg-primary-foreground/50 rounded mb-1" />
-                    <div className="h-1.5 w-10 bg-primary-foreground/30 rounded" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          {/* dark wash for legibility */}
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/70 to-transparent" />
+        <div className="relative w-full bg-gradient-to-br from-[hsl(222_35%_10%)] via-primary to-accent text-primary-foreground overflow-hidden">
+          {/* glow accents */}
+          <div aria-hidden className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-secondary/20 blur-3xl pointer-events-none" />
+          <div aria-hidden className="absolute -bottom-40 -right-20 w-[500px] h-[500px] rounded-full bg-accent/30 blur-3xl pointer-events-none" />
 
-          <div className="relative container py-16 md:py-20 max-w-2xl">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-bold uppercase tracking-wider mb-4">
-              <Sparkles className="w-3.5 h-3.5" /> Trip Hub
-            </span>
-            <h2 className="text-4xl sm:text-5xl font-extrabold font-display leading-[1.05]">
-              Meet your travel group<br />before the trip.
-            </h2>
-            <p className="mt-4 text-base sm:text-lg text-primary-foreground/85 max-w-lg">
-              Group chat with co-travelers. Direct line to your planner. Tickets, vouchers and itineraries — all in one private space.
-            </p>
-            <div className="flex flex-wrap gap-2 mt-5">
-              {[
-                { icon: Users, label: "Travelers list" },
-                { icon: MessagesSquare, label: "Group chat" },
-                { icon: ShieldCheck, label: "Planner DMs" },
-              ].map(p => (
-                <span key={p.label} className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-primary-foreground/15 backdrop-blur border border-primary-foreground/25 font-medium">
-                  <p.icon className="w-3.5 h-3.5" /> {p.label}
-                </span>
-              ))}
+          <div className="relative container py-16 md:py-24 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            {/* LEFT — copy */}
+            <div className="max-w-xl">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-bold uppercase tracking-wider mb-4">
+                <Sparkles className="w-3.5 h-3.5" /> Trip Hub
+              </span>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display leading-[1.02]">
+                See who you're<br />traveling with<br /><span className="text-secondary">before the trip.</span>
+              </h2>
+              <p className="mt-5 text-base sm:text-lg text-primary-foreground/85">
+                Real travelers. Real chat. Real plans — all unlocked the moment you book.
+              </p>
+
+              <div className="flex flex-wrap gap-2 mt-6">
+                {[
+                  { icon: Users, label: "Travelers list" },
+                  { icon: MessagesSquare, label: "Group chat" },
+                  { icon: ShieldCheck, label: "Planner DMs" },
+                ].map((p) => (
+                  <span key={p.label} className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-primary-foreground/15 backdrop-blur border border-primary-foreground/25 font-medium">
+                    <p.icon className="w-3.5 h-3.5" /> {p.label}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 mt-8">
+                <Link
+                  to="/explore"
+                  className="group inline-flex items-center gap-2 h-13 px-6 py-3.5 rounded-xl bg-secondary text-secondary-foreground font-bold hover:bg-secondary/90 transition-all shadow-elevated hover:scale-[1.03]"
+                >
+                  <Lock className="w-4 h-4" /> Unlock Your Trip Community
+                </Link>
+                <Link
+                  to="/trip-hub"
+                  className="inline-flex items-center gap-2 h-13 px-5 py-3.5 rounded-xl bg-primary-foreground/10 backdrop-blur border border-primary-foreground/30 font-medium hover:bg-primary-foreground/20 transition-colors"
+                >
+                  Preview <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
-            <div className="flex flex-wrap items-center gap-3 mt-7">
-              <Link
-                to="/explore"
-                className="inline-flex items-center gap-2 h-12 px-6 rounded-xl bg-secondary text-secondary-foreground font-bold hover:bg-secondary/90 transition-colors shadow-elevated"
-              >
-                <Lock className="w-4 h-4" /> Unlock after booking
-              </Link>
-              <Link
-                to="/trip-hub"
-                className="inline-flex items-center gap-2 h-12 px-5 rounded-xl bg-primary-foreground/10 backdrop-blur border border-primary-foreground/30 font-medium hover:bg-primary-foreground/20 transition-colors"
-              >
-                Preview <ArrowRight className="w-4 h-4" />
-              </Link>
+
+            {/* RIGHT — blurred Trip Hub UI preview */}
+            <div className="relative">
+              {/* Travelers card */}
+              <div className="relative rounded-2xl bg-primary-foreground/10 backdrop-blur-xl border border-primary-foreground/20 p-4 shadow-elevated max-w-md ml-auto" style={{ filter: "blur(0.5px)" }}>
+                <div className="flex items-center justify-between mb-3">
+                  <p className="text-xs font-bold uppercase tracking-wider opacity-80">Travelers · 12</p>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-success/30 font-bold">All confirmed</span>
+                </div>
+                <div className="flex -space-x-2 mb-3">
+                  {featuredReviews.concat(reviews.slice(3, 8)).slice(0, 6).map((r, i) => (
+                    <img
+                      key={i}
+                      src={r.avatar}
+                      alt=""
+                      className="w-10 h-10 rounded-full object-cover border-2 border-primary"
+                      loading="lazy"
+                    />
+                  ))}
+                  <span className="w-10 h-10 rounded-full border-2 border-primary bg-primary-foreground/20 backdrop-blur flex items-center justify-center text-[10px] font-bold">+6</span>
+                </div>
+                <div className="text-[11px] opacity-80">Manali Group · Apr 18 – 22</div>
+              </div>
+
+              {/* Chat preview card — overlapped */}
+              <div className="relative rounded-2xl bg-primary-foreground/10 backdrop-blur-xl border border-primary-foreground/20 p-4 shadow-elevated max-w-sm mt-4 -ml-2 sm:ml-6">
+                <div className="flex items-center gap-2 pb-3 mb-3 border-b border-primary-foreground/20">
+                  <MessagesSquare className="w-4 h-4" />
+                  <p className="text-xs font-bold">Group chat</p>
+                  <span className="ml-auto w-2 h-2 rounded-full bg-success animate-pulse" />
+                </div>
+                <div className="space-y-2.5">
+                  <div className="flex items-start gap-2">
+                    <img src={featuredReviews[0]?.avatar} alt="" className="w-7 h-7 rounded-full object-cover shrink-0" loading="lazy" />
+                    <div className="bg-primary-foreground/15 rounded-2xl rounded-tl-sm px-3 py-2 max-w-[80%]">
+                      <p className="text-[11px] font-bold opacity-90">{featuredReviews[0]?.user.split(" ")[0]}</p>
+                      <p className="text-xs">Anyone landing at 6am? Share a cab? 🚖</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2 justify-end">
+                    <div className="bg-secondary/40 rounded-2xl rounded-tr-sm px-3 py-2 max-w-[80%]">
+                      <p className="text-xs">Yess I'm in! 🙋‍♀️</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <img src={featuredReviews[1]?.avatar} alt="" className="w-7 h-7 rounded-full object-cover shrink-0" loading="lazy" />
+                    <div className="bg-primary-foreground/15 rounded-2xl rounded-tl-sm px-3 py-2 max-w-[80%]">
+                      <p className="text-[11px] font-bold opacity-90">Planner · Himalayan Trails</p>
+                      <p className="text-xs">Pickup confirmed at 6:30am ✅</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Lock badge */}
+              <div className="absolute -top-3 -right-3 sm:top-4 sm:-right-2 rotate-6 bg-secondary text-secondary-foreground px-3 py-1.5 rounded-xl text-[11px] font-extrabold shadow-elevated inline-flex items-center gap-1">
+                <Lock className="w-3.5 h-3.5" /> Unlocks after booking
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* VERIFIED PLANNERS — trust strip */}
-      <section className="py-12 overflow-hidden">
-        <div className="container mb-6">
-          <span className="inline-block px-3 py-1 rounded-full bg-accent/15 text-accent text-xs font-bold uppercase tracking-wider mb-2">Trusted partners</span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold font-display">Trusted by top travel planners</h2>
-          <p className="text-sm text-muted-foreground">Hand-picked, KYC-verified companies behind every trip.</p>
+      {/* TRUST WALL — big horizontal company logos */}
+      <section className="py-14 border-y bg-muted/30">
+        <div className="container mb-8 text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-2">Trusted partners</p>
+          <h2 className="text-2xl sm:text-3xl font-extrabold font-display">Powered by India's best travel companies</h2>
         </div>
-        <div className="flex gap-4 overflow-x-auto scrollbar-hide px-[max(1rem,calc((100vw-1280px)/2))] pb-4 snap-x">
-          {Object.values(companies).map((c) => (
-            <Link
-              key={c.id}
-              to={`/planner/${c.id}`}
-              className="snap-start shrink-0 w-[240px] rounded-2xl border bg-card p-5 hover:shadow-card hover-lift transition-all group"
-            >
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/15 to-accent/15 flex items-center justify-center text-3xl mb-3 group-hover:scale-110 transition-transform">
-                {c.logo}
-              </div>
-              <p className="font-bold text-sm flex items-center gap-1">
-                {c.name}
-                {c.verified && <ShieldCheck className="w-3.5 h-3.5 text-accent" />}
-              </p>
-              <p className="text-[11px] text-muted-foreground line-clamp-2 mt-1 mb-3">{c.about}</p>
-              <div className="flex items-center justify-between text-xs pt-3 border-t">
-                <span className="flex items-center gap-1 font-semibold">
-                  <Star className="w-3 h-3 fill-secondary stroke-secondary" /> {c.rating}
-                </span>
-                <span className="text-muted-foreground">{c.trips} trips</span>
-              </div>
-            </Link>
-          ))}
+        <div className="container">
+          <div className="flex items-center justify-between gap-6 sm:gap-10 flex-wrap sm:flex-nowrap overflow-x-auto scrollbar-hide">
+            {Object.values(companies).map((c) => (
+              <Link
+                key={c.id}
+                to={`/planner/${c.id}`}
+                className="group flex items-center gap-3 shrink-0 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all"
+              >
+                <span className="text-4xl sm:text-5xl group-hover:scale-110 transition-transform">{c.logo}</span>
+                <div className="hidden sm:block">
+                  <p className="font-extrabold text-base flex items-center gap-1 leading-tight">
+                    {c.name}
+                    {c.verified && <ShieldCheck className="w-4 h-4 text-accent" />}
+                  </p>
+                  <p className="text-[11px] text-muted-foreground flex items-center gap-1">
+                    <Star className="w-3 h-3 fill-secondary stroke-secondary" /> {c.rating} · {c.trips} trips
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -476,15 +492,15 @@ const Index = () => {
           <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
             <Link
               to="/explore"
-              className="inline-flex h-12 px-6 rounded-xl bg-white text-primary font-semibold items-center gap-2 hover:scale-105 transition-transform shadow-elevated"
+              className="group inline-flex h-13 px-7 py-3.5 rounded-xl bg-white text-primary font-bold items-center gap-2 hover:scale-105 transition-transform shadow-elevated"
             >
-              Explore Trips <ArrowRight className="w-5 h-5" />
+              Explore Trips <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
-              to="/destinations"
-              className="inline-flex h-12 px-6 rounded-xl bg-white/15 backdrop-blur border border-white/30 text-white font-medium hover:bg-white/25 transition-colors"
+              to="/explore"
+              className="inline-flex h-13 px-7 py-3.5 rounded-xl bg-secondary text-secondary-foreground font-bold items-center gap-2 hover:scale-105 transition-transform shadow-elevated"
             >
-              Browse destinations
+              <CreditCard className="w-5 h-5" /> Book Instantly (Pay 50%)
             </Link>
           </div>
           <p className="text-xs opacity-80 mt-5 flex items-center justify-center gap-4 flex-wrap">
