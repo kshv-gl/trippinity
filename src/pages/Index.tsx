@@ -492,15 +492,15 @@ const Index = () => {
           <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
             <Link
               to="/explore"
-              className="inline-flex h-12 px-6 rounded-xl bg-white text-primary font-semibold items-center gap-2 hover:scale-105 transition-transform shadow-elevated"
+              className="group inline-flex h-13 px-7 py-3.5 rounded-xl bg-white text-primary font-bold items-center gap-2 hover:scale-105 transition-transform shadow-elevated"
             >
-              Explore Trips <ArrowRight className="w-5 h-5" />
+              Explore Trips <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
-              to="/destinations"
-              className="inline-flex h-12 px-6 rounded-xl bg-white/15 backdrop-blur border border-white/30 text-white font-medium hover:bg-white/25 transition-colors"
+              to="/explore"
+              className="inline-flex h-13 px-7 py-3.5 rounded-xl bg-secondary text-secondary-foreground font-bold items-center gap-2 hover:scale-105 transition-transform shadow-elevated"
             >
-              Browse destinations
+              <CreditCard className="w-5 h-5" /> Book Instantly (Pay 50%)
             </Link>
           </div>
           <p className="text-xs opacity-80 mt-5 flex items-center justify-center gap-4 flex-wrap">
