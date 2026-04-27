@@ -38,6 +38,12 @@ const Hero = () => {
           >
             Compare trips. Book smarter.
           </p>
+          <p
+            className="text-sm sm:text-base text-white/70 max-w-xl animate-fade-in"
+            style={{ animationDelay: "320ms", animationFillMode: "backwards" }}
+          >
+            Group trips are the ultimate way to socialise. ✨
+          </p>
           <div
             className="flex flex-wrap items-center gap-3 pt-2 animate-fade-in"
             style={{ animationDelay: "380ms", animationFillMode: "backwards" }}
