@@ -310,119 +310,143 @@ const Index = () => {
         )}
       </section>
 
-      {/* TRIP HUB — full-width premium teaser */}
+      {/* TRIP HUB — premium teaser with real avatars + chat preview */}
       <section className="relative my-16 overflow-hidden">
-        <div className="relative w-full min-h-[460px] bg-gradient-to-br from-primary via-primary/90 to-accent text-primary-foreground overflow-hidden">
-          {/* decorative blurred UI background */}
-          <div aria-hidden className="absolute inset-0 grid grid-cols-3 gap-4 p-8 opacity-20 pointer-events-none" style={{ filter: "blur(8px)" }}>
-            {/* travelers list mock */}
-            <div className="space-y-2">
-              {[1,2,3,4,5].map(i => (
-                <div key={i} className="flex items-center gap-2 p-2 rounded-xl bg-primary-foreground/15">
-                  <div className="w-9 h-9 rounded-full bg-primary-foreground/40" />
-                  <div className="flex-1">
-                    <div className="h-2 w-20 bg-primary-foreground/50 rounded mb-1" />
-                    <div className="h-1.5 w-12 bg-primary-foreground/30 rounded" />
-                  </div>
-                </div>
-              ))}
-            </div>
-            {/* chat mock */}
-            <div className="space-y-2">
-              {[0,1,0,1,0].map((side, i) => (
-                <div key={i} className={`flex ${side ? "justify-start" : "justify-end"}`}>
-                  <div className={`max-w-[80%] p-3 rounded-2xl ${side ? "bg-primary-foreground/15" : "bg-secondary/40"}`}>
-                    <div className="h-2 w-24 bg-primary-foreground/50 rounded mb-1" />
-                    <div className="h-2 w-16 bg-primary-foreground/30 rounded" />
-                  </div>
-                </div>
-              ))}
-            </div>
-            {/* documents mock */}
-            <div className="space-y-2">
-              {["Itinerary","Hotel voucher","Flight ticket","Insurance","Group rules"].map(d => (
-                <div key={d} className="flex items-center gap-2 p-2.5 rounded-xl bg-primary-foreground/15">
-                  <div className="w-8 h-10 rounded bg-primary-foreground/40" />
-                  <div className="flex-1">
-                    <div className="h-2 w-24 bg-primary-foreground/50 rounded mb-1" />
-                    <div className="h-1.5 w-10 bg-primary-foreground/30 rounded" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          {/* dark wash for legibility */}
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/70 to-transparent" />
+        <div className="relative w-full bg-gradient-to-br from-[hsl(222_35%_10%)] via-primary to-accent text-primary-foreground overflow-hidden">
+          {/* glow accents */}
+          <div aria-hidden className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-secondary/20 blur-3xl pointer-events-none" />
+          <div aria-hidden className="absolute -bottom-40 -right-20 w-[500px] h-[500px] rounded-full bg-accent/30 blur-3xl pointer-events-none" />
 
-          <div className="relative container py-16 md:py-20 max-w-2xl">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-bold uppercase tracking-wider mb-4">
-              <Sparkles className="w-3.5 h-3.5" /> Trip Hub
-            </span>
-            <h2 className="text-4xl sm:text-5xl font-extrabold font-display leading-[1.05]">
-              Meet your travel group<br />before the trip.
-            </h2>
-            <p className="mt-4 text-base sm:text-lg text-primary-foreground/85 max-w-lg">
-              Group chat with co-travelers. Direct line to your planner. Tickets, vouchers and itineraries — all in one private space.
-            </p>
-            <div className="flex flex-wrap gap-2 mt-5">
-              {[
-                { icon: Users, label: "Travelers list" },
-                { icon: MessagesSquare, label: "Group chat" },
-                { icon: ShieldCheck, label: "Planner DMs" },
-              ].map(p => (
-                <span key={p.label} className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-primary-foreground/15 backdrop-blur border border-primary-foreground/25 font-medium">
-                  <p.icon className="w-3.5 h-3.5" /> {p.label}
-                </span>
-              ))}
+          <div className="relative container py-16 md:py-24 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            {/* LEFT — copy */}
+            <div className="max-w-xl">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-bold uppercase tracking-wider mb-4">
+                <Sparkles className="w-3.5 h-3.5" /> Trip Hub
+              </span>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display leading-[1.02]">
+                See who you're<br />traveling with<br /><span className="text-secondary">before the trip.</span>
+              </h2>
+              <p className="mt-5 text-base sm:text-lg text-primary-foreground/85">
+                Real travelers. Real chat. Real plans — all unlocked the moment you book.
+              </p>
+
+              <div className="flex flex-wrap gap-2 mt-6">
+                {[
+                  { icon: Users, label: "Travelers list" },
+                  { icon: MessagesSquare, label: "Group chat" },
+                  { icon: ShieldCheck, label: "Planner DMs" },
+                ].map((p) => (
+                  <span key={p.label} className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-primary-foreground/15 backdrop-blur border border-primary-foreground/25 font-medium">
+                    <p.icon className="w-3.5 h-3.5" /> {p.label}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 mt-8">
+                <Link
+                  to="/explore"
+                  className="group inline-flex items-center gap-2 h-13 px-6 py-3.5 rounded-xl bg-secondary text-secondary-foreground font-bold hover:bg-secondary/90 transition-all shadow-elevated hover:scale-[1.03]"
+                >
+                  <Lock className="w-4 h-4" /> Unlock Your Trip Community
+                </Link>
+                <Link
+                  to="/trip-hub"
+                  className="inline-flex items-center gap-2 h-13 px-5 py-3.5 rounded-xl bg-primary-foreground/10 backdrop-blur border border-primary-foreground/30 font-medium hover:bg-primary-foreground/20 transition-colors"
+                >
+                  Preview <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
-            <div className="flex flex-wrap items-center gap-3 mt-7">
-              <Link
-                to="/explore"
-                className="inline-flex items-center gap-2 h-12 px-6 rounded-xl bg-secondary text-secondary-foreground font-bold hover:bg-secondary/90 transition-colors shadow-elevated"
-              >
-                <Lock className="w-4 h-4" /> Unlock after booking
-              </Link>
-              <Link
-                to="/trip-hub"
-                className="inline-flex items-center gap-2 h-12 px-5 rounded-xl bg-primary-foreground/10 backdrop-blur border border-primary-foreground/30 font-medium hover:bg-primary-foreground/20 transition-colors"
-              >
-                Preview <ArrowRight className="w-4 h-4" />
-              </Link>
+
+            {/* RIGHT — blurred Trip Hub UI preview */}
+            <div className="relative">
+              {/* Travelers card */}
+              <div className="relative rounded-2xl bg-primary-foreground/10 backdrop-blur-xl border border-primary-foreground/20 p-4 shadow-elevated max-w-md ml-auto" style={{ filter: "blur(0.5px)" }}>
+                <div className="flex items-center justify-between mb-3">
+                  <p className="text-xs font-bold uppercase tracking-wider opacity-80">Travelers · 12</p>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-success/30 font-bold">All confirmed</span>
+                </div>
+                <div className="flex -space-x-2 mb-3">
+                  {featuredReviews.concat(reviews.slice(3, 8)).slice(0, 6).map((r, i) => (
+                    <img
+                      key={i}
+                      src={r.avatar}
+                      alt=""
+                      className="w-10 h-10 rounded-full object-cover border-2 border-primary"
+                      loading="lazy"
+                    />
+                  ))}
+                  <span className="w-10 h-10 rounded-full border-2 border-primary bg-primary-foreground/20 backdrop-blur flex items-center justify-center text-[10px] font-bold">+6</span>
+                </div>
+                <div className="text-[11px] opacity-80">Manali Group · Apr 18 – 22</div>
+              </div>
+
+              {/* Chat preview card — overlapped */}
+              <div className="relative rounded-2xl bg-primary-foreground/10 backdrop-blur-xl border border-primary-foreground/20 p-4 shadow-elevated max-w-sm mt-4 -ml-2 sm:ml-6">
+                <div className="flex items-center gap-2 pb-3 mb-3 border-b border-primary-foreground/20">
+                  <MessagesSquare className="w-4 h-4" />
+                  <p className="text-xs font-bold">Group chat</p>
+                  <span className="ml-auto w-2 h-2 rounded-full bg-success animate-pulse" />
+                </div>
+                <div className="space-y-2.5">
+                  <div className="flex items-start gap-2">
+                    <img src={featuredReviews[0]?.avatar} alt="" className="w-7 h-7 rounded-full object-cover shrink-0" loading="lazy" />
+                    <div className="bg-primary-foreground/15 rounded-2xl rounded-tl-sm px-3 py-2 max-w-[80%]">
+                      <p className="text-[11px] font-bold opacity-90">{featuredReviews[0]?.user.split(" ")[0]}</p>
+                      <p className="text-xs">Anyone landing at 6am? Share a cab? 🚖</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2 justify-end">
+                    <div className="bg-secondary/40 rounded-2xl rounded-tr-sm px-3 py-2 max-w-[80%]">
+                      <p className="text-xs">Yess I'm in! 🙋‍♀️</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <img src={featuredReviews[1]?.avatar} alt="" className="w-7 h-7 rounded-full object-cover shrink-0" loading="lazy" />
+                    <div className="bg-primary-foreground/15 rounded-2xl rounded-tl-sm px-3 py-2 max-w-[80%]">
+                      <p className="text-[11px] font-bold opacity-90">Planner · Himalayan Trails</p>
+                      <p className="text-xs">Pickup confirmed at 6:30am ✅</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Lock badge */}
+              <div className="absolute -top-3 -right-3 sm:top-4 sm:-right-2 rotate-6 bg-secondary text-secondary-foreground px-3 py-1.5 rounded-xl text-[11px] font-extrabold shadow-elevated inline-flex items-center gap-1">
+                <Lock className="w-3.5 h-3.5" /> Unlocks after booking
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* VERIFIED PLANNERS — trust strip */}
-      <section className="py-12 overflow-hidden">
-        <div className="container mb-6">
-          <span className="inline-block px-3 py-1 rounded-full bg-accent/15 text-accent text-xs font-bold uppercase tracking-wider mb-2">Trusted partners</span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold font-display">Trusted by top travel planners</h2>
-          <p className="text-sm text-muted-foreground">Hand-picked, KYC-verified companies behind every trip.</p>
+      {/* TRUST WALL — big horizontal company logos */}
+      <section className="py-14 border-y bg-muted/30">
+        <div className="container mb-8 text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-2">Trusted partners</p>
+          <h2 className="text-2xl sm:text-3xl font-extrabold font-display">Powered by India's best travel companies</h2>
         </div>
-        <div className="flex gap-4 overflow-x-auto scrollbar-hide px-[max(1rem,calc((100vw-1280px)/2))] pb-4 snap-x">
-          {Object.values(companies).map((c) => (
-            <Link
-              key={c.id}
-              to={`/planner/${c.id}`}
-              className="snap-start shrink-0 w-[240px] rounded-2xl border bg-card p-5 hover:shadow-card hover-lift transition-all group"
-            >
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/15 to-accent/15 flex items-center justify-center text-3xl mb-3 group-hover:scale-110 transition-transform">
-                {c.logo}
-              </div>
-              <p className="font-bold text-sm flex items-center gap-1">
-                {c.name}
-                {c.verified && <ShieldCheck className="w-3.5 h-3.5 text-accent" />}
-              </p>
-              <p className="text-[11px] text-muted-foreground line-clamp-2 mt-1 mb-3">{c.about}</p>
-              <div className="flex items-center justify-between text-xs pt-3 border-t">
-                <span className="flex items-center gap-1 font-semibold">
-                  <Star className="w-3 h-3 fill-secondary stroke-secondary" /> {c.rating}
-                </span>
-                <span className="text-muted-foreground">{c.trips} trips</span>
-              </div>
-            </Link>
-          ))}
+        <div className="container">
+          <div className="flex items-center justify-between gap-6 sm:gap-10 flex-wrap sm:flex-nowrap overflow-x-auto scrollbar-hide">
+            {Object.values(companies).map((c) => (
+              <Link
+                key={c.id}
+                to={`/planner/${c.id}`}
+                className="group flex items-center gap-3 shrink-0 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all"
+              >
+                <span className="text-4xl sm:text-5xl group-hover:scale-110 transition-transform">{c.logo}</span>
+                <div className="hidden sm:block">
+                  <p className="font-extrabold text-base flex items-center gap-1 leading-tight">
+                    {c.name}
+                    {c.verified && <ShieldCheck className="w-4 h-4 text-accent" />}
+                  </p>
+                  <p className="text-[11px] text-muted-foreground flex items-center gap-1">
+                    <Star className="w-3 h-3 fill-secondary stroke-secondary" /> {c.rating} · {c.trips} trips
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
