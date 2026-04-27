@@ -38,6 +38,12 @@ const Hero = () => {
           >
             Compare trips. Book smarter.
           </p>
+          <p
+            className="text-sm sm:text-base text-white/70 max-w-xl animate-fade-in"
+            style={{ animationDelay: "320ms", animationFillMode: "backwards" }}
+          >
+            Group trips are the ultimate way to socialise. ✨
+          </p>
           <div
             className="flex flex-wrap items-center gap-3 pt-2 animate-fade-in"
             style={{ animationDelay: "380ms", animationFillMode: "backwards" }}
@@ -46,7 +52,7 @@ const Hero = () => {
               to="/explore"
               className="group inline-flex items-center gap-2 h-14 px-7 rounded-2xl bg-secondary text-secondary-foreground font-semibold text-base hover:bg-secondary/90 transition-all shadow-elevated hover:scale-[1.03]"
             >
-              Explore Trips <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              Start Exploring Trips <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               to="/destinations"

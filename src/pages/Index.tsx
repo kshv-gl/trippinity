@@ -285,6 +285,75 @@ const Index = () => {
         </div>
       </section>
 
+      {/* LIVE MARKETPLACE — horizontal scroll w/ urgency signals */}
+      <section className="py-12 bg-gradient-to-b from-background via-muted/20 to-background">
+        <div className="container flex items-end justify-between mb-5">
+          <div>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-success/15 text-success text-xs font-bold uppercase tracking-wider mb-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" /> Live now
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold font-display">People are booking trips right now</h2>
+            <p className="text-sm text-muted-foreground">Real activity from the last 24 hours · don't miss out</p>
+          </div>
+          <Link to="/explore" className="text-sm font-medium text-primary hover:underline hidden sm:inline">View all →</Link>
+        </div>
+
+        <div className="container-fluid pl-4 sm:pl-[max(1rem,calc((100vw-1280px)/2+1rem))] overflow-hidden">
+          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 pr-4 scrollbar-hide">
+            {mockTrips.slice(0, 8).map((trip, i) => {
+              const statuses = [
+                { label: "12 people booked", tone: "success" as const, icon: Users },
+                { label: "Only 3 spots left", tone: "warning" as const, icon: Flame },
+                { label: "Sold out", tone: "danger" as const, icon: Lock },
+                { label: "8 viewing now", tone: "success" as const, icon: Users },
+              ];
+              const s = statuses[i % statuses.length];
+              const isSoldOut = s.label === "Sold out";
+              const toneClass =
+                s.tone === "success"
+                  ? "bg-success text-success-foreground"
+                  : s.tone === "warning"
+                  ? "bg-secondary text-secondary-foreground"
+                  : "bg-destructive text-destructive-foreground";
+              return (
+                <Link
+                  key={trip.id}
+                  to={isSoldOut ? "/explore" : `/trip/${trip.id}`}
+                  className="snap-start shrink-0 w-[280px] sm:w-[320px] rounded-2xl border bg-card overflow-hidden hover:shadow-elevated hover:-translate-y-1 transition-all duration-300 group"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img
+                      src={trip.image}
+                      alt={trip.title}
+                      loading="lazy"
+                      className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ${isSoldOut ? "grayscale" : ""}`}
+                    />
+                    <span className={`absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-extrabold shadow-soft ${toneClass}`}>
+                      <s.icon className="w-3 h-3" /> {s.label}
+                    </span>
+                    {isSoldOut && (
+                      <div className="absolute inset-0 bg-foreground/40 flex items-center justify-center">
+                        <span className="px-3 py-1.5 rounded-lg bg-background/90 text-foreground text-xs font-extrabold uppercase tracking-wider">Sold out</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-4">
+                    <p className="text-sm font-bold truncate">{trip.title}</p>
+                    <p className="text-xs text-muted-foreground truncate">{trip.location} · {trip.duration}</p>
+                    <div className="flex items-center justify-between mt-3">
+                      <span className="text-base font-extrabold text-primary">₹{trip.price.toLocaleString()}</span>
+                      <span className="text-[11px] text-muted-foreground flex items-center gap-1">
+                        <Star className="w-3 h-3 fill-secondary stroke-secondary" /> {trip.rating}
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Popular trips */}
       <section className="container py-10">
         <div className="flex items-end justify-between mb-5">
@@ -494,7 +563,7 @@ const Index = () => {
               to="/explore"
               className="group inline-flex h-13 px-7 py-3.5 rounded-xl bg-white text-primary font-bold items-center gap-2 hover:scale-105 transition-transform shadow-elevated"
             >
-              Explore Trips <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              Start Exploring Trips <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               to="/explore"
