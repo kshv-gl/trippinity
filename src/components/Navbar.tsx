@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Menu,
   ChevronDown,
@@ -10,6 +10,7 @@ import {
   Compass,
   Quote,
   LogOut,
+  Plus,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -24,15 +25,23 @@ import { useAuth } from "@/hooks/useAuth";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [destOpen, setDestOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuth();
+  const isActive = (path: string) => location.pathname === path;
+  const navLinkCls = (path: string) =>
+    `px-4 py-2 rounded-xl text-sm transition-colors ${
+      isActive(path)
+        ? "text-primary font-semibold bg-primary/8"
+        : "font-medium text-foreground/80 hover:text-foreground hover:bg-muted"
+    }`;
 
   return (
-    <header className="sticky top-0 z-50 bg-background/85 backdrop-blur-xl border-b border-border/60">
-      <div className="container flex items-center justify-between h-16">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-border/80">
+      <div className="container flex items-center justify-between h-[68px]">
         <Link to="/" className="flex items-center gap-1 group">
-          <span className="text-3xl sm:text-3xl font-extrabold tracking-tight font-display">
-            Tripp<span className="text-accent">inity</span>
+          <span className="text-2xl sm:text-2xl font-extrabold tracking-tight font-display">
+            Tripp<span className="text-primary">inity</span>
           </span>
         </Link>
 
@@ -71,31 +80,26 @@ const Navbar = () => {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Link
-            to="/explore"
-            className="px-4 py-2 rounded-xl text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-muted transition-colors"
-          >
+          <Link to="/explore" className={navLinkCls("/explore")}>
             Explore All Trips
           </Link>
 
-          <Link
-            to="/trip-hub"
-            className="px-4 py-2 rounded-xl text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-muted transition-colors"
-          >
+          <Link to="/trip-hub" className={navLinkCls("/trip-hub")}>
             Trip Hub
           </Link>
 
           <Link
-            to="/about"
-            className="px-4 py-2 rounded-xl text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-muted transition-colors"
+            to="/list-trip"
+            className="px-4 py-2 rounded-xl text-sm font-semibold bg-primary/10 text-primary hover:bg-primary/15 transition-colors inline-flex items-center gap-1.5"
           >
+            <Plus className="w-4 h-4" /> List your trip
+          </Link>
+
+          <Link to="/about" className={navLinkCls("/about")}>
             About
           </Link>
 
-          <Link
-            to="/testimonials"
-            className="px-4 py-2 rounded-xl text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-muted transition-colors"
-          >
+          <Link to="/testimonials" className={navLinkCls("/testimonials")}>
             Testimonials
           </Link>
         </nav>

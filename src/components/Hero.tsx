@@ -1,10 +1,10 @@
-import { ArrowRight, ShieldCheck, Star, Users } from "lucide-react";
+import { ArrowRight, ChevronDown, ShieldCheck, Star, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { HERO_VIDEO, HERO_POSTER } from "@/data/mockTrips";
 
 const Hero = () => {
   return (
-    <section className="relative h-[88vh] min-h-[560px] w-full overflow-hidden">
+    <section className="relative h-screen min-h-[600px] w-full overflow-hidden">
       <video
         className="absolute inset-0 w-full h-full object-cover"
         autoPlay
@@ -18,31 +18,31 @@ const Hero = () => {
       </video>
       <div className="absolute inset-0 hero-overlay" />
 
-      <div className="relative z-10 container h-full flex flex-col justify-end pb-20 sm:pb-28 text-primary-foreground">
+      <div className="relative z-10 container h-full flex flex-col justify-end pb-24 sm:pb-32 text-primary-foreground">
         <div className="max-w-3xl space-y-6 animate-fade-in">
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-xs sm:text-sm font-medium animate-fade-in" style={{ animationDelay: "60ms", animationFillMode: "backwards" }}>
-            <ShieldCheck className="w-4 h-4 text-secondary" />
+          <span
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-xs sm:text-sm font-medium animate-fade-in"
+            style={{ animationDelay: "60ms", animationFillMode: "backwards" }}
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-success opacity-75 animate-ping" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-success" />
+            </span>
             Trusted by 12,000+ travelers · 4.8 ★
           </span>
           <h1
-            className="font-display text-5xl sm:text-7xl font-extrabold leading-[1.02] tracking-tight animate-fade-in"
+            className="font-display text-5xl sm:text-7xl font-extrabold leading-[1.02] tracking-tight space-y-1 animate-fade-in"
             style={{ animationDelay: "140ms", animationFillMode: "backwards" }}
           >
-            The Amazon
-            <br />
-            <span className="text-secondary">for Trips.</span>
+            <span className="block">Real trips.</span>
+            <span className="block text-secondary">Real people.</span>
+            <span className="block">Booked in minutes.</span>
           </h1>
           <p
-            className="text-lg sm:text-2xl text-white/90 max-w-xl font-medium animate-fade-in"
+            className="text-lg sm:text-2xl text-white/95 max-w-xl font-medium animate-fade-in"
             style={{ animationDelay: "260ms", animationFillMode: "backwards" }}
           >
             Compare trips. Book smarter.
-          </p>
-          <p
-            className="text-sm sm:text-base text-white/70 max-w-xl animate-fade-in"
-            style={{ animationDelay: "320ms", animationFillMode: "backwards" }}
-          >
-            Group trips are the ultimate way to socialise. ✨
           </p>
           <div
             className="flex flex-wrap items-center gap-3 pt-2 animate-fade-in"
@@ -50,9 +50,9 @@ const Hero = () => {
           >
             <Link
               to="/explore"
-              className="group inline-flex items-center gap-2 h-14 px-7 rounded-2xl bg-secondary text-secondary-foreground font-semibold text-base hover:bg-secondary/90 transition-all shadow-elevated hover:scale-[1.03]"
+              className="group inline-flex items-center gap-2 h-14 px-7 rounded-2xl bg-white text-primary font-bold text-base hover:bg-white/95 transition-all shadow-elevated hover:scale-[1.03]"
             >
-              Start Exploring Trips <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              Explore Trips <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               to="/destinations"
@@ -71,6 +71,11 @@ const Hero = () => {
             <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4" /> 100% verified planners</span>
           </div>
         </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 text-white/80 animate-bounce">
+        <ChevronDown className="w-6 h-6" />
       </div>
     </section>
   );

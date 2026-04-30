@@ -119,11 +119,11 @@ const AIChatWidget = () => {
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label="Open AI travel assistant"
-        className="fixed bottom-20 md:bottom-6 right-4 md:right-6 z-[60] h-14 w-14 rounded-full bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-elevated flex items-center justify-center hover:scale-110 transition-transform"
+        className="fixed bottom-20 md:bottom-6 right-4 md:right-6 z-[60] h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-elevated flex items-center justify-center hover:scale-110 transition-transform"
       >
         {open ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
         {!open && (
-          <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-secondary text-secondary-foreground text-[10px] font-bold flex items-center justify-center animate-pulse">
+          <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-success text-white text-[10px] font-bold flex items-center justify-center animate-pulse">
             AI
           </span>
         )}
@@ -132,14 +132,14 @@ const AIChatWidget = () => {
       {/* Panel */}
       {open && (
         <div className="fixed bottom-36 md:bottom-24 right-2 md:right-6 z-[60] w-[calc(100vw-1rem)] max-w-[380px] h-[560px] max-h-[80vh] bg-card border rounded-2xl shadow-elevated flex flex-col overflow-hidden animate-scale-in">
-          <div className="p-4 border-b bg-gradient-to-r from-primary to-accent text-primary-foreground flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center">
+          <div className="p-4 border-b bg-foreground text-background flex items-center gap-3">
+            <div className="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center">
               <Sparkles className="w-5 h-5" />
             </div>
             <div className="flex-1">
-              <p className="font-bold text-sm">Trippy · AI Travel Concierge</p>
-              <p className="text-[11px] opacity-90 flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-success" /> Online
+              <p className="font-bold text-sm font-display">Trippy · AI Travel Concierge</p>
+              <p className="text-[11px] opacity-75 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-success animate-pulse" /> Online · Powered by Claude
               </p>
             </div>
           </div>
@@ -173,7 +173,7 @@ const AIChatWidget = () => {
                 <button
                   key={s}
                   onClick={() => send(s)}
-                  className="text-[11px] px-2.5 py-1 rounded-full bg-muted hover:bg-muted/70 transition-colors text-foreground/80"
+                  className="text-[11px] pl-2.5 pr-2.5 py-1 rounded-full bg-muted hover:bg-muted/70 transition-colors text-foreground/80 border-l-2 border-l-primary"
                 >
                   {s}
                 </button>

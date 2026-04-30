@@ -3,39 +3,46 @@ import { ShieldCheck, Heart } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="border-t bg-muted/40 mt-16">
-      <div className="container py-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-sm">
+    <footer className="bg-foreground text-background mt-16">
+      <div className="container py-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-sm">
         <div>
-          <h4 className="font-display text-2xl font-extrabold mb-3">
-            Tripp<span className="text-accent">inity</span>
+          <h4 className="font-display text-2xl font-extrabold mb-3 text-white">
+            Tripp<span className="text-secondary">inity</span>
           </h4>
-          <p className="text-muted-foreground">The Amazon for Trips. Discover, compare, and book curated journeys.</p>
+          <p className="text-white/60">The Amazon for Trips. Discover, compare, and book curated journeys.</p>
         </div>
         <div>
-          <h5 className="font-semibold mb-3">Explore</h5>
-          <ul className="space-y-2 text-muted-foreground">
-            <li><Link to="/explore" className="hover:text-foreground">All Trips</Link></li>
-            <li><Link to="/destinations" className="hover:text-foreground">Destinations</Link></li>
-            <li><Link to="/trip-hub" className="hover:text-foreground">Trip Hub</Link></li>
+          <h5 className="font-semibold mb-3 text-white">Explore</h5>
+          <ul className="space-y-2 text-white/60">
+            <li><Link to="/explore" className="hover:text-white">All Trips</Link></li>
+            <li><Link to="/destinations" className="hover:text-white">Destinations</Link></li>
+            <li><Link to="/trip-hub" className="hover:text-white">Trip Hub</Link></li>
+            <li><Link to="/list-trip" className="hover:text-white">List your trip</Link></li>
           </ul>
         </div>
         <div>
-          <h5 className="font-semibold mb-3">Company</h5>
-          <ul className="space-y-2 text-muted-foreground">
-            <li><Link to="/about" className="hover:text-foreground">About</Link></li>
-            <li><Link to="/contact" className="hover:text-foreground">Contact</Link></li>
+          <h5 className="font-semibold mb-3 text-white">Company</h5>
+          <ul className="space-y-2 text-white/60">
+            <li><Link to="/about" className="hover:text-white">About</Link></li>
+            <li><Link to="/contact" className="hover:text-white">Contact</Link></li>
+            <li><Link to="/testimonials" className="hover:text-white">Testimonials</Link></li>
           </ul>
         </div>
         <div>
-          <h5 className="font-semibold mb-3">Trust & Safety</h5>
-          <ul className="space-y-2 text-muted-foreground">
-            <li className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-accent" /> Verified planners</li>
-            <li className="flex items-center gap-1.5"><Heart className="w-4 h-4 text-destructive" /> Loved by 12k+ travelers</li>
+          <h5 className="font-semibold mb-3 text-white">Trust & Safety</h5>
+          <ul className="space-y-2 text-white/60">
+            <li className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-secondary" /> Verified planners</li>
+            <li className="flex items-center gap-1.5"><Heart className="w-4 h-4 text-primary" /> Loved by 12k+ travelers</li>
+            <li className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-secondary" /> Payments by Razorpay</li>
+            <li><Link to="/about" className="hover:text-white">Terms & Privacy</Link></li>
           </ul>
         </div>
       </div>
-      <div className="border-t py-5 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Trippinity. All rights reserved.
+      <div className="border-t border-white/10 py-5 text-xs text-white/50">
+        <div className="container flex flex-col sm:flex-row items-center justify-between gap-2">
+          <span>© {new Date().getFullYear()} Trippinity. All rights reserved.</span>
+          <span>Made with <Heart className="inline w-3 h-3 fill-primary text-primary" /> in India</span>
+        </div>
       </div>
     </footer>
   );

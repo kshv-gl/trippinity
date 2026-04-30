@@ -14,7 +14,369 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          add_ons: Json
+          add_ons_amount: number
+          adults: number
+          base_amount: number
+          children: number
+          created_at: string
+          departure_date: string
+          gst_amount: number
+          id: string
+          lead_email: string
+          lead_first_name: string
+          lead_last_name: string
+          lead_phone: string
+          payment_status: Database["public"]["Enums"]["payment_status"]
+          platform_fee: number
+          special_requests: string | null
+          status: Database["public"]["Enums"]["booking_status"]
+          total_amount: number
+          trip_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          add_ons?: Json
+          add_ons_amount?: number
+          adults?: number
+          base_amount: number
+          children?: number
+          created_at?: string
+          departure_date: string
+          gst_amount?: number
+          id?: string
+          lead_email: string
+          lead_first_name: string
+          lead_last_name: string
+          lead_phone: string
+          payment_status?: Database["public"]["Enums"]["payment_status"]
+          platform_fee?: number
+          special_requests?: string | null
+          status?: Database["public"]["Enums"]["booking_status"]
+          total_amount: number
+          trip_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          add_ons?: Json
+          add_ons_amount?: number
+          adults?: number
+          base_amount?: number
+          children?: number
+          created_at?: string
+          departure_date?: string
+          gst_amount?: number
+          id?: string
+          lead_email?: string
+          lead_first_name?: string
+          lead_last_name?: string
+          lead_phone?: string
+          payment_status?: Database["public"]["Enums"]["payment_status"]
+          platform_fee?: number
+          special_requests?: string | null
+          status?: Database["public"]["Enums"]["booking_status"]
+          total_amount?: number
+          trip_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      operators: {
+        Row: {
+          avatar_url: string | null
+          bank_account_last4: string | null
+          bio: string | null
+          business_name: string
+          created_at: string
+          id: string
+          ifsc: string | null
+          joined_at: string
+          phone: string | null
+          rating_avg: number
+          rating_count: number
+          response_time_hours: number
+          updated_at: string
+          user_id: string | null
+          verified: boolean
+          whatsapp: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          bank_account_last4?: string | null
+          bio?: string | null
+          business_name: string
+          created_at?: string
+          id?: string
+          ifsc?: string | null
+          joined_at?: string
+          phone?: string | null
+          rating_avg?: number
+          rating_count?: number
+          response_time_hours?: number
+          updated_at?: string
+          user_id?: string | null
+          verified?: boolean
+          whatsapp?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          bank_account_last4?: string | null
+          bio?: string | null
+          business_name?: string
+          created_at?: string
+          id?: string
+          ifsc?: string | null
+          joined_at?: string
+          phone?: string | null
+          rating_avg?: number
+          rating_count?: number
+          response_time_hours?: number
+          updated_at?: string
+          user_id?: string | null
+          verified?: boolean
+          whatsapp?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          account_type: Database["public"]["Enums"]["account_type"]
+          avatar_url: string | null
+          created_at: string
+          display_name: string | null
+          email: string | null
+          id: string
+          phone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          account_type?: Database["public"]["Enums"]["account_type"]
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          account_type?: Database["public"]["Enums"]["account_type"]
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      reviews: {
+        Row: {
+          booking_id: string | null
+          created_at: string
+          id: string
+          rating: number
+          text: string | null
+          trip_id: string
+          user_id: string
+        }
+        Insert: {
+          booking_id?: string | null
+          created_at?: string
+          id?: string
+          rating: number
+          text?: string | null
+          trip_id: string
+          user_id: string
+        }
+        Update: {
+          booking_id?: string | null
+          created_at?: string
+          id?: string
+          rating?: number
+          text?: string | null
+          trip_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reviews_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trips: {
+        Row: {
+          add_ons: Json
+          available_dates: string[]
+          base_price: number
+          bookings_count: number
+          cancellation_policy: Database["public"]["Enums"]["cancellation_policy"]
+          category: Database["public"]["Enums"]["trip_category"]
+          cover_image: string | null
+          created_at: string
+          destination: string
+          difficulty: Database["public"]["Enums"]["difficulty_level"]
+          duration_days: number
+          ending_point: string | null
+          exclusions: string[]
+          group_discount_pct: number | null
+          group_discount_threshold: number | null
+          id: string
+          inclusions: string[]
+          itinerary: Json
+          max_group_size: number
+          min_group_size: number
+          operator_id: string
+          overview: string | null
+          photos: string[]
+          rating_avg: number
+          rating_count: number
+          region: string | null
+          short_description: string | null
+          slug: string | null
+          spots_per_departure: number
+          starting_point: string | null
+          status: Database["public"]["Enums"]["trip_status"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          add_ons?: Json
+          available_dates?: string[]
+          base_price: number
+          bookings_count?: number
+          cancellation_policy?: Database["public"]["Enums"]["cancellation_policy"]
+          category: Database["public"]["Enums"]["trip_category"]
+          cover_image?: string | null
+          created_at?: string
+          destination: string
+          difficulty?: Database["public"]["Enums"]["difficulty_level"]
+          duration_days: number
+          ending_point?: string | null
+          exclusions?: string[]
+          group_discount_pct?: number | null
+          group_discount_threshold?: number | null
+          id?: string
+          inclusions?: string[]
+          itinerary?: Json
+          max_group_size?: number
+          min_group_size?: number
+          operator_id: string
+          overview?: string | null
+          photos?: string[]
+          rating_avg?: number
+          rating_count?: number
+          region?: string | null
+          short_description?: string | null
+          slug?: string | null
+          spots_per_departure?: number
+          starting_point?: string | null
+          status?: Database["public"]["Enums"]["trip_status"]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          add_ons?: Json
+          available_dates?: string[]
+          base_price?: number
+          bookings_count?: number
+          cancellation_policy?: Database["public"]["Enums"]["cancellation_policy"]
+          category?: Database["public"]["Enums"]["trip_category"]
+          cover_image?: string | null
+          created_at?: string
+          destination?: string
+          difficulty?: Database["public"]["Enums"]["difficulty_level"]
+          duration_days?: number
+          ending_point?: string | null
+          exclusions?: string[]
+          group_discount_pct?: number | null
+          group_discount_threshold?: number | null
+          id?: string
+          inclusions?: string[]
+          itinerary?: Json
+          max_group_size?: number
+          min_group_size?: number
+          operator_id?: string
+          overview?: string | null
+          photos?: string[]
+          rating_avg?: number
+          rating_count?: number
+          region?: string | null
+          short_description?: string | null
+          slug?: string | null
+          spots_per_departure?: number
+          starting_point?: string | null
+          status?: Database["public"]["Enums"]["trip_status"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trips_operator_id_fkey"
+            columns: ["operator_id"]
+            isOneToOne: false
+            referencedRelation: "operators"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      wishlists: {
+        Row: {
+          created_at: string
+          id: string
+          trip_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          trip_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          trip_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wishlists_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +385,21 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      account_type: "traveller" | "operator" | "both"
+      booking_status: "pending" | "confirmed" | "cancelled" | "completed"
+      cancellation_policy: "flexible" | "moderate" | "strict"
+      difficulty_level: "easy" | "moderate" | "challenging" | "expert"
+      payment_status: "pending" | "paid" | "refunded" | "failed"
+      trip_category:
+        | "trek"
+        | "beach"
+        | "cultural"
+        | "wildlife"
+        | "road_trip"
+        | "offbeat"
+        | "luxury"
+        | "budget"
+      trip_status: "draft" | "under_review" | "live" | "paused"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +526,23 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      account_type: ["traveller", "operator", "both"],
+      booking_status: ["pending", "confirmed", "cancelled", "completed"],
+      cancellation_policy: ["flexible", "moderate", "strict"],
+      difficulty_level: ["easy", "moderate", "challenging", "expert"],
+      payment_status: ["pending", "paid", "refunded", "failed"],
+      trip_category: [
+        "trek",
+        "beach",
+        "cultural",
+        "wildlife",
+        "road_trip",
+        "offbeat",
+        "luxury",
+        "budget",
+      ],
+      trip_status: ["draft", "under_review", "live", "paused"],
+    },
   },
 } as const

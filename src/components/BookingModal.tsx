@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { X, CheckCircle, Compass, CreditCard, ShieldCheck, Lock } from "lucide-react";
+import { X, CheckCircle, Compass, CreditCard, ShieldCheck, Lock, Smartphone, Building2, Check } from "lucide-react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import type { Trip } from "@/data/mockTrips";
 import { useBookingState } from "@/hooks/useBookingState";
 
@@ -24,6 +25,7 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
     peopleCount: "1",
   });
   const [card, setCard] = useState({ number: "", name: "", exp: "", cvv: "" });
+  const [payMethod, setPayMethod] = useState<"card" | "upi" | "netbanking">("card");
 
   if (!open) return null;
 
@@ -78,14 +80,44 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
 
         {/* Step indicator */}
         {step !== "confirmed" && (
-          <div className="px-5 pt-4 flex items-center gap-2 text-[11px] font-medium">
-            <span className={`flex-1 h-1.5 rounded-full ${step === "details" ? "bg-primary" : "bg-success"}`} />
-            <span className={`flex-1 h-1.5 rounded-full ${step === "payment" ? "bg-primary" : "bg-muted"}`} />
+          <div className="px-5 pt-4 flex items-center justify-between gap-2 text-[11px] font-medium">
+            {[
+              { key: "details", label: "Details", n: 1 },
+              { key: "payment", label: "Payment", n: 2 },
+              { key: "confirmed", label: "Confirmed", n: 3 },
+            ].map((s, i, arr) => {
+              const order = ["details", "payment", "confirmed"];
+              const currentIdx = order.indexOf(step);
+              const myIdx = order.indexOf(s.key);
+              const completed = myIdx < currentIdx;
+              const active = myIdx === currentIdx;
+              return (
+                <div key={s.key} className="flex items-center flex-1 last:flex-none gap-2">
+                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold border-2 transition-colors ${
+                    completed ? "bg-success border-success text-white"
+                    : active ? "bg-primary border-primary text-white"
+                    : "bg-card border-border text-muted-foreground"
+                  }`}>
+                    {completed ? <Check className="w-3.5 h-3.5" /> : s.n}
+                  </div>
+                  <span className={active ? "text-primary font-semibold" : "text-muted-foreground"}>{s.label}</span>
+                  {i < arr.length - 1 && <div className={`flex-1 h-0.5 ${completed ? "bg-success" : "bg-border"}`} />}
+                </div>
+              );
+            })}
           </div>
         )}
 
         {step === "details" && (
           <form onSubmit={handleDetails} className="p-5 space-y-4">
+            {/* Trip summary */}
+            <div className="flex items-center gap-3 p-3 rounded-xl border bg-muted/30">
+              <div className="w-14 h-14 rounded-lg bg-cover bg-center shrink-0" style={{ backgroundImage: `url(${trip.image})` }} />
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-display font-semibold truncate">{trip.title}</p>
+                <p className="text-xs text-muted-foreground">₹{trip.price.toLocaleString("en-IN")} / person</p>
+              </div>
+            </div>
             <div>
               <label className="text-sm font-medium mb-1 block">Full Name</label>
               <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -144,30 +176,61 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
               <p className="text-[11px] text-muted-foreground">Balance ₹{(total - deposit).toLocaleString("en-IN")} due 7 days before travel.</p>
             </div>
 
-            <div>
-              <label className="text-sm font-medium mb-1 block flex items-center gap-1.5">
-                <CreditCard className="w-4 h-4" /> Card Number
-              </label>
-              <input required value={card.number} onChange={(e) => setCard({ ...card, number: e.target.value })}
-                className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 font-mono" placeholder="4242 4242 4242 4242" />
+            {/* Payment method toggle */}
+            <div className="grid grid-cols-3 gap-2">
+              {([
+                { k: "card", label: "Card", icon: CreditCard },
+                { k: "upi", label: "UPI", icon: Smartphone },
+                { k: "netbanking", label: "Net Banking", icon: Building2 },
+              ] as const).map((m) => (
+                <button
+                  type="button"
+                  key={m.k}
+                  onClick={() => {
+                    if (m.k !== "card") {
+                      toast("Coming soon — Card works for the demo");
+                      return;
+                    }
+                    setPayMethod("card");
+                  }}
+                  className={`h-14 rounded-xl border-2 text-xs font-semibold flex flex-col items-center justify-center gap-1 transition-colors ${
+                    payMethod === m.k ? "border-primary bg-primary/5 text-primary" : "border-border bg-card text-muted-foreground hover:border-border/80"
+                  }`}
+                >
+                  <m.icon className="w-4 h-4" />
+                  {m.label}
+                </button>
+              ))}
             </div>
-            <div>
-              <label className="text-sm font-medium mb-1 block">Cardholder Name</label>
-              <input required value={card.name} onChange={(e) => setCard({ ...card, name: e.target.value })}
-                className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="Name on card" />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="text-sm font-medium mb-1 block">Expiry</label>
-                <input required value={card.exp} onChange={(e) => setCard({ ...card, exp: e.target.value })}
-                  className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 font-mono" placeholder="MM / YY" />
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1 block">CVV</label>
-                <input required type="password" value={card.cvv} onChange={(e) => setCard({ ...card, cvv: e.target.value })}
-                  className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 font-mono" placeholder="•••" />
-              </div>
-            </div>
+
+            {payMethod === "card" && (
+              <>
+                <div>
+                  <label className="text-sm font-medium mb-1 block flex items-center gap-1.5">
+                    <CreditCard className="w-4 h-4" /> Card Number
+                  </label>
+                  <input required value={card.number} onChange={(e) => setCard({ ...card, number: e.target.value })}
+                    className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 font-mono" placeholder="4242 4242 4242 4242" />
+                </div>
+                <div>
+                  <label className="text-sm font-medium mb-1 block">Cardholder Name</label>
+                  <input required value={card.name} onChange={(e) => setCard({ ...card, name: e.target.value })}
+                    className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="Name on card" />
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-sm font-medium mb-1 block">Expiry</label>
+                    <input required value={card.exp} onChange={(e) => setCard({ ...card, exp: e.target.value })}
+                      className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 font-mono" placeholder="MM / YY" />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium mb-1 block">CVV</label>
+                    <input required type="password" value={card.cvv} onChange={(e) => setCard({ ...card, cvv: e.target.value })}
+                      className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 font-mono" placeholder="•••" />
+                  </div>
+                </div>
+              </>
+            )}
 
             <p className="text-[11px] text-muted-foreground flex items-center gap-1.5">
               <Lock className="w-3 h-3" /> Demo payment — no real card is charged.
@@ -185,8 +248,25 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
         )}
 
         {step === "confirmed" && (
-          <div className="p-8 text-center space-y-4 animate-fade-in">
-            <div className="w-20 h-20 rounded-full bg-success/15 flex items-center justify-center mx-auto">
+          <div className="p-8 text-center space-y-4 animate-fade-in relative overflow-hidden">
+            {/* Confetti */}
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+              {[
+                { c: "bg-primary", x: "-80px" },
+                { c: "bg-secondary", x: "60px" },
+                { c: "bg-success", x: "-40px" },
+                { c: "bg-destructive", x: "100px" },
+                { c: "bg-accent", x: "20px" },
+                { c: "bg-secondary", x: "-110px" },
+              ].map((d, i) => (
+                <span
+                  key={i}
+                  className={`absolute w-2.5 h-2.5 rounded-full ${d.c} animate-confetti`}
+                  style={{ ["--cx" as string]: d.x, animationDelay: `${i * 60}ms` } as React.CSSProperties}
+                />
+              ))}
+            </div>
+            <div className="w-20 h-20 rounded-full bg-success/15 flex items-center justify-center mx-auto relative">
               <CheckCircle className="w-12 h-12 text-success" />
             </div>
             <h3 className="text-2xl font-extrabold font-display">Booking Confirmed ✅</h3>

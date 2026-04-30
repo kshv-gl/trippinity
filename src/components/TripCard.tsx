@@ -42,7 +42,7 @@ const TripCard = ({ trip }: { trip: Trip }) => {
       to={`/trip/${trip.id}`}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
-      className="group block rounded-2xl bg-card shadow-soft hover:shadow-card transition-all duration-300 overflow-hidden animate-fade-in border border-border/60"
+      className="group block rounded-2xl bg-white shadow-soft hover:shadow-card hover:border-primary/30 transition-all duration-300 overflow-hidden animate-fade-in border border-border"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <img
@@ -99,14 +99,14 @@ const TripCard = ({ trip }: { trip: Trip }) => {
           <span className="px-2.5 py-1 rounded-lg bg-background/90 backdrop-blur text-xs font-medium inline-flex items-center gap-1">
             <Clock className="w-3 h-3" /> {trip.duration}
           </span>
-          <span className="px-3 py-1.5 rounded-xl bg-primary text-primary-foreground text-sm font-bold shadow-soft">
+          <span className="px-3 py-1.5 rounded-xl bg-white text-primary text-sm font-extrabold shadow-soft">
             ₹{trip.price.toLocaleString("en-IN")}
           </span>
         </div>
       </div>
 
       <div className="p-4 space-y-3">
-        <h3 className="font-semibold text-base leading-snug line-clamp-2 group-hover:text-primary transition-colors">
+        <h3 className="font-display font-semibold text-base leading-snug line-clamp-2 group-hover:text-primary transition-colors">
           {trip.title}
         </h3>
 
@@ -125,14 +125,14 @@ const TripCard = ({ trip }: { trip: Trip }) => {
               navigate(`/planner/${company.id}`);
             }
           }}
-          className="flex items-center gap-3 p-2.5 -mx-1 rounded-xl bg-muted/40 hover:bg-muted transition-colors cursor-pointer border border-transparent hover:border-border"
+          className="flex items-center gap-3 p-2.5 -mx-1 rounded-xl border border-border/50 hover:border-border hover:bg-muted/40 transition-colors cursor-pointer"
         >
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/15 to-accent/15 flex items-center justify-center text-xl shrink-0">
             {company?.logo}
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">Sold by</p>
-            <p className="text-sm font-bold truncate flex items-center gap-1">
+            <p className="text-sm font-bold font-display truncate flex items-center gap-1">
               {company?.name}
               {company?.verified && <ShieldCheck className="w-3.5 h-3.5 text-accent shrink-0" />}
             </p>
