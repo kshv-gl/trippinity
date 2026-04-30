@@ -176,30 +176,61 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
               <p className="text-[11px] text-muted-foreground">Balance ₹{(total - deposit).toLocaleString("en-IN")} due 7 days before travel.</p>
             </div>
 
-            <div>
-              <label className="text-sm font-medium mb-1 block flex items-center gap-1.5">
-                <CreditCard className="w-4 h-4" /> Card Number
-              </label>
-              <input required value={card.number} onChange={(e) => setCard({ ...card, number: e.target.value })}
-                className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 font-mono" placeholder="4242 4242 4242 4242" />
+            {/* Payment method toggle */}
+            <div className="grid grid-cols-3 gap-2">
+              {([
+                { k: "card", label: "Card", icon: CreditCard },
+                { k: "upi", label: "UPI", icon: Smartphone },
+                { k: "netbanking", label: "Net Banking", icon: Building2 },
+              ] as const).map((m) => (
+                <button
+                  type="button"
+                  key={m.k}
+                  onClick={() => {
+                    if (m.k !== "card") {
+                      toast("Coming soon — Card works for the demo");
+                      return;
+                    }
+                    setPayMethod("card");
+                  }}
+                  className={`h-14 rounded-xl border-2 text-xs font-semibold flex flex-col items-center justify-center gap-1 transition-colors ${
+                    payMethod === m.k ? "border-primary bg-primary/5 text-primary" : "border-border bg-card text-muted-foreground hover:border-border/80"
+                  }`}
+                >
+                  <m.icon className="w-4 h-4" />
+                  {m.label}
+                </button>
+              ))}
             </div>
-            <div>
-              <label className="text-sm font-medium mb-1 block">Cardholder Name</label>
-              <input required value={card.name} onChange={(e) => setCard({ ...card, name: e.target.value })}
-                className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="Name on card" />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="text-sm font-medium mb-1 block">Expiry</label>
-                <input required value={card.exp} onChange={(e) => setCard({ ...card, exp: e.target.value })}
-                  className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 font-mono" placeholder="MM / YY" />
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1 block">CVV</label>
-                <input required type="password" value={card.cvv} onChange={(e) => setCard({ ...card, cvv: e.target.value })}
-                  className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 font-mono" placeholder="•••" />
-              </div>
-            </div>
+
+            {payMethod === "card" && (
+              <>
+                <div>
+                  <label className="text-sm font-medium mb-1 block flex items-center gap-1.5">
+                    <CreditCard className="w-4 h-4" /> Card Number
+                  </label>
+                  <input required value={card.number} onChange={(e) => setCard({ ...card, number: e.target.value })}
+                    className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 font-mono" placeholder="4242 4242 4242 4242" />
+                </div>
+                <div>
+                  <label className="text-sm font-medium mb-1 block">Cardholder Name</label>
+                  <input required value={card.name} onChange={(e) => setCard({ ...card, name: e.target.value })}
+                    className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="Name on card" />
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-sm font-medium mb-1 block">Expiry</label>
+                    <input required value={card.exp} onChange={(e) => setCard({ ...card, exp: e.target.value })}
+                      className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 font-mono" placeholder="MM / YY" />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium mb-1 block">CVV</label>
+                    <input required type="password" value={card.cvv} onChange={(e) => setCard({ ...card, cvv: e.target.value })}
+                      className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 font-mono" placeholder="•••" />
+                  </div>
+                </div>
+              </>
+            )}
 
             <p className="text-[11px] text-muted-foreground flex items-center gap-1.5">
               <Lock className="w-3 h-3" /> Demo payment — no real card is charged.
@@ -217,8 +248,25 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
         )}
 
         {step === "confirmed" && (
-          <div className="p-8 text-center space-y-4 animate-fade-in">
-            <div className="w-20 h-20 rounded-full bg-success/15 flex items-center justify-center mx-auto">
+          <div className="p-8 text-center space-y-4 animate-fade-in relative overflow-hidden">
+            {/* Confetti */}
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+              {[
+                { c: "bg-primary", x: "-80px" },
+                { c: "bg-secondary", x: "60px" },
+                { c: "bg-success", x: "-40px" },
+                { c: "bg-destructive", x: "100px" },
+                { c: "bg-accent", x: "20px" },
+                { c: "bg-secondary", x: "-110px" },
+              ].map((d, i) => (
+                <span
+                  key={i}
+                  className={`absolute w-2.5 h-2.5 rounded-full ${d.c} animate-confetti`}
+                  style={{ ["--cx" as string]: d.x, animationDelay: `${i * 60}ms` } as React.CSSProperties}
+                />
+              ))}
+            </div>
+            <div className="w-20 h-20 rounded-full bg-success/15 flex items-center justify-center mx-auto relative">
               <CheckCircle className="w-12 h-12 text-success" />
             </div>
             <h3 className="text-2xl font-extrabold font-display">Booking Confirmed ✅</h3>
