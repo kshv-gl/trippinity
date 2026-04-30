@@ -11,19 +11,19 @@ const items = [
 const BottomNav = () => {
   const location = useLocation();
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-lg border-t md:hidden">
-      <div className="flex items-center justify-around h-16">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg border-t md:hidden shadow-[0_-4px_24px_-4px_rgb(0,0,0,0.06)]">
+      <div className="flex items-center justify-around h-16 px-2">
         {items.map((item) => {
           const active = location.pathname === item.to;
           return (
             <Link
               key={item.label}
               to={item.to}
-              className={`flex flex-col items-center gap-1 text-[11px] font-medium transition-colors ${
-                active ? "text-primary" : "text-muted-foreground"
+              className={`flex flex-col items-center gap-0.5 text-[11px] font-medium transition-all px-3 py-1.5 rounded-xl ${
+                active ? "text-primary bg-primary/10" : "text-muted-foreground"
               }`}
             >
-              <item.icon className="w-5 h-5" />
+              <item.icon className={`w-5 h-5 ${active ? "fill-primary/20" : ""}`} />
               {item.label}
             </Link>
           );
