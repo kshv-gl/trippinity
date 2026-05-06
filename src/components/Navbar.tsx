@@ -10,7 +10,7 @@ import {
   Compass,
   Quote,
   LogOut,
-  Plus,
+  Sparkles,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -84,15 +84,16 @@ const Navbar = () => {
             Explore All Trips
           </Link>
 
-          <Link to="/trip-hub" className={navLinkCls("/trip-hub")}>
-            Trip Hub
-          </Link>
-
           <Link
-            to="/list-trip"
-            className="px-4 py-2 rounded-xl text-sm font-semibold bg-primary/10 text-primary hover:bg-primary/15 transition-colors inline-flex items-center gap-1.5"
+            to="/trip-hub"
+            className="relative px-4 py-2 rounded-xl text-sm font-bold text-white inline-flex items-center gap-1.5 shadow-soft hover:shadow-elevated transition-all hover:scale-[1.04]"
+            style={{
+              background: "linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899)",
+              backgroundSize: "200% 200%",
+              animation: "gradientShift 4s ease infinite",
+            }}
           >
-            <Plus className="w-4 h-4" /> List your trip
+            <Sparkles className="w-3.5 h-3.5" /> Trip Hub
           </Link>
 
           <Link to="/about" className={navLinkCls("/about")}>
