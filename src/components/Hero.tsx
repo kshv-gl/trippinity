@@ -24,7 +24,7 @@ const Hero = () => {
             className="font-display text-5xl sm:text-7xl font-extrabold leading-[1.02] tracking-tight space-y-1 animate-fade-in"
             style={{ animationDelay: "140ms", animationFillMode: "backwards" }}
           >
-            <span className="block">The Amazon of</span>
+            <span className="block">Amazon of</span>
             <span className="block text-secondary">Travel Itineraries</span>
             <span className="block">Zero DM chaos.</span>
           </h1>
