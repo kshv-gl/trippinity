@@ -5,9 +5,12 @@ import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
 import TripCard from "@/components/TripCard";
 import Footer from "@/components/Footer";
+import CompareBar from "@/components/CompareBar";
+import { useCompare } from "@/hooks/useCompare";
 import { mockTrips, destinations } from "@/data/mockTrips";
 
 const Explore = () => {
+  const { compareIds, toggle, clear, isSelected } = useCompare();
   const [query, setQuery] = useState("");
   const [destFilter, setDestFilter] = useState<string>("All");
   const [maxPrice, setMaxPrice] = useState<number>(30000);
@@ -84,8 +87,14 @@ const Explore = () => {
           <div className="text-center py-20 text-muted-foreground">No trips match your filters.</div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((trip) => (
-              <TripCard key={trip.id} trip={trip} />
+            {filtered.map((trip, i) => (
+              <div key={trip.id} className="animate-fade-up opacity-0" style={{ animationDelay: `${i * 60}ms`, animationFillMode: "forwards" }}>
+                <TripCard
+                  trip={trip}
+                  compareSelected={isSelected(trip.id)}
+                  onToggleCompare={toggle}
+                />
+              </div>
             ))}
           </div>
         )}
@@ -93,7 +102,7 @@ const Explore = () => {
       <Footer />
       <BottomNav />
       <AIChatWidget />
-
+      <CompareBar compareIds={compareIds} onRemove={toggle} onClear={clear} />
     </div>
   );
 };
