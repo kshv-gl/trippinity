@@ -489,35 +489,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* TRUST WALL — big horizontal company logos */}
-      <section className="py-14 border-y bg-muted/30">
-        <div className="container mb-8 text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-2">Trusted partners</p>
-          <h2 className="text-2xl sm:text-3xl font-extrabold font-display">Powered by India's best travel companies</h2>
-        </div>
-        <div className="container">
-          <div className="flex items-center justify-between gap-6 sm:gap-10 flex-wrap sm:flex-nowrap overflow-x-auto scrollbar-hide">
-            {Object.values(companies).map((c) => (
-              <Link
-                key={c.id}
-                to={`/planner/${c.id}`}
-                className="group flex items-center gap-3 shrink-0 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all"
-              >
-                <span className="text-4xl sm:text-5xl group-hover:scale-110 transition-transform">{c.logo}</span>
-                <div className="hidden sm:block">
-                  <p className="font-extrabold text-base flex items-center gap-1 leading-tight">
-                    {c.name}
-                    {c.verified && <ShieldCheck className="w-4 h-4 text-accent" />}
-                  </p>
-                  <p className="text-[11px] text-muted-foreground flex items-center gap-1">
-                    <Star className="w-3 h-3 fill-secondary stroke-secondary" /> {c.rating} · {c.trips} trips
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* TESTIMONIALS PREVIEW */}
       <section className="container py-12">
