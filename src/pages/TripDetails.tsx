@@ -122,6 +122,42 @@ const TripDetails = () => {
         </div>
       </div>
 
+      {/* Photo gallery — emotional connect */}
+      <div className="container max-w-6xl py-10">
+        <div className="flex items-end justify-between mb-4">
+          <h2 className="text-xl sm:text-2xl font-extrabold font-display flex items-center gap-2">
+            <Camera className="w-5 h-5 text-primary" /> From past trips
+          </h2>
+          <p className="text-xs text-muted-foreground">Real photos · Real travelers</p>
+        </div>
+        <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-2 scrollbar-hide -mx-4 px-4">
+          {trip.gallery.map((src, i) => (
+            <div
+              key={i}
+              className="relative shrink-0 snap-start w-[260px] sm:w-[320px] aspect-[4/5] rounded-2xl overflow-hidden group animate-fade-up opacity-0"
+              style={{ animationDelay: `${i * 60}ms`, animationFillMode: "forwards" }}
+            >
+              <img src={src} alt="" loading="lazy" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              {i === 0 && (
+                <div className="absolute bottom-3 left-3 right-3 px-3 py-1.5 rounded-lg bg-background/90 backdrop-blur text-xs font-bold inline-flex items-center gap-1 w-fit">
+                  📸 By {trip.plannerName}
+                </div>
+              )}
+            </div>
+          ))}
+          <div className="relative shrink-0 snap-start w-[260px] sm:w-[320px] aspect-[4/5] rounded-2xl bg-gradient-to-br from-primary to-accent text-primary-foreground flex flex-col items-center justify-center text-center p-6">
+            <Users className="w-8 h-8 mb-3" />
+            <p className="font-extrabold font-display text-lg leading-tight">Be part of the next group</p>
+            <button
+              onClick={() => setBookingOpen(true)}
+              className="mt-4 h-10 px-4 rounded-xl bg-white text-primary font-bold text-sm hover:scale-105 transition-transform"
+            >
+              Book this trip →
+            </button>
+          </div>
+        </div>
+      </div>
+
       <div className="container py-10 grid lg:grid-cols-[1fr_360px] gap-10 max-w-6xl">
         <div className="space-y-10">
           {/* Trust strip */}
@@ -129,7 +165,7 @@ const TripDetails = () => {
             {[
               { icon: ShieldCheck, label: "Verified planner" },
               { icon: CheckCircle2, label: "Free cancellation up to 7 days" },
-              { icon: Users, label: "Small groups · max 12" },
+              { icon: ShieldCheck, label: "Secure payment · Pay 50% now" },
             ].map((b) => (
               <div key={b.label} className="flex items-center gap-2 p-3 rounded-xl bg-muted/40 border text-sm font-medium">
                 <b.icon className="w-4 h-4 text-accent" /> {b.label}
