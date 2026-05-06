@@ -4,7 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { type Trip, companies } from "@/data/mockTrips";
 import { useFavourites } from "@/hooks/useFavourites";
 
-const TripCard = ({ trip }: { trip: Trip }) => {
+interface Props {
+  trip: Trip;
+  compareSelected?: boolean;
+  onToggleCompare?: (id: string) => void;
+}
+
+const TripCard = ({ trip, compareSelected, onToggleCompare }: Props) => {
   const { isFav, toggle } = useFavourites();
   const navigate = useNavigate();
   const [hover, setHover] = useState(false);
@@ -42,8 +48,20 @@ const TripCard = ({ trip }: { trip: Trip }) => {
       to={`/trip/${trip.id}`}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
-      className="group block rounded-2xl bg-white shadow-soft hover:shadow-card hover:border-primary/30 transition-all duration-300 overflow-hidden animate-fade-in border border-border"
+      className="group relative block rounded-2xl bg-white shadow-soft hover:shadow-elevated hover:-translate-y-2 hover:border-primary/30 active:scale-[0.98] transition-all duration-300 overflow-hidden animate-fade-up border border-border"
     >
+      {onToggleCompare && (
+        <button
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggleCompare(trip.id); }}
+          className={`absolute top-3 left-3 z-10 h-7 px-2.5 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1 ${
+            compareSelected
+              ? "bg-primary text-white opacity-100"
+              : "bg-black/60 text-white opacity-0 group-hover:opacity-100"
+          }`}
+        >
+          {compareSelected ? "✓ Added" : "+ Compare"}
+        </button>
+      )}
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <img
           src={trip.image}
@@ -77,7 +95,7 @@ const TripCard = ({ trip }: { trip: Trip }) => {
             </span>
           )}
           {company?.verified && (
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-background/90 backdrop-blur text-accent text-[11px] font-semibold shadow-soft">
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-success text-success-foreground text-[11px] font-extrabold shadow-soft">
               <ShieldCheck className="w-3.5 h-3.5" /> Verified
             </span>
           )}
