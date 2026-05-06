@@ -64,7 +64,7 @@ export interface Trip {
   dates: string;
   itinerary: string[];
   image: string;
-  videoUrl?: string; // Optional. MUST be a travel-related video. Omit to fall back to image.
+  videoUrl?: string;
   plannerName: string;
   plannerAbout: string;
   companyId: string;
@@ -72,7 +72,8 @@ export interface Trip {
   booked: number;
   popular: boolean;
   location: string;
-  destination: string; // short tag e.g. "Himachal"
+  destination: string;
+  gallery: string[];
 }
 
 // Curated, verified TRAVEL-ONLY stock videos from Pexels CDN.
