@@ -93,8 +93,12 @@ const Index = () => {
           { icon: ShieldCheck, title: "Verified planners", desc: "Every company is vetted & rated" },
           { icon: Store, title: "Real marketplace", desc: "Multiple planners, your choice" },
           { icon: MessagesSquare, title: "Trip Hub after booking", desc: "Chat with planner & travelers" },
-        ].map((item) => (
-          <div key={item.title} className="flex items-start gap-3 p-4 rounded-2xl bg-muted/40">
+        ].map((item, i) => (
+          <div
+            key={item.title}
+            className="flex items-start gap-3 p-4 rounded-2xl bg-muted/40 animate-fade-up opacity-0 hover:-translate-y-1 transition-transform"
+            style={{ animationDelay: `${i * 100}ms`, animationFillMode: "forwards" }}
+          >
             <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
               <item.icon className="w-5 h-5" />
             </div>
@@ -229,11 +233,12 @@ const Index = () => {
           </div>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {featuredCompanies.map((c) => (
+          {featuredCompanies.map((c, i) => (
             <Link
               key={c.id}
               to={`/planner/${c.id}`}
-              className="p-5 rounded-2xl border bg-card hover:shadow-card transition-shadow group"
+              className="p-5 rounded-2xl border bg-card hover:shadow-elevated hover:-translate-y-1 transition-all duration-300 group animate-fade-up opacity-0"
+              style={{ animationDelay: `${i * 90}ms`, animationFillMode: "forwards" }}
             >
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/15 to-accent/15 flex items-center justify-center text-2xl">
@@ -269,11 +274,12 @@ const Index = () => {
           <Link to="/destinations" className="text-sm font-medium text-primary hover:underline">View all →</Link>
         </div>
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
-          {destinations.map((d) => (
+          {destinations.map((d, i) => (
             <Link
               key={d.name}
               to={`/destinations?to=${d.name}`}
-              className="relative aspect-square rounded-2xl overflow-hidden group hover-lift"
+              className="relative aspect-square rounded-2xl overflow-hidden group hover-lift animate-fade-up opacity-0"
+              style={{ animationDelay: `${i * 70}ms`, animationFillMode: "forwards" }}
             >
               <img src={d.image} alt={d.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 to-transparent" />
