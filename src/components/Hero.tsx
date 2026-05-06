@@ -24,16 +24,15 @@ const Hero = () => {
             className="font-display text-5xl sm:text-7xl font-extrabold leading-[1.02] tracking-tight space-y-1 animate-fade-in"
             style={{ animationDelay: "140ms", animationFillMode: "backwards" }}
           >
-            <span className="block">Every trip.</span>
-            <span className="block text-secondary">One marketplace.</span>
+            <span className="block">The Amazon of</span>
+            <span className="block text-secondary">Group Travel Itineraries</span>
             <span className="block">Zero DM chaos.</span>
           </h1>
           <p
             className="text-lg sm:text-2xl text-white/95 max-w-xl font-medium animate-fade-in"
             style={{ animationDelay: "260ms", animationFillMode: "backwards" }}
           >
-            Trippinity is India's first trip marketplace — discover curated journeys
-            from verified local operators and book in minutes. No WhatsApp. No ghosts.
+            Trippinity is India's first trip marketplace platform to discover, compare, and instantly book curated group trips from trusted travel planners—eliminating DM-based chaos.
           </p>
           <div
             className="flex flex-wrap items-center gap-3 pt-2 animate-fade-in"
