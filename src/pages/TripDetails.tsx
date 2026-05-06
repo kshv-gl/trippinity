@@ -122,6 +122,42 @@ const TripDetails = () => {
         </div>
       </div>
 
+      {/* Photo gallery — emotional connect */}
+      <div className="container max-w-6xl py-10">
+        <div className="flex items-end justify-between mb-4">
+          <h2 className="text-xl sm:text-2xl font-extrabold font-display flex items-center gap-2">
+            <Camera className="w-5 h-5 text-primary" /> From past trips
+          </h2>
+          <p className="text-xs text-muted-foreground">Real photos · Real travelers</p>
+        </div>
+        <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-2 scrollbar-hide -mx-4 px-4">
+          {trip.gallery.map((src, i) => (
+            <div
+              key={i}
+              className="relative shrink-0 snap-start w-[260px] sm:w-[320px] aspect-[4/5] rounded-2xl overflow-hidden group animate-fade-up opacity-0"
+              style={{ animationDelay: `${i * 60}ms`, animationFillMode: "forwards" }}
+            >
+              <img src={src} alt="" loading="lazy" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              {i === 0 && (
+                <div className="absolute bottom-3 left-3 right-3 px-3 py-1.5 rounded-lg bg-background/90 backdrop-blur text-xs font-bold inline-flex items-center gap-1 w-fit">
+                  📸 By {trip.plannerName}
+                </div>
+              )}
+            </div>
+          ))}
+          <div className="relative shrink-0 snap-start w-[260px] sm:w-[320px] aspect-[4/5] rounded-2xl bg-gradient-to-br from-primary to-accent text-primary-foreground flex flex-col items-center justify-center text-center p-6">
+            <Users className="w-8 h-8 mb-3" />
+            <p className="font-extrabold font-display text-lg leading-tight">Be part of the next group</p>
+            <button
+              onClick={() => setBookingOpen(true)}
+              className="mt-4 h-10 px-4 rounded-xl bg-white text-primary font-bold text-sm hover:scale-105 transition-transform"
+            >
+              Book this trip →
+            </button>
+          </div>
+        </div>
+      </div>
+
       <div className="container py-10 grid lg:grid-cols-[1fr_360px] gap-10 max-w-6xl">
         <div className="space-y-10">
           {/* Trust strip */}
@@ -129,7 +165,7 @@ const TripDetails = () => {
             {[
               { icon: ShieldCheck, label: "Verified planner" },
               { icon: CheckCircle2, label: "Free cancellation up to 7 days" },
-              { icon: Users, label: "Small groups · max 12" },
+              { icon: ShieldCheck, label: "Secure payment · Pay 50% now" },
             ].map((b) => (
               <div key={b.label} className="flex items-center gap-2 p-3 rounded-xl bg-muted/40 border text-sm font-medium">
                 <b.icon className="w-4 h-4 text-accent" /> {b.label}
@@ -186,7 +222,11 @@ const TripDetails = () => {
                   const Icon = dayIcons[i % dayIcons.length];
                   const isLast = i === trip.itinerary.length - 1;
                   return (
-                    <div key={i} className="flex gap-4">
+                    <div
+                      key={i}
+                      className="flex gap-4 animate-fade-up opacity-0"
+                      style={{ animationDelay: `${i * 80}ms`, animationFillMode: "forwards" }}
+                    >
                       <div className="flex flex-col items-center">
                         <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-accent text-primary-foreground flex items-center justify-center shadow-soft shrink-0">
                           <Icon className="w-5 h-5" />
@@ -194,15 +234,31 @@ const TripDetails = () => {
                         {!isLast && <div className="w-0.5 flex-1 bg-gradient-to-b from-accent/40 to-transparent mt-2" />}
                       </div>
                       <div className="flex-1 p-5 rounded-2xl border bg-card hover:shadow-soft transition-shadow mb-2">
-                        <div className="flex items-center justify-between mb-2">
-                          <p className="font-bold text-sm text-primary">DAY {i + 1}</p>
+                        <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
+                          <div className="flex items-center gap-2">
+                            <span className="px-2.5 py-1 rounded-lg bg-primary text-primary-foreground text-[11px] font-extrabold uppercase tracking-wider">
+                              Day {i + 1}
+                            </span>
+                            {i === 0 && <span className="px-2 py-0.5 rounded-md bg-success/15 text-success text-[10px] font-bold uppercase">Arrival</span>}
+                            {isLast && <span className="px-2 py-0.5 rounded-md bg-secondary/30 text-secondary-foreground text-[10px] font-bold uppercase">Departure</span>}
+                          </div>
                           <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
                             <Sun className="w-3.5 h-3.5 text-secondary" />
                             <span>Morning – Evening</span>
                             <Moon className="w-3.5 h-3.5" />
                           </div>
                         </div>
-                        <p className="text-sm text-foreground/85 leading-relaxed">{day}</p>
+                        <p className="text-sm text-foreground/90 font-semibold leading-snug">{day.split("–")[0]?.trim()}</p>
+                        {day.includes("–") && (
+                          <p className="text-sm text-foreground/70 leading-relaxed mt-1">{day.split("–").slice(1).join("–").trim()}</p>
+                        )}
+                        <div className="flex flex-wrap gap-1.5 mt-3">
+                          {day.split(/[,&]/).slice(0, 3).map((activity, ai) => (
+                            <span key={ai} className="text-[11px] px-2 py-1 rounded-full bg-muted text-foreground/80 font-medium">
+                              {activity.trim().split(" ").slice(0, 4).join(" ")}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   );

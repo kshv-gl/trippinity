@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="container py-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-sm">
         <div>
           <h4 className="font-display text-2xl font-extrabold mb-3 text-white">
-            Tripp<span className="text-secondary">inity</span>
+            Tripp<span className="text-primary">inity</span>
           </h4>
           <p className="text-white/60">The Amazon for Trips. Discover, compare, and book curated journeys.</p>
         </div>
@@ -17,7 +17,6 @@ const Footer = () => {
             <li><Link to="/explore" className="hover:text-white">All Trips</Link></li>
             <li><Link to="/destinations" className="hover:text-white">Destinations</Link></li>
             <li><Link to="/trip-hub" className="hover:text-white">Trip Hub</Link></li>
-            <li><Link to="/list-trip" className="hover:text-white">List your trip</Link></li>
           </ul>
         </div>
         <div>

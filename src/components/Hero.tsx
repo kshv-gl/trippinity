@@ -20,29 +20,20 @@ const Hero = () => {
 
       <div className="relative z-10 container h-full flex flex-col justify-end pb-24 sm:pb-32 text-primary-foreground">
         <div className="max-w-3xl space-y-6 animate-fade-in">
-          <span
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-xs sm:text-sm font-medium animate-fade-in"
-            style={{ animationDelay: "60ms", animationFillMode: "backwards" }}
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-success opacity-75 animate-ping" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-success" />
-            </span>
-            Trusted by 12,000+ travelers · 4.8 ★
-          </span>
           <h1
             className="font-display text-5xl sm:text-7xl font-extrabold leading-[1.02] tracking-tight space-y-1 animate-fade-in"
             style={{ animationDelay: "140ms", animationFillMode: "backwards" }}
           >
-            <span className="block">Real trips.</span>
-            <span className="block text-secondary">Real people.</span>
-            <span className="block">Booked in minutes.</span>
+            <span className="block">Every trip.</span>
+            <span className="block text-secondary">One marketplace.</span>
+            <span className="block">Zero DM chaos.</span>
           </h1>
           <p
             className="text-lg sm:text-2xl text-white/95 max-w-xl font-medium animate-fade-in"
             style={{ animationDelay: "260ms", animationFillMode: "backwards" }}
           >
-            Compare trips. Book smarter.
+            Trippinity is India's first trip marketplace — discover curated journeys
+            from verified local operators and book in minutes. No WhatsApp. No ghosts.
           </p>
           <div
             className="flex flex-wrap items-center gap-3 pt-2 animate-fade-in"

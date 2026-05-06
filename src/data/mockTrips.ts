@@ -64,7 +64,7 @@ export interface Trip {
   dates: string;
   itinerary: string[];
   image: string;
-  videoUrl?: string; // Optional. MUST be a travel-related video. Omit to fall back to image.
+  videoUrl?: string;
   plannerName: string;
   plannerAbout: string;
   companyId: string;
@@ -72,7 +72,8 @@ export interface Trip {
   booked: number;
   popular: boolean;
   location: string;
-  destination: string; // short tag e.g. "Himachal"
+  destination: string;
+  gallery: string[];
 }
 
 // Curated, verified TRAVEL-ONLY stock videos from Pexels CDN.
@@ -118,6 +119,14 @@ export const mockTrips: Trip[] = [
     popular: true,
     location: "Manali, Himachal Pradesh",
     destination: "Himachal",
+    gallery: [
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+      "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800&q=80",
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80",
+      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
+      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80",
+    ],
   },
   {
     id: "2",
@@ -141,6 +150,14 @@ export const mockTrips: Trip[] = [
     popular: true,
     location: "Goa",
     destination: "Goa",
+    gallery: [
+      "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800&q=80",
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
+      "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80",
+      "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80",
+      "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=800&q=80",
+    ],
   },
   {
     id: "3",
@@ -166,6 +183,14 @@ export const mockTrips: Trip[] = [
     popular: true,
     location: "Kerala",
     destination: "Kerala",
+    gallery: [
+      "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800&q=80",
+      "https://images.unsplash.com/photo-1545579133-99bb5ab189bd?w=800&q=80",
+      "https://images.unsplash.com/photo-1584450150050-4b9bdbd22c19?w=800&q=80",
+      "https://images.unsplash.com/photo-1531761535209-180857e963b9?w=800&q=80",
+      "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80",
+      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=800&q=80",
+    ],
   },
   {
     id: "4",
@@ -192,6 +217,14 @@ export const mockTrips: Trip[] = [
     popular: false,
     location: "Rajasthan",
     destination: "Rajasthan",
+    gallery: [
+      "https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&q=80",
+      "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&q=80",
+      "https://images.unsplash.com/photo-1534281368625-b1749d1a18b7?w=800&q=80",
+      "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=80",
+      "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&q=80",
+      "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80",
+    ],
   },
   {
     id: "5",
@@ -217,6 +250,14 @@ export const mockTrips: Trip[] = [
     popular: false,
     location: "Andaman Islands",
     destination: "Andaman",
+    gallery: [
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
+      "https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=800&q=80",
+      "https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=800&q=80",
+      "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800&q=80",
+      "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80",
+    ],
   },
   {
     id: "6",
@@ -244,6 +285,14 @@ export const mockTrips: Trip[] = [
     popular: true,
     location: "Leh, Ladakh",
     destination: "Ladakh",
+    gallery: [
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
+      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80",
+      "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80",
+      "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80",
+    ],
   },
 ];
 
