@@ -53,36 +53,199 @@ const Index = () => {
 
       {/* Floating search */}
       <section className="container -mt-10 relative z-20">
-        <div className="bg-card rounded-2xl shadow-card p-3 sm:p-4 flex items-center gap-2 border">
-          <Search className="w-5 h-5 text-muted-foreground ml-2" />
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Where do you want to go? Try 'Goa' or 'Manali'..."
-            className="flex-1 h-12 bg-transparent text-base focus:outline-none"
-          />
-          <Link
-            to="/explore"
-            className="hidden sm:inline-flex h-12 px-6 rounded-xl bg-primary text-primary-foreground font-semibold items-center hover:bg-primary/90 transition-colors"
-          >
-            Search
-          </Link>
+        <div className="bg-card rounded-2xl shadow-card p-3 sm:p-4 border">
+          <div className="flex items-center gap-2">
+            <Search className="w-5 h-5 text-muted-foreground ml-2" />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && query.trim()) {
+                  window.location.href = `/explore?q=${encodeURIComponent(query.trim())}`;
+                }
+              }}
+              placeholder="Where do you want to go? Try 'Goa' or 'Manali'..."
+              className="flex-1 h-12 bg-transparent text-base focus:outline-none"
+            />
+            {query && (
+              <button
+                onClick={() => setQuery("")}
+                className="text-muted-foreground hover:text-foreground transition-colors text-lg leading-none mr-1"
+                aria-label="Clear"
+              >
+                ×
+              </button>
+            )}
+            <button
+              onClick={() => {
+                window.location.href = query.trim() ? `/explore?q=${encodeURIComponent(query.trim())}` : "/explore";
+              }}
+              className="hidden sm:inline-flex h-12 px-6 rounded-xl bg-primary text-primary-foreground font-semibold items-center hover:bg-primary/90 transition-colors"
+            >
+              Search
+            </button>
+          </div>
+
+          {/* Suggestions dropdown */}
+          {(() => {
+            const popularSuggestions = ["Manali", "Goa", "Ladakh", "Kerala", "Rajasthan", "Andaman"];
+            if (!query.trim()) {
+              return (
+                <div className="flex items-center gap-2 mt-3 pt-3 border-t flex-wrap">
+                  <span className="text-xs text-muted-foreground font-semibold">Popular:</span>
+                  {popularSuggestions.map((s) => (
+                    <button
+                      key={s}
+                      onClick={() => setQuery(s)}
+                      className="text-xs px-2.5 py-1 rounded-full bg-muted hover:bg-muted/70 transition-colors font-medium"
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
+              );
+            }
+            const suggestions = mockTrips
+              .filter(
+                (t) =>
+                  t.title.toLowerCase().includes(query.toLowerCase()) ||
+                  t.location.toLowerCase().includes(query.toLowerCase()) ||
+                  t.destination.toLowerCase().includes(query.toLowerCase())
+              )
+              .slice(0, 5);
+            return (
+              <div className="mt-3 pt-3 border-t">
+                {suggestions.length > 0 ? (
+                  <>
+                    <p className="text-[11px] uppercase tracking-wider font-bold text-muted-foreground mb-2">
+                      Trips matching "{query}"
+                    </p>
+                    <div className="space-y-1">
+                      {suggestions.map((t) => (
+                        <Link
+                          key={t.id}
+                          to={`/trip/${t.id}`}
+                          className="flex items-center gap-3 p-2 rounded-xl hover:bg-muted/60 transition-colors"
+                        >
+                          <img src={t.image} alt="" className="w-10 h-10 rounded-lg object-cover shrink-0" loading="lazy" />
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-semibold truncate">{t.title}</p>
+                            <p className="text-xs text-muted-foreground truncate">
+                              {t.location} · ₹{t.price.toLocaleString("en-IN")}
+                            </p>
+                          </div>
+                          <span className="text-xs text-primary font-semibold shrink-0">View →</span>
+                        </Link>
+                      ))}
+                    </div>
+                    <Link
+                      to={`/explore?q=${encodeURIComponent(query.trim())}`}
+                      className="block mt-2 text-center text-sm font-semibold text-primary hover:underline"
+                    >
+                      See all results for "{query}" →
+                    </Link>
+                  </>
+                ) : (
+                  <div>
+                    <p className="text-sm font-semibold">No trips found for "{query}"</p>
+                    <p className="text-xs text-muted-foreground mt-1">Try searching for a destination or browse popular ones:</p>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {popularSuggestions.map((s) => (
+                        <button
+                          key={s}
+                          onClick={() => setQuery(s)}
+                          className="px-3 py-1.5 rounded-xl bg-muted text-sm font-medium hover:bg-muted/70 transition-colors"
+                        >
+                          {s}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="mt-4">
+                      <p className="text-[11px] uppercase tracking-wider font-bold text-muted-foreground mb-2">Recommended trips</p>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        {mockTrips.filter((t) => t.popular).slice(0, 4).map((t) => (
+                          <Link key={t.id} to={`/trip/${t.id}`} className="rounded-xl overflow-hidden border hover:shadow-soft transition-shadow">
+                            <img src={t.image} alt="" className="w-full aspect-[4/3] object-cover" loading="lazy" />
+                            <div className="p-2">
+                              <p className="text-xs font-semibold truncate">{t.title}</p>
+                              <p className="text-[11px] text-primary font-bold">₹{t.price.toLocaleString("en-IN")}</p>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })()}
         </div>
       </section>
 
-      {/* Gen Z hook strip */}
+      {/* Group trips hero banner */}
       <section className="container pt-10">
-        <div className="rounded-2xl bg-gradient-to-r from-secondary/20 via-primary/10 to-accent/15 border border-secondary/30 p-5 sm:p-6 flex items-center gap-4 animate-fade-in">
-          <div className="w-12 h-12 rounded-2xl bg-secondary text-secondary-foreground flex items-center justify-center shrink-0 shadow-soft">
-            <Sparkles className="w-6 h-6" />
+        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[hsl(222_35%_12%)] via-primary to-accent text-primary-foreground p-8 sm:p-12 animate-fade-in">
+          {/* Background decorative circles */}
+          <div aria-hidden className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-secondary/20 blur-3xl pointer-events-none" />
+          <div aria-hidden className="absolute -bottom-24 -left-16 w-72 h-72 rounded-full bg-accent/30 blur-3xl pointer-events-none" />
+
+          {/* Floating travel emojis */}
+          <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
+            {["🏔️", "🌊", "🌴", "⛺", "🗺️", "🎒", "🌅", "🏕️"].map((emoji, i) => (
+              <span
+                key={i}
+                className="absolute text-2xl animate-float"
+                style={{
+                  top: `${(i * 13) % 80 + 5}%`,
+                  left: `${(i * 17) % 90 + 3}%`,
+                  animationDelay: `${i * 0.5}s`,
+                  animationDuration: `${4 + (i % 3)}s`,
+                }}
+              >
+                {emoji}
+              </span>
+            ))}
           </div>
-          <div className="flex-1">
-            <p className="text-base sm:text-xl font-extrabold font-display leading-tight">
-              "Group trips are the ultimate way to <span className="text-primary">get socialise</span>." 🚌✨
-            </p>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-              Meet your travel tribe before you even land. Same vibe, same dates, zero awkward.
-            </p>
+
+          <div className="relative grid lg:grid-cols-2 gap-8 items-center">
+            {/* Left */}
+            <div>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-bold uppercase tracking-wider mb-4">
+                <Sparkles className="w-3.5 h-3.5" /> Community travel
+              </span>
+              <h2 className="text-3xl sm:text-5xl font-extrabold font-display leading-[1.05]">
+                Group trips are the<br />
+                ultimate way to<br />
+                <span className="text-secondary">socialise. 🚌✨</span>
+              </h2>
+              <p className="mt-4 text-base sm:text-lg text-primary-foreground/85 max-w-md">
+                Meet your travel tribe before you even land. Same vibe, same dates, zero awkward silences — just shared memories in the making.
+              </p>
+              <Link
+                to="/explore"
+                className="inline-flex items-center gap-2 mt-6 h-12 px-6 rounded-xl bg-secondary text-secondary-foreground font-bold hover:scale-[1.03] transition-transform shadow-elevated"
+              >
+                Browse group trips <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            {/* Right — stat cards */}
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { value: "12K+", label: "Travelers", emoji: "👥" },
+                { value: "200+", label: "Group trips", emoji: "🗺️" },
+                { value: "4.8★", label: "Avg rating", emoji: "⭐" },
+              ].map((s) => (
+                <div
+                  key={s.label}
+                  className="rounded-2xl bg-primary-foreground/10 backdrop-blur border border-primary-foreground/20 p-4 text-center hover:-translate-y-1 transition-transform"
+                >
+                  <div className="text-2xl mb-1">{s.emoji}</div>
+                  <p className="text-xl sm:text-2xl font-extrabold font-display">{s.value}</p>
+                  <p className="text-[11px] uppercase tracking-wider opacity-80 font-semibold">{s.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

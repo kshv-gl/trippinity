@@ -21,7 +21,10 @@ import {
   Sun,
   Moon,
   Compass,
+  GitCompare,
 } from "lucide-react";
+import { toast } from "sonner";
+import { CancellationPolicy, PaymentPolicy } from "@/components/CancellationPolicy";
 
 const dayIcons = [Plane, Mountain, Camera, Sunset, Utensils, Home, Compass];
 import Navbar from "@/components/Navbar";
@@ -173,6 +176,12 @@ const TripDetails = () => {
             ))}
           </div>
 
+          {/* Cancellation & Payment policies */}
+          <div className="space-y-3">
+            <CancellationPolicy />
+            <PaymentPolicy />
+          </div>
+
           {/* Sold by — prominent brand identity */}
           <Link
             to={`/planner/${company?.id ?? ""}`}
@@ -308,6 +317,25 @@ const TripDetails = () => {
               className="w-full h-12 rounded-xl bg-primary text-primary-foreground font-bold hover:bg-primary/90 transition-colors shadow-elevated"
             >
               Book This Trip
+            </button>
+            <button
+              onClick={() => {
+                const stored = JSON.parse(localStorage.getItem("compareIds") || "[]") as string[];
+                if (stored.includes(trip.id)) {
+                  const updated = stored.filter((id: string) => id !== trip.id);
+                  localStorage.setItem("compareIds", JSON.stringify(updated));
+                  toast("Removed from comparison");
+                } else if (stored.length >= 3) {
+                  toast.error("You can compare up to 3 trips at a time");
+                } else {
+                  const updated = [...stored, trip.id];
+                  localStorage.setItem("compareIds", JSON.stringify(updated));
+                  toast.success("Added to comparison! Go to Explore to compare →");
+                }
+              }}
+              className="w-full h-10 rounded-xl border border-primary/30 text-primary text-sm font-semibold hover:bg-primary/5 transition-colors flex items-center justify-center gap-2"
+            >
+              <GitCompare className="w-4 h-4" /> Add to Compare
             </button>
             <div className="text-[11px] text-center text-muted-foreground space-y-1">
               <p>Pay just 50% (₹{Math.round(trip.price * 0.5).toLocaleString("en-IN")}) to confirm</p>

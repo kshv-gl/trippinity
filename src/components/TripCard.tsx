@@ -53,13 +53,13 @@ const TripCard = ({ trip, compareSelected, onToggleCompare }: Props) => {
       {onToggleCompare && (
         <button
           onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggleCompare(trip.id); }}
-          className={`absolute top-3 left-3 z-10 h-7 px-2.5 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1 ${
+          className={`absolute top-3 left-3 z-20 h-7 px-2.5 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1 shadow-soft ${
             compareSelected
-              ? "bg-primary text-white opacity-100"
-              : "bg-black/60 text-white opacity-0 group-hover:opacity-100"
+              ? "bg-primary text-white scale-105"
+              : "bg-black/70 backdrop-blur-sm text-white hover:bg-primary/90"
           }`}
         >
-          {compareSelected ? "✓ Added" : "+ Compare"}
+          {compareSelected ? "✓ Added to compare" : "+ Compare"}
         </button>
       )}
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
@@ -87,8 +87,8 @@ const TripCard = ({ trip, compareSelected, onToggleCompare }: Props) => {
 
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/55 to-transparent pointer-events-none" />
 
-        {/* Top row badges */}
-        <div className="absolute top-3 left-3 flex flex-col items-start gap-1.5">
+        {/* Popular + Verified badges — pushed down to clear the compare button */}
+        <div className="absolute top-12 left-3 flex flex-col items-start gap-1.5 z-10">
           {trip.popular && (
             <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-secondary text-secondary-foreground text-xs font-semibold shadow-soft">
               <Flame className="w-3.5 h-3.5" /> Popular
