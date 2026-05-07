@@ -23,6 +23,7 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
     email: "",
     date: "",
     peopleCount: "1",
+    aadhaar: "",
   });
   const [card, setCard] = useState({ number: "", name: "", exp: "", cvv: "" });
   const [payMethod, setPayMethod] = useState<"card" | "upi" | "netbanking">("card");
@@ -139,6 +140,25 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
               <label className="text-sm font-medium mb-1 block">Email</label>
               <input required type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
                 className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="you@email.com" />
+            </div>
+            <div>
+              <label className="text-sm font-medium mb-1 block flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-accent" /> Aadhaar Card Number
+              </label>
+              <input
+                required
+                inputMode="numeric"
+                value={form.aadhaar}
+                onChange={(e) => {
+                  const val = e.target.value.replace(/\D/g, "").slice(0, 12);
+                  setForm({ ...form, aadhaar: val });
+                }}
+                className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 font-mono tracking-widest"
+                placeholder="XXXX XXXX XXXX"
+              />
+              <p className="text-[11px] text-muted-foreground mt-1 flex items-center gap-1">
+                <Lock className="w-3 h-3" /> Required as per travel regulations. Stored securely and never shared.
+              </p>
             </div>
             <div>
               <label className="text-sm font-medium mb-1 block">Preferred Start Date</label>

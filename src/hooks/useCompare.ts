@@ -1,7 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const STORAGE_KEY = "compareIds";
 
 export const useCompare = () => {
-  const [compareIds, setCompareIds] = useState<string[]>([]);
+  const [compareIds, setCompareIds] = useState<string[]>(() => {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(compareIds));
+  }, [compareIds]);
 
   const toggle = (id: string) => {
     setCompareIds((prev) =>
