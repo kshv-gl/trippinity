@@ -52,7 +52,7 @@ export const reviews: Review[] = [
     city: "Delhi",
     rating: 4,
     date: "Dec 2025",
-    text: "Great Goa weekend with the squad. The 50% upfront booking made commitment easy and the planner handled everything from airport pickup to the beach club entries.",
+    text: "Great Goa weekend with the squad. The 25% upfront booking made commitment easy and the planner handled everything from airport pickup to the beach club entries.",
     tripTitle: "Goa Beach Bliss Getaway",
   },
   {
