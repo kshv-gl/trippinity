@@ -216,7 +216,7 @@ const Index = () => {
               <h2 className="text-3xl sm:text-5xl font-extrabold font-display leading-[1.05]">
                 Group trips are the<br />
                 ultimate way to<br />
-                <span className="text-secondary">get socialise.✨</span>
+                <span className="text-secondary">socialise.✨</span>
               </h2>
               <p className="mt-4 text-base sm:text-lg text-primary-foreground/85 max-w-md">
                 Meet your travel tribe before you even land. Same vibe, same dates, zero awkward silences — just shared memories in the making.
