@@ -242,7 +242,7 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
                           onChange={(e) => updateTraveler(idx, { phone: e.target.value.replace(/\D/g, "").slice(0, 10) })}
                           className="w-full h-10 px-3 rounded-lg border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
                           placeholder="10-digit mobile"
-                          pattern="[6-9][0-9]{9}"
+              
                         />
                       </div>
                       <div>
@@ -258,7 +258,7 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
                           onChange={(e) => updateTraveler(idx, { aadhaar: e.target.value.replace(/\D/g, "").slice(0, 12) })}
                           className="w-full h-10 px-3 rounded-lg border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 font-mono tracking-wider"
                           placeholder="12-digit Aadhar"
-                          pattern="\d{12}"
+                  
                         />
                       </div>
                     </div>
