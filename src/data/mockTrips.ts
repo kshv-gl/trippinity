@@ -120,12 +120,12 @@ export const mockTrips: Trip[] = [
     location: "Manali, Himachal Pradesh",
     destination: "Himachal",
     gallery: [
-      "https://www.pexels.com/photos/33369518/pexels-photo-33369518.jpeg?cs=srgb&dl=pexels-ahad-hasan-1816309676-33369518.jpg&fm=jpg&_gl=1*1jon3ye*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzM4NTMkajQ5JGwwJGgw",
+      "https://images.pexels.com/photos/33369518/pexels-photo-33369518.jpeg?cs=srgb&dl=pexels-ahad-hasan-1816309676-33369518.jpg&fm=jpg&_gl=1*1jon3ye*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzM4NTMkajQ5JGwwJGgw",
       "https://images.pexels.com/photos/31462170/pexels-photo-31462170.jpeg?cs=srgb&dl=pexels-eslames1-31462170.jpg&fm=jpg&_gl=1*yz7dwd*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzM4NTMkajQ5JGwwJGgw",
-      "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800&q=80",
-      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80",
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
-      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80",
+      "https://images.pexels.com/photos/36109997/pexels-photo-36109997.jpeg?cs=srgb&dl=pexels-hasan-huseyin-turan-42224442-36109997.jpg&fm=jpg&_gl=1*1jujiuc*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzM4NTMkajQ5JGwwJGgw",
+      "https://images.pexels.com/photos/32109154/pexels-photo-32109154.jpeg?cs=srgb&dl=pexels-ex-route-adventures-656223369-32109154.jpg&fm=jpg&_gl=1*1jj0m3u*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzM4NTMkajQ5JGwwJGgw",
+      "https://images.pexels.com/photos/30921917/pexels-photo-30921917.jpeg?cs=srgb&dl=pexels-uixshubh-30921917.jpg&fm=jpg&_gl=1*1qljz2o*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzQ0NjMkajE1JGwwJGgw",
+      "https://images.pexels.com/photos/12197113/pexels-photo-12197113.jpeg?cs=srgb&dl=pexels-sam-clickx-24038849-12197113.jpg&fm=jpg&_gl=1*hzy8bq*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzQzNjkkajMyJGwwJGgw",
     ],
   },
   {
