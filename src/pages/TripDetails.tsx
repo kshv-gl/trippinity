@@ -168,7 +168,7 @@ const TripDetails = () => {
             {[
               { icon: ShieldCheck, label: "Verified planner" },
               { icon: CheckCircle2, label: "Free cancellation up to 7 days" },
-              { icon: ShieldCheck, label: "Secure payment · Pay 50% now" },
+              { icon: ShieldCheck, label: "Secure payment · Pay 25% now" },
             ].map((b) => (
               <div key={b.label} className="flex items-center gap-2 p-3 rounded-xl bg-muted/40 border text-sm font-medium">
                 <b.icon className="w-4 h-4 text-accent" /> {b.label}
@@ -338,7 +338,7 @@ const TripDetails = () => {
               <GitCompare className="w-4 h-4" /> Add to Compare
             </button>
             <div className="text-[11px] text-center text-muted-foreground space-y-1">
-              <p>Pay just 50% (₹{Math.round(trip.price * 0.5).toLocaleString("en-IN")}) to confirm</p>
+              <p>Pay just 25% (₹{Math.round(trip.price * 0.25).toLocaleString("en-IN")}) to confirm</p>
               <p className="flex items-center justify-center gap-1 font-semibold text-foreground/70">
                 <ShieldCheck className="w-3 h-3 text-accent" /> Trusted by 500+ travelers
               </p>

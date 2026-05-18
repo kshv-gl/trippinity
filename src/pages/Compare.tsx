@@ -35,7 +35,7 @@ const Compare = () => {
     { label: "Location", render: (t) => t.location },
     { label: "Rating", render: (t) => `⭐ ${t.rating}` },
     { label: "Bookings", render: (t) => `${t.booked}+ booked` },
-    { label: "Pay now (50%)", render: (t) => `₹${Math.round(t.price * 0.5).toLocaleString("en-IN")}` },
+    { label: "Pay now (25%)", render: (t) => `₹${Math.round(t.price * 0.25).toLocaleString("en-IN")}` },
   ];
 
   const cols = `200px repeat(${trips.length}, 1fr)`;
