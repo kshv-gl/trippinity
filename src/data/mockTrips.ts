@@ -186,7 +186,7 @@ export const mockTrips: Trip[] = [
     gallery: [
       "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800&q=80",
       "https://images.unsplash.com/photo-1545579133-99bb5ab189bd?w=800&q=80",
-      "https://images.unsplash.com/photo-1584450150050-4b9bdbd22c19?w=800&q=80",
+      "https://images.pexels.com/photos/20083971/pexels-photo-20083971.jpeg?cs=srgb&dl=pexels-love-hater-373675099-20083971.jpg&fm=jpg&_gl=1*1je9t3t*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzQ3ODUkajE5JGwwJGgw",
       "https://images.unsplash.com/photo-1531761535209-180857e963b9?w=800&q=80",
       "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80",
       "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=800&q=80",
@@ -219,11 +219,11 @@ export const mockTrips: Trip[] = [
     destination: "Rajasthan",
     gallery: [
       "https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&q=80",
-      "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&q=80",
-      "https://images.unsplash.com/photo-1534281368625-b1749d1a18b7?w=800&q=80",
-      "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=80",
-      "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&q=80",
-      "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80",
+      "https://images.pexels.com/photos/12758953/pexels-photo-12758953.jpeg?cs=srgb&dl=pexels-absoluteabhi-12758953.jpg&fm=jpg&_gl=1*9p85vn*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzQ5MDMkajU5JGwwJGgw",
+      "https://images.pexels.com/photos/29295304/pexels-photo-29295304.jpeg?cs=srgb&dl=pexels-gowri-manoj-2063246685-29295304.jpg&fm=jpg&_gl=1*153izda*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzQ5MDMkajU5JGwwJGgw",
+      "https://images.pexels.com/photos/3304374/pexels-photo-3304374.jpeg?cs=srgb&dl=pexels-manoj-gurjar-1738771-3304374.jpg&fm=jpg&_gl=1*9p85vn*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzQ5MDMkajU5JGwwJGgw",
+      "https://images.pexels.com/photos/19149588/pexels-photo-19149588.jpeg?cs=srgb&dl=pexels-axp-photography-500641970-19149588.jpg&fm=jpg&_gl=1*9p85vn*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzQ5MDMkajU5JGwwJGgw",
+      "https://images.pexels.com/photos/21300363/pexels-photo-21300363.jpeg?cs=srgb&dl=pexels-neerja-21300363.jpg&fm=jpg&_gl=1*c5u962*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzQ5MDMkajU5JGwwJGgw",
     ],
   },
   {
@@ -253,10 +253,10 @@ export const mockTrips: Trip[] = [
     gallery: [
       "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
-      "https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=800&q=80",
-      "https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=800&q=80",
-      "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800&q=80",
-      "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80",
+      "https://images.pexels.com/photos/36880615/pexels-photo-36880615.jpeg?cs=srgb&dl=pexels-thiha-myokyaw-76503614-36880615.jpg&fm=jpg&_gl=1*o09i9*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzUxNTMkajU5JGwwJGgw",
+      "https://images.pexels.com/photos/19164155/pexels-photo-19164155.jpeg?cs=srgb&dl=pexels-visualkarsa-19164155.jpg&fm=jpg&_gl=1*see2ip*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzUxOTckajE1JGwwJGgw",
+      "https://images.pexels.com/photos/32315982/pexels-photo-32315982.jpeg?cs=srgb&dl=pexels-photos-hub-411139319-32315982.jpg&fm=jpg&_gl=1*o09i9*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzUxNTMkajU5JGwwJGgw",
+      "https://images.pexels.com/photos/8557657/pexels-photo-8557657.jpeg?cs=srgb&dl=pexels-rhea-jabagat-50266004-8557657.jpg&fm=jpg&_gl=1*1e3kqjw*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzUxNTMkajU5JGwwJGgw",
     ],
   },
   {
@@ -287,11 +287,11 @@ export const mockTrips: Trip[] = [
     destination: "Ladakh",
     gallery: [
       "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
-      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80",
-      "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80",
-      "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80",
+      "https://images.pexels.com/photos/9940766/pexels-photo-9940766.jpeg?cs=srgb&dl=pexels-cottonbro-9940766.jpg&fm=jpg&_gl=1*1efbdyt*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzU1NDckajM0JGwwJGgw",
+      "https://images.pexels.com/photos/28438644/pexels-photo-28438644.jpeg?cs=srgb&dl=pexels-spiritualsherpa-28438644.jpg&fm=jpg&_gl=1*1f9izvr*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzU0NTMkajUzJGwwJGgw",
+      "https://images.pexels.com/photos/33792541/pexels-photo-33792541.jpeg?cs=srgb&dl=pexels-ex-route-adventures-656223369-33792541.jpg&fm=jpg&_gl=1*1cck4td*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzU2MDMkajUzJGwwJGgw",
+      "https://images.pexels.com/photos/35328601/pexels-photo-35328601.jpeg?cs=srgb&dl=pexels-zikriyeah-35328601.jpg&fm=jpg&_gl=1*cxehbl*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzU1MjIkajU5JGwwJGgw",
+      "https://images.pexels.com/photos/13004767/pexels-photo-13004767.jpeg?cs=srgb&dl=pexels-kevin-kleber-64080845-13004767.jpg&fm=jpg&_gl=1*15rny3t*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzU1NzkkajIkbDAkaDA.",
     ],
   },
 ];
