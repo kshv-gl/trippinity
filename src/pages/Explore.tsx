@@ -212,7 +212,7 @@ const Explore = () => {
             </button>
             <div className="text-left max-w-5xl mx-auto pt-6">
               <p className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-4">You might like these</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="trip-card-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {mockTrips.filter((t) => t.popular).slice(0, 3).map((trip, i) => (
                   <div key={trip.id} className="animate-fade-up opacity-0" style={{ animationDelay: `${i * 60}ms`, animationFillMode: "forwards" }}>
                     <TripCard trip={trip} compareSelected={isSelected(trip.id)} onToggleCompare={toggle} />
@@ -222,7 +222,7 @@ const Explore = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="trip-card-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((trip, i) => (
               <div key={trip.id} className="animate-fade-up opacity-0" style={{ animationDelay: `${i * 60}ms`, animationFillMode: "forwards" }}>
                 <TripCard

@@ -62,7 +62,7 @@ const Destinations = () => {
               No trips here yet. <Link to="/explore" className="text-primary hover:underline">Browse all</Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="trip-card-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filtered.map((trip) => (
                 <TripCard key={trip.id} trip={trip} />
               ))}

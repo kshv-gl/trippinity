@@ -538,7 +538,7 @@ const Index = () => {
         {filtered.length === 0 ? (
           <div className="text-center py-20 text-muted-foreground">No trips found. Try a different search.</div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="trip-card-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {(query ? filtered : popular).map((trip, i) => (
               <div key={trip.id} style={{ animationDelay: `${i * 60}ms` }}>
                 <TripCard trip={trip} />
