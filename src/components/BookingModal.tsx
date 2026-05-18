@@ -35,7 +35,6 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
   const [processing, setProcessing] = useState(false);
   const [form, setForm] = useState({
     email: "",
-    date: "",
     peopleCount: "1",
   });
   const [travelers, setTravelers] = useState<Traveler[]>([
@@ -200,11 +199,7 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
               </div>
             </div>
 
-            <div>
-              <label className="text-sm font-medium mb-1 block">Preferred Start Date</label>
-              <input required type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })}
-                className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
-            </div>
+            
 
             {/* Dynamic traveler sections */}
             <div className="space-y-4">
