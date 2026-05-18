@@ -120,8 +120,8 @@ export const mockTrips: Trip[] = [
     location: "Manali, Himachal Pradesh",
     destination: "Himachal",
     gallery: [
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+      "https://www.pexels.com/photos/33369518/pexels-photo-33369518.jpeg?cs=srgb&dl=pexels-ahad-hasan-1816309676-33369518.jpg&fm=jpg&_gl=1*1jon3ye*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzM4NTMkajQ5JGwwJGgw",
+      "https://images.pexels.com/photos/31462170/pexels-photo-31462170.jpeg?cs=srgb&dl=pexels-eslames1-31462170.jpg&fm=jpg&_gl=1*yz7dwd*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzM4NTMkajQ5JGwwJGgw",
       "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800&q=80",
       "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80",
       "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
