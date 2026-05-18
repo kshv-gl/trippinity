@@ -31,11 +31,11 @@ const Testimonials = () => {
 
       {/* Masonry columns */}
       <section className="container py-16 max-w-6xl">
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 [column-fill:_balance]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {reviews.map((r, i) => (
             <article
               key={r.id}
-              className="break-inside-avoid mb-5 p-5 rounded-2xl border bg-card hover:shadow-card transition-all hover:-translate-y-1 animate-fade-up opacity-0"
+              className="flex flex-col h-full p-5 rounded-2xl border bg-card hover:shadow-card transition-all hover:-translate-y-1 animate-fade-up opacity-0"
               style={{ animationDelay: `${i * 70}ms`, animationFillMode: "forwards" }}
             >
               <div className="flex items-center gap-1 mb-3">
