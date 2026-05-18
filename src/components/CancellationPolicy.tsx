@@ -76,7 +76,7 @@ export const PaymentPolicy = () => {
             <CreditCard className="w-5 h-5" />
           </div>
           <div>
-            <p className="font-semibold text-sm">Pay 50% now · Balance 7 days before travel</p>
+            <p className="font-semibold text-sm">Pay 25% now · Balance 7 days before travel</p>
             <p className="text-xs text-muted-foreground">View full payment & security policy</p>
           </div>
         </div>
@@ -92,8 +92,8 @@ export const PaymentPolicy = () => {
           <div className="space-y-3">
             <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">How payments work</p>
             {[
-              { step: "1", title: "Book with 50% deposit", desc: "Lock your spot instantly by paying just half the trip price. Your booking is confirmed immediately.", color: "bg-primary text-white" },
-              { step: "2", title: "Balance due 7 days before travel", desc: "Pay the remaining 50% automatically via your saved payment method, or manually from your profile.", color: "bg-primary text-white" },
+              { step: "1", title: "Book with 25% deposit", desc: "Lock your spot instantly by paying just a quarter of the trip price. Your booking is confirmed immediately.", color: "bg-primary text-white" },
+              { step: "2", title: "Balance due 7 days before travel", desc: "Pay the remaining 75% automatically via your saved payment method, or manually from your profile.", color: "bg-primary text-white" },
               { step: "3", title: "Secure escrow protection", desc: "Your payment is held securely. The operator receives funds only after the trip departs.", color: "bg-success text-white" },
             ].map((row) => (
               <div key={row.step} className="flex items-start gap-3 p-3 rounded-xl bg-background border">

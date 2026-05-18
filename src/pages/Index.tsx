@@ -361,8 +361,8 @@ const Index = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="rounded-2xl border bg-card p-3">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-primary mb-1">Pay 50% now</p>
-                  <p className="text-lg font-extrabold">₹6,500</p>
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-primary mb-1">Pay 25% now</p>
+                  <p className="text-lg font-extrabold">₹3,250</p>
                   <p className="text-[10px] text-success font-semibold mt-0.5">✓ Instant confirm</p>
                 </div>
                 <div className="rounded-2xl border bg-card p-3">
@@ -538,7 +538,7 @@ const Index = () => {
         {filtered.length === 0 ? (
           <div className="text-center py-20 text-muted-foreground">No trips found. Try a different search.</div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="trip-card-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {(query ? filtered : popular).map((trip, i) => (
               <div key={trip.id} style={{ animationDelay: `${i * 60}ms` }}>
                 <TripCard trip={trip} />
@@ -709,7 +709,7 @@ const Index = () => {
               to="/explore"
               className="inline-flex h-13 px-7 py-3.5 rounded-xl bg-secondary text-secondary-foreground font-bold items-center gap-2 hover:scale-105 transition-transform shadow-elevated"
             >
-              <CreditCard className="w-5 h-5" /> Book Instantly (Pay 50%)
+              <CreditCard className="w-5 h-5" /> Book Instantly (Pay 25%)
             </Link>
           </div>
           <p className="text-xs opacity-80 mt-5 flex items-center justify-center gap-4 flex-wrap">

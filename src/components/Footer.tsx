@@ -33,7 +33,7 @@ const Footer = () => {
             <li className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-secondary" /> Verified planners</li>
             <li className="flex items-center gap-1.5"><Heart className="w-4 h-4 text-primary" /> Loved by 12k+ travelers</li>
             <li className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-secondary" /> Payments by Razorpay</li>
-            <li><Link to="/about" className="hover:text-white">Terms & Privacy</Link></li>
+            <li><Link to="/terms-and-privacy" className="hover:text-white">Terms & Privacy</Link></li>
           </ul>
         </div>
       </div>

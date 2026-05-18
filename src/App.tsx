@@ -16,6 +16,7 @@ import Favourites from "./pages/Favourites";
 import TripHub from "./pages/TripHub";
 import Testimonials from "./pages/Testimonials";
 import Compare from "./pages/Compare";
+import TermsAndPrivacy from "./pages/TermsAndPrivacy";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/trip-hub" element={<TripHub />} />
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/compare" element={<Compare />} />
+          <Route path="/terms-and-privacy" element={<TermsAndPrivacy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

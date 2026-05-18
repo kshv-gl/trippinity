@@ -48,7 +48,7 @@ const TripCard = ({ trip, compareSelected, onToggleCompare }: Props) => {
       to={`/trip/${trip.id}`}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
-      className="group relative block rounded-2xl bg-white shadow-soft hover:shadow-elevated hover:-translate-y-2 hover:border-primary/30 active:scale-[0.98] transition-all duration-300 overflow-hidden animate-fade-up border border-border"
+      className="trip-card group relative block rounded-2xl bg-white shadow-soft hover:shadow-elevated hover:-translate-y-2 hover:border-primary/30 active:scale-[0.98] transition-all duration-300 overflow-hidden animate-fade-up border border-border"
     >
       {onToggleCompare && (
         <button
@@ -62,7 +62,7 @@ const TripCard = ({ trip, compareSelected, onToggleCompare }: Props) => {
           {compareSelected ? "✓ Added to compare" : "+ Compare"}
         </button>
       )}
-      <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+      <div className="trip-card-media relative aspect-[4/3] overflow-hidden bg-muted">
         <img
           src={trip.image}
           alt={trip.title}
@@ -117,14 +117,14 @@ const TripCard = ({ trip, compareSelected, onToggleCompare }: Props) => {
           <span className="px-2.5 py-1 rounded-lg bg-background/90 backdrop-blur text-xs font-medium inline-flex items-center gap-1">
             <Clock className="w-3 h-3" /> {trip.duration}
           </span>
-          <span className="px-3 py-1.5 rounded-xl bg-white text-primary text-sm font-extrabold shadow-soft">
+          <span className="trip-card-price px-3 py-1.5 rounded-xl bg-white text-primary text-sm font-extrabold shadow-soft">
             ₹{trip.price.toLocaleString("en-IN")}
           </span>
         </div>
       </div>
 
-      <div className="p-4 space-y-3">
-        <h3 className="font-display font-semibold text-base leading-snug line-clamp-2 group-hover:text-primary transition-colors">
+      <div className="trip-card-body p-4 space-y-3">
+        <h3 className="trip-card-title font-display font-semibold text-base leading-snug line-clamp-2 group-hover:text-primary transition-colors">
           {trip.title}
         </h3>
 
