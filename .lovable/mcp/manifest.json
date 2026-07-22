@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "sdk_version": "0.24.0",
+  "path": "/functions/v1/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://kqgcnnsmcehsykfaccpf.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "trippinity-mcp",
+      "version": "0.1.0",
+      "title": "Trippinity"
+    },
+    "tools": [
+      {
+        "name": "search_trips",
+        "title": "Search trips",
+        "description": "Search the Trippinity trip catalog by destination, budget, duration and rating. Returns matching trips with id, title, price, duration, destination, rating and planner.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Free-text query matched against trip title and location."
+            },
+            "destination": {
+              "type": "string",
+              "description": "Destination name filter, e.g. 'Goa', 'Kerala', 'Ladakh'."
+            },
+            "maxPrice": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "description": "Max price in INR."
+            },
+            "minPrice": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "description": "Min price in INR."
+            },
+            "minRating": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 5,
+              "description": "Minimum trip rating."
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "description": "Max results (default 10)."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_trip_details",
+        "title": "Get trip details",
+        "description": "Fetch the full details of a Trippinity trip by id: itinerary, dates, gallery, planner and company info.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The trip id, e.g. '1'."
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_destinations",
+        "title": "List destinations",
+        "description": "List all destinations Trippinity covers, with the number of trips available in each.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_planners",
+        "title": "List verified planners",
+        "description": "List all verified Trippinity travel planners (companies) with their ratings and trip counts.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
