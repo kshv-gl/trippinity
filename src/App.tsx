@@ -18,6 +18,7 @@ import Testimonials from "./pages/Testimonials";
 import Compare from "./pages/Compare";
 import TermsAndPrivacy from "./pages/TermsAndPrivacy";
 import NotFound from "./pages/NotFound";
+import OAuthConsent from "./pages/OAuthConsent";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,7 @@ const App = () => (
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/compare" element={<Compare />} />
           <Route path="/terms-and-privacy" element={<TermsAndPrivacy />} />
+          <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
