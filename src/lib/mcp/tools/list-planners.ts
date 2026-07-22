@@ -1,5 +1,5 @@
 import { defineTool } from "@lovable.dev/mcp-js";
-import { companies, mockTrips } from "@/data/mockTrips";
+import { companies, mockTrips } from "../../../data/mockTrips";
 
 export default defineTool({
   name: "list_planners",
