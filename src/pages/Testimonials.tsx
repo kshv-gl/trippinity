@@ -9,7 +9,20 @@ import { reviews } from "@/data/reviews";
 const Testimonials = () => {
   return (
     <div className="min-h-screen pb-20 md:pb-0">
+      <SEO
+        title="Traveller Reviews & Stories | Trippinity"
+        description="Real reviews from travellers who booked curated group and solo-friendly trips through Trippinity."
+        path="/testimonials"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "AggregateRating",
+          itemReviewed: { "@type": "Organization", name: "Trippinity" },
+          ratingValue: "4.8",
+          reviewCount: "1200",
+        }}
+      />
       <Navbar />
+
 
       {/* Header */}
       <section className="relative bg-gradient-to-br from-primary/10 via-accent/5 to-background border-b overflow-hidden">

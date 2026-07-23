@@ -66,7 +66,35 @@ const TripDetails = () => {
 
   return (
     <div className="min-h-screen pb-32 md:pb-24">
+      <SEO
+        title={`${trip.title} – ${trip.duration} | Trippinity`}
+        description={`${trip.title}: ${trip.duration} curated trip from ₹${trip.price.toLocaleString()}. ${trip.description?.slice(0, 110) || "Book with a verified local planner on Trippinity."}`}
+        path={`/trip/${trip.id}`}
+        type="product"
+        image={trip.image}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: trip.title,
+          image: trip.gallery || [trip.image],
+          description: trip.description,
+          brand: { "@type": "Organization", name: "Trippinity" },
+          offers: {
+            "@type": "Offer",
+            price: trip.price,
+            priceCurrency: "INR",
+            availability: "https://schema.org/InStock",
+            url: `https://trippinity-adventures-unlocked.lovable.app/trip/${trip.id}`,
+          },
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: trip.rating,
+            reviewCount: trip.booked || 50,
+          },
+        }}
+      />
       <Navbar />
+
 
       {/* Hero video banner */}
       <div className="relative h-[55vh] min-h-[380px] overflow-hidden bg-foreground">

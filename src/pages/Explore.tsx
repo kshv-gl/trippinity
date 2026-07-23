@@ -57,7 +57,13 @@ const Explore = () => {
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
+      <SEO
+        title="Explore Curated Trips | Trippinity"
+        description="Browse and filter curated trips by destination, budget, duration, and rating. Book verified group and solo-friendly trips across India."
+        path="/explore"
+      />
       <Navbar />
+
       <div className="container py-8">
         <div className="flex items-end justify-between mb-6">
           <div>

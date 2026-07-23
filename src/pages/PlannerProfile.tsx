@@ -42,7 +42,23 @@ const PlannerProfile = () => {
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
+      <SEO
+        title={`${planner.name} – Verified Trip Planner | Trippinity`}
+        description={`${planner.name}: verified local planner on Trippinity with ${planner.trips} curated trips and a ${planner.rating}★ rating. See trips and reviews.`}
+        path={`/planner/${planner.slug}`}
+        type="profile"
+        image={planner.image}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: planner.name,
+          image: planner.image,
+          jobTitle: "Travel Planner",
+          worksFor: { "@type": "Organization", name: "Trippinity" },
+        }}
+      />
       <Navbar />
+
 
       {/* Cover */}
       <div className="relative h-48 sm:h-64 bg-gradient-to-br from-primary to-accent overflow-hidden">

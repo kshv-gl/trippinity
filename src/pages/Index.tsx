@@ -48,8 +48,14 @@ const Index = () => {
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
+      <SEO
+        title="Trippinity – Curated Group Trips & Local Planners in India"
+        description="Discover curated group trips from verified local planners across India. Transparent pricing, day-wise itineraries, and 25% upfront booking."
+        path="/"
+      />
       <Navbar />
       <Hero />
+
 
       {/* Floating search */}
       <section className="container -mt-10 relative z-20">

@@ -18,7 +18,13 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
+      <SEO
+        title="Contact Trippinity – Trip Questions & Partnerships"
+        description="Reach the Trippinity team for trip questions, planner partnerships, and support. We reply within 24 hours."
+        path="/contact"
+      />
       <Navbar />
+
       <div className="container py-12 grid lg:grid-cols-2 gap-12 max-w-5xl">
         <div>
           <h1 className="text-3xl sm:text-4xl font-extrabold font-display">Get in touch</h1>

@@ -7,7 +7,13 @@ import { ShieldCheck, Heart, Users, Sparkles } from "lucide-react";
 const About = () => {
   return (
     <div className="min-h-screen pb-20 md:pb-0">
+      <SEO
+        title="About Trippinity | Curated Trips, Verified Planners"
+        description="Trippinity connects travellers with verified local planners. Learn how our marketplace curates trips and protects your booking."
+        path="/about"
+      />
       <Navbar />
+
       <section className="relative h-[40vh] min-h-[320px] overflow-hidden">
         <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1600&q=80" alt="About Trippinity" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 hero-overlay" />
