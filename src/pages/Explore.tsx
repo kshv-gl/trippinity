@@ -80,6 +80,7 @@ const Explore = () => {
             </div>
 
             <select
+              aria-label="Sort trips"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
               className="h-11 px-3 rounded-xl border bg-background text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/30 cursor-pointer"
