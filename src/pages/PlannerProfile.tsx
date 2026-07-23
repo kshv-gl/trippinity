@@ -43,18 +43,18 @@ const PlannerProfile = () => {
   return (
     <div className="min-h-screen pb-20 md:pb-0">
       <SEO
-        title={`${planner.name} – Verified Trip Planner | Trippinity`}
-        description={`${planner.name}: verified local planner on Trippinity with ${planner.trips} curated trips and a ${planner.rating}★ rating. See trips and reviews.`}
-        path={`/planner/${planner.slug}`}
+        title={`${planner.plannerName} – Verified Trip Planner | Trippinity`}
+        description={`${planner.plannerName}: verified local planner on Trippinity with ${plannerTrips.length} curated trips and a ${planner.rating}★ rating.`}
+        path={`/planner/${slug}`}
         type="profile"
         image={planner.image}
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Person",
-          name: planner.name,
+          name: planner.plannerName,
           image: planner.image,
           jobTitle: "Travel Planner",
-          worksFor: { "@type": "Organization", name: "Trippinity" },
+          worksFor: { "@type": "Organization", name: company?.name || "Trippinity" },
         }}
       />
       <Navbar />

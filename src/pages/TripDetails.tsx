@@ -68,7 +68,7 @@ const TripDetails = () => {
     <div className="min-h-screen pb-32 md:pb-24">
       <SEO
         title={`${trip.title} – ${trip.duration} | Trippinity`}
-        description={`${trip.title}: ${trip.duration} curated trip from ₹${trip.price.toLocaleString()}. ${trip.description?.slice(0, 110) || "Book with a verified local planner on Trippinity."}`}
+        description={`${trip.title}: ${trip.duration} curated trip from ₹${trip.price.toLocaleString()} in ${trip.destination}. Verified planner ${trip.plannerName} on Trippinity.`}
         path={`/trip/${trip.id}`}
         type="product"
         image={trip.image}
@@ -77,7 +77,7 @@ const TripDetails = () => {
           "@type": "Product",
           name: trip.title,
           image: trip.gallery || [trip.image],
-          description: trip.description,
+          description: `${trip.duration} curated trip in ${trip.destination} hosted by ${trip.plannerName}.`,
           brand: { "@type": "Organization", name: "Trippinity" },
           offers: {
             "@type": "Offer",
@@ -89,7 +89,7 @@ const TripDetails = () => {
           aggregateRating: {
             "@type": "AggregateRating",
             ratingValue: trip.rating,
-            reviewCount: trip.booked || 50,
+            reviewCount: Math.max(trip.booked || 0, 5),
           },
         }}
       />
