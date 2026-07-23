@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import AIChatWidget from "@/components/AIChatWidget";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, Star, ShieldCheck, MapPin, Mail, Map, Users, Clock } from "lucide-react";
@@ -42,7 +43,23 @@ const PlannerProfile = () => {
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
+      <SEO
+        title={`${planner.plannerName} – Verified Trip Planner | Trippinity`}
+        description={`${planner.plannerName}: verified local planner on Trippinity with ${plannerTrips.length} curated trips and a ${planner.rating}★ rating.`}
+        path={`/planner/${slug}`}
+        type="profile"
+        image={planner.image}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: planner.plannerName,
+          image: planner.image,
+          jobTitle: "Travel Planner",
+          worksFor: { "@type": "Organization", name: company?.name || "Trippinity" },
+        }}
+      />
       <Navbar />
+
 
       {/* Cover */}
       <div className="relative h-48 sm:h-64 bg-gradient-to-br from-primary to-accent overflow-hidden">

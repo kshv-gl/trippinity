@@ -1,0 +1,13 @@
+# Trippinity
+
+> Trippinity is a travel marketplace to discover curated group and solo-friendly trips from verified local planners across India, with transparent pricing, day-wise itineraries, and 25% upfront booking.
+
+## Pages
+
+- [Home](/): Overview of Trippinity — curated trips, verified planners, booking flow.
+- [Explore trips](/explore): Search and filter curated trips by destination, price, duration, and rating.
+- [Destinations](/destinations): Browse trips by destination across India.
+- [Testimonials](/testimonials): Traveller stories and reviews.
+- [About](/about): How Trippinity works and who we are.
+- [Contact](/contact): Get in touch for questions and partnerships.
+- [Terms & Privacy](/terms-and-privacy): Terms of service and privacy policy.

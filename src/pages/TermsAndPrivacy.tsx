@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import { ShieldCheck, Lock, FileText, Mail, Phone } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -12,7 +13,13 @@ const Section = ({ title, children }: { title: string; children: React.ReactNode
 const TermsAndPrivacy = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Terms of Service & Privacy Policy | Trippinity"
+        description="Trippinity's terms of service, privacy policy, cancellation and payment terms for bookings on our travel marketplace."
+        path="/terms-and-privacy"
+      />
       <Navbar />
+
       <main className="container max-w-3xl py-12">
         <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-primary font-bold mb-3">
           <FileText className="w-4 h-4" /> Legal

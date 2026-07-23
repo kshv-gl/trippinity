@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import AIChatWidget from "@/components/AIChatWidget";
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -57,7 +58,13 @@ const Explore = () => {
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
+      <SEO
+        title="Explore Curated Trips | Trippinity"
+        description="Browse and filter curated trips by destination, budget, duration, and rating. Book verified group and solo-friendly trips across India."
+        path="/explore"
+      />
       <Navbar />
+
       <div className="container py-8">
         <div className="flex items-end justify-between mb-6">
           <div>
@@ -80,6 +87,7 @@ const Explore = () => {
             </div>
 
             <select
+              aria-label="Sort trips"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
               className="h-11 px-3 rounded-xl border bg-background text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/30 cursor-pointer"

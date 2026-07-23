@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import AIChatWidget from "@/components/AIChatWidget";
 import { useMemo } from "react";
 import { useSearchParams, Link } from "react-router-dom";
@@ -18,7 +19,13 @@ const Destinations = () => {
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
+      <SEO
+        title="Destinations Across India | Trippinity"
+        description="Pick a destination and start your journey. Explore curated trips to Spiti, Ladakh, Meghalaya, Kerala, and more across India."
+        path="/destinations"
+      />
       <Navbar />
+
       <div className="container py-8 space-y-8">
         <div>
           <h1 className="text-3xl font-extrabold font-display">Explore by destination</h1>
