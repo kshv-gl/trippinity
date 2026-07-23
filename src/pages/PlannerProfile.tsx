@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import AIChatWidget from "@/components/AIChatWidget";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, Star, ShieldCheck, MapPin, Mail, Map, Users, Clock } from "lucide-react";

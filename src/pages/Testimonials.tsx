@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import { Link } from "react-router-dom";
 import { Star, Quote, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";

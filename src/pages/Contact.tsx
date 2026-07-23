@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import AIChatWidget from "@/components/AIChatWidget";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";

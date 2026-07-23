@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import AIChatWidget from "@/components/AIChatWidget";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";

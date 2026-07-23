@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import AIChatWidget from "@/components/AIChatWidget";
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
