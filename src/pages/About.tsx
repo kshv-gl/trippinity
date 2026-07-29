@@ -21,7 +21,7 @@ const About = () => {
         <div className="relative z-10 container h-full flex items-end pb-10 text-white">
           <div>
             <h1 className="text-4xl sm:text-5xl font-extrabold font-display">About Trippinity</h1>
-            <p className="mt-2 text-white/85 max-w-xl">The Amazon for trips — bringing curated journeys and verified planners under one roof.</p>
+            <p className="mt-2 text-white/85 max-w-xl leading-relaxed">The Amazon for trips — bringing curated journeys and verified planners under one roof.</p>
           </div>
         </div>
       </section>
@@ -29,10 +29,10 @@ const About = () => {
       <div className="container py-12 grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-6">
           <h2 className="text-2xl font-bold font-display">Why we exist</h2>
-          <p className="text-muted-foreground leading-relaxed">
+          <p className="text-muted-foreground leading-relaxed max-w-2xl">
             Booking a trip today means juggling 20 tabs, comparing planner WhatsApp PDFs, and hoping you picked the
             right one. Trippinity changes that. We bring verified planning companies, transparent pricing, and real
-            traveler reviews together so you can choose with confidence — and travel with joy.
+            traveler reviews together so you can choose with confidence and travel with joy.
           </p>
 
           <div className="grid sm:grid-cols-2 gap-4 pt-4">
@@ -45,7 +45,7 @@ const About = () => {
               <div key={item.title} className="p-5 rounded-2xl bg-muted/50 border">
                 <item.icon className="w-6 h-6 text-primary mb-2" />
                 <p className="font-semibold">{item.title}</p>
-                <p className="text-sm text-muted-foreground mt-1">{item.desc}</p>
+                <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -63,7 +63,7 @@ const About = () => {
           </div>
           <blockquote className="mt-4 text-sm text-muted-foreground leading-relaxed border-l-2 border-primary pl-4">
             "I started Trippinity because I believe planning a trip should feel as exciting as the trip itself. Our goal
-            is to make travel discovery transparent, trustworthy, and fun — for every Indian traveler."
+            is to make travel discovery transparent, trustworthy, and fun for every Indian traveler."
           </blockquote>
         </aside>
       </div>

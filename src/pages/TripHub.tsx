@@ -128,7 +128,7 @@ const TripHub = () => {
                   ))}
                   <div className="flex justify-end">
                     <div className="max-w-[75%] p-3 rounded-2xl text-sm bg-primary text-primary-foreground rounded-br-sm">
-                      <p>Can'\''t wait — booking my flight today!</p>
+                      <p>Can&apos;t wait, booking my flight today!</p>
                     </div>
                   </div>
                 </div>
