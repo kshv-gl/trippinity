@@ -30,7 +30,128 @@ import { mockTrips, destinations, companies } from "@/data/mockTrips";
 import { reviews } from "@/data/reviews";
 import { useUserState } from "@/hooks/useUserState";
 
+const SLIDES = [
+  {
+    tag: "Community travel",
+    headline: "Group trips are the ultimate way to socialise.",
+    sub: "Meet your travel tribe before you even land. Same vibe, same dates, zero awkward silences.",
+    cta: "Browse group trips",
+    ctaHref: "/explore",
+    accent: "text-secondary",
+    stats: [
+      { value: "12K+", label: "Travelers" },
+      { value: "200+", label: "Group trips" },
+      { value: "4.8", label: "Avg rating" },
+    ],
+  },
+  {
+    tag: "Limited offer",
+    headline: "Early bird deal: Save up to ₹2,000 on Manali trips.",
+    sub: "Book any Manali or Himachal trip before May 31 and get an exclusive early bird discount applied at checkout.",
+    cta: "Claim this deal",
+    ctaHref: "/trip/1",
+    accent: "text-yellow-300",
+    stats: [
+      { value: "₹2,000", label: "Max saving" },
+      { value: "May 31", label: "Offer ends" },
+      { value: "3 trips", label: "Eligible" },
+    ],
+  },
+  {
+    tag: "Sponsored",
+    headline: "Himalayan Trails Co. — 8 years of Himalayan adventures.",
+    sub: "1,200+ travelers hosted. Verified planners. Discover their Manali, Spiti and Ladakh packages on Trippinity.",
+    cta: "See their trips",
+    ctaHref: "/planner/himalayan-trails",
+    accent: "text-blue-300",
+    stats: [
+      { value: "1,200+", label: "Travelers" },
+      { value: "4.8", label: "Rating" },
+      { value: "24", label: "Trips listed" },
+    ],
+  },
+  {
+    tag: "Weekend special",
+    headline: "Last-minute Goa getaway — seats still open.",
+    sub: "3 nights, 4 days. Beach resort, water sports, and a curated sunset boat ride. Departs May 1.",
+    cta: "Book Goa now",
+    ctaHref: "/trip/2",
+    accent: "text-teal-300",
+    stats: [
+      { value: "4", label: "Days" },
+      { value: "May 1", label: "Departure" },
+      { value: "₹8,499", label: "Per person" },
+    ],
+  },
+];
+
+const RotatingBanner = () => {
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % SLIDES.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const slide = SLIDES[activeSlide];
+
+  return (
+    <section className="container pt-10">
+      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[hsl(222_35%_12%)] via-primary to-accent text-primary-foreground p-8 sm:p-12">
+        <div aria-hidden className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-secondary/20 blur-3xl pointer-events-none" />
+        <div aria-hidden className="absolute -bottom-24 -left-16 w-72 h-72 rounded-full bg-accent/30 blur-3xl pointer-events-none" />
+
+        <div className="relative grid lg:grid-cols-2 gap-8 items-center">
+          <div key={activeSlide} className="animate-fade-up">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-bold uppercase tracking-wider mb-4">
+              <Sparkles className="w-3.5 h-3.5" /> {slide.tag}
+            </span>
+            <h2 className={`text-3xl sm:text-5xl font-extrabold font-display leading-[1.05] break-words ${slide.accent}`}>
+              {slide.headline}
+            </h2>
+            <p className="mt-4 text-base sm:text-lg text-primary-foreground/85 max-w-md leading-relaxed">
+              {slide.sub}
+            </p>
+            <Link
+              to={slide.ctaHref}
+              className="inline-flex items-center gap-2 mt-6 h-12 px-6 rounded-xl bg-secondary text-secondary-foreground font-bold hover:scale-[1.03] transition-transform shadow-elevated"
+            >
+              {slide.cta} <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3">
+            {slide.stats.map((s) => (
+              <div
+                key={s.label}
+                className="rounded-2xl bg-primary-foreground/10 backdrop-blur border border-primary-foreground/20 p-4 text-center hover:-translate-y-1 transition-transform"
+              >
+                <p className="text-xl sm:text-2xl font-extrabold font-display">{s.value}</p>
+                <p className="text-[11px] uppercase tracking-wider opacity-80 font-semibold">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+          {SLIDES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveSlide(i)}
+              aria-label={`Show slide ${i + 1}`}
+              className={`w-2 h-2 rounded-full transition-all ${i === activeSlide ? "bg-white w-5" : "bg-white/40"}`}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const Index = () => {
+
   const [query, setQuery] = useState("");
 
   const { userState } = useUserState();
