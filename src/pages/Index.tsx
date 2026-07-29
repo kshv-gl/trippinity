@@ -205,73 +205,9 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Group trips hero banner */}
-      <section className="container pt-10">
-        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[hsl(222_35%_12%)] via-primary to-accent text-primary-foreground p-8 sm:p-12 animate-fade-in">
-          {/* Background decorative circles */}
-          <div aria-hidden className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-secondary/20 blur-3xl pointer-events-none" />
-          <div aria-hidden className="absolute -bottom-24 -left-16 w-72 h-72 rounded-full bg-accent/30 blur-3xl pointer-events-none" />
+      {/* Auto-rotating promotional banner */}
+      <RotatingBanner />
 
-          {/* Floating travel emojis */}
-          <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
-            {["🏔️", "🌊", "🌴", "⛺", "🗺️", "🎒", "🌅", "🏕️"].map((emoji, i) => (
-              <span
-                key={i}
-                className="absolute text-2xl animate-float"
-                style={{
-                  top: `${(i * 13) % 80 + 5}%`,
-                  left: `${(i * 17) % 90 + 3}%`,
-                  animationDelay: `${i * 0.5}s`,
-                  animationDuration: `${4 + (i % 3)}s`,
-                }}
-              >
-                {emoji}
-              </span>
-            ))}
-          </div>
-
-          <div className="relative grid lg:grid-cols-2 gap-8 items-center">
-            {/* Left */}
-            <div>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-bold uppercase tracking-wider mb-4">
-                <Sparkles className="w-3.5 h-3.5" /> Community travel
-              </span>
-              <h2 className="text-3xl sm:text-5xl font-extrabold font-display leading-[1.05]">
-                Group trips are the<br />
-                ultimate way to<br />
-                <span className="text-secondary">socialise.✨</span>
-              </h2>
-              <p className="mt-4 text-base sm:text-lg text-primary-foreground/85 max-w-md">
-                Meet your travel tribe before you even land. Same vibe, same dates, zero awkward silences — just shared memories in the making.
-              </p>
-              <Link
-                to="/explore"
-                className="inline-flex items-center gap-2 mt-6 h-12 px-6 rounded-xl bg-secondary text-secondary-foreground font-bold hover:scale-[1.03] transition-transform shadow-elevated"
-              >
-                Browse group trips <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            {/* Right — stat cards */}
-            <div className="grid grid-cols-3 gap-3">
-              {[
-                { value: "12K+", label: "Travelers", emoji: "👥" },
-                { value: "200+", label: "Group trips", emoji: "🗺️" },
-                { value: "4.8★", label: "Avg rating", emoji: "⭐" },
-              ].map((s) => (
-                <div
-                  key={s.label}
-                  className="rounded-2xl bg-primary-foreground/10 backdrop-blur border border-primary-foreground/20 p-4 text-center hover:-translate-y-1 transition-transform"
-                >
-                  <div className="text-2xl mb-1">{s.emoji}</div>
-                  <p className="text-xl sm:text-2xl font-extrabold font-display">{s.value}</p>
-                  <p className="text-[11px] uppercase tracking-wider opacity-80 font-semibold">{s.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Trust strip */}
       <section className="container py-10 grid sm:grid-cols-3 gap-4">
