@@ -1,5 +1,5 @@
 import SEO from "@/components/SEO";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Search,
@@ -28,20 +28,38 @@ import Footer from "@/components/Footer";
 import AIChatWidget from "@/components/AIChatWidget";
 import { mockTrips, destinations, companies } from "@/data/mockTrips";
 import { reviews } from "@/data/reviews";
+import { useUserState } from "@/hooks/useUserState";
 
 const Index = () => {
   const [query, setQuery] = useState("");
 
-  const filtered = useMemo(() => {
-    if (!query.trim()) return mockTrips;
-    const q = query.toLowerCase();
-    return mockTrips.filter(
-      (t) =>
-        t.title.toLowerCase().includes(q) ||
-        t.location.toLowerCase().includes(q) ||
-        t.destination.toLowerCase().includes(q)
+  const { userState } = useUserState();
+
+  const matchesQuery = (t: (typeof mockTrips)[number], q: string) => {
+    const companyName = companies[t.companyId]?.name?.toLowerCase() ?? "";
+    return (
+      t.title.toLowerCase().includes(q) ||
+      t.location.toLowerCase().includes(q) ||
+      t.destination.toLowerCase().includes(q) ||
+      t.plannerName.toLowerCase().includes(q) ||
+      t.companyId.toLowerCase().includes(q) ||
+      companyName.includes(q) ||
+      t.duration.toLowerCase().includes(q) ||
+      t.dates.toLowerCase().includes(q) ||
+      t.itinerary.some((item) => item.toLowerCase().includes(q))
     );
-  }, [query]);
+  };
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return mockTrips.filter((t) => {
+      if (q && !matchesQuery(t, q)) return false;
+      // If userState is set, only show trips departing from that state
+      if (userState && t.departureState !== userState) return false;
+      return true;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query, userState]);
 
   const popular = mockTrips.filter((t) => t.popular);
   const featuredCompanies = Object.values(companies).slice(0, 4);
@@ -71,7 +89,7 @@ const Index = () => {
                   window.location.href = `/explore?q=${encodeURIComponent(query.trim())}`;
                 }
               }}
-              placeholder="Where do you want to go? Try 'Goa' or 'Manali'..."
+              placeholder="Search destinations, trip names, planners, companies..."
               className="flex-1 h-12 bg-transparent text-base focus:outline-none"
             />
             {query && (
@@ -113,12 +131,7 @@ const Index = () => {
               );
             }
             const suggestions = mockTrips
-              .filter(
-                (t) =>
-                  t.title.toLowerCase().includes(query.toLowerCase()) ||
-                  t.location.toLowerCase().includes(query.toLowerCase()) ||
-                  t.destination.toLowerCase().includes(query.toLowerCase())
-              )
+              .filter((t) => matchesQuery(t, query.toLowerCase()))
               .slice(0, 5);
             return (
               <div className="mt-3 pt-3 border-t">
@@ -155,6 +168,9 @@ const Index = () => {
                 ) : (
                   <div>
                     <p className="text-sm font-semibold">No trips found for "{query}"</p>
+                    <p className="text-xs text-muted-foreground mt-1 mb-2">
+                      Try: "Himalayan Trails", "Coastal Escapes", "Kerala Trails", "Priya", "Arjun"
+                    </p>
                     <p className="text-xs text-muted-foreground mt-1">Try searching for a destination or browse popular ones:</p>
                     <div className="flex flex-wrap gap-2 mt-2">
                       {popularSuggestions.map((s) => (
@@ -310,16 +326,16 @@ const Index = () => {
                 <AlertTriangle className="w-4 h-4 text-destructive" />
               </div>
               <div className="p-4 space-y-2 bg-gradient-to-b from-background to-muted/30 min-h-[260px]">
-                <div className="max-w-[80%] ml-auto p-3 rounded-2xl rounded-br-sm text-sm bg-primary/15">
+                <div className="max-w-[80%] ml-auto p-3 rounded-2xl rounded-br-sm text-sm bg-primary/15 break-words">
                   Hi, is the Manali trip available in April?
                 </div>
                 <p className="text-[10px] text-right text-muted-foreground">2:14 PM · Seen</p>
-                <div className="max-w-[80%] ml-auto p-3 rounded-2xl rounded-br-sm text-sm bg-primary/15">
+                <div className="max-w-[80%] ml-auto p-3 rounded-2xl rounded-br-sm text-sm bg-primary/15 break-words">
                   Hello? Price for 4 ppl?
                 </div>
                 <p className="text-[10px] text-right text-destructive font-semibold">Yesterday · No reply</p>
-                <div className="max-w-[80%] ml-auto p-3 rounded-2xl rounded-br-sm text-sm bg-primary/15">
-                  Anyone there?? 😩
+                <div className="max-w-[80%] ml-auto p-3 rounded-2xl rounded-br-sm text-sm bg-primary/15 break-words">
+                  Anyone there??
                 </div>
                 <p className="text-[10px] text-right text-destructive font-semibold">Today · Delivered</p>
               </div>
