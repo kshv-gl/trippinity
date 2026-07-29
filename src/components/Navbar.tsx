@@ -11,6 +11,7 @@ import {
   Quote,
   LogOut,
   Sparkles,
+  MapPin,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -22,6 +23,54 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { destinations } from "@/data/mockTrips";
 import { useAuth } from "@/hooks/useAuth";
+import { useUserState } from "@/hooks/useUserState";
+
+const LocationChip = () => {
+  const { userState, setUserState, INDIAN_STATES } = useUserState();
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="hidden md:flex items-center relative">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border bg-muted/60 hover:bg-muted text-sm font-medium transition-colors"
+      >
+        <MapPin className="w-3.5 h-3.5 text-primary shrink-0" />
+        <span className="max-w-[120px] truncate">{userState || "Set location"}</span>
+        <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
+      </button>
+      {open && (
+        <div className="absolute top-full left-0 mt-2 z-50 bg-card border rounded-2xl shadow-elevated p-3 w-64">
+          <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
+            Select your state
+          </p>
+          <div className="max-h-60 overflow-y-auto space-y-0.5">
+            {INDIAN_STATES.map((s) => (
+              <button
+                key={s}
+                onClick={() => { setUserState(s); setOpen(false); }}
+                className={`w-full text-left text-sm px-3 py-2 rounded-xl transition-colors ${
+                  userState === s ? "bg-primary text-primary-foreground font-semibold" : "hover:bg-muted"
+                }`}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+          {userState && (
+            <button
+              onClick={() => { setUserState(""); setOpen(false); }}
+              className="mt-2 w-full text-xs text-center text-muted-foreground hover:text-foreground py-1"
+            >
+              Clear location
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
 
 const Navbar = () => {
   const navigate = useNavigate();
