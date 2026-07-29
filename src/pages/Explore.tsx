@@ -98,7 +98,7 @@ const Explore = () => {
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search trips, destinations..."
+                placeholder="Search destinations, trip names, planners, companies..."
                 className="w-full h-11 pl-9 pr-3 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
               />
             </div>
@@ -145,10 +145,10 @@ const Explore = () => {
             <div className="pt-3 border-t space-y-4 animate-fade-in">
               <div>
                 <p className="text-xs uppercase tracking-wider font-bold text-muted-foreground mb-2">Destination</p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-nowrap gap-2 overflow-x-auto scrollbar-hide pb-1">
                   <button
                     onClick={() => setDestFilter("All")}
-                    className={`px-3 h-8 rounded-xl text-xs font-semibold transition-colors ${destFilter === "All" ? "bg-primary text-white" : "bg-muted hover:bg-muted/70"}`}
+                    className={`px-3 h-8 rounded-xl text-xs font-semibold shrink-0 whitespace-nowrap transition-colors ${destFilter === "All" ? "bg-primary text-white" : "bg-muted hover:bg-muted/70"}`}
                   >
                     All
                   </button>
@@ -156,7 +156,7 @@ const Explore = () => {
                     <button
                       key={d.name}
                       onClick={() => setDestFilter(d.name)}
-                      className={`px-3 h-8 rounded-xl text-xs font-semibold transition-colors ${destFilter === d.name ? "bg-primary text-white" : "bg-muted hover:bg-muted/70"}`}
+                      className={`px-3 h-8 rounded-xl text-xs font-semibold shrink-0 whitespace-nowrap transition-colors ${destFilter === d.name ? "bg-primary text-white" : "bg-muted hover:bg-muted/70"}`}
                     >
                       {d.emoji} {d.name}
                     </button>
@@ -166,7 +166,7 @@ const Explore = () => {
 
               <div>
                 <p className="text-xs uppercase tracking-wider font-bold text-muted-foreground mb-2">Duration</p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-nowrap gap-2 overflow-x-auto scrollbar-hide pb-1">
                   {[
                     { val: "All", label: "Any duration" },
                     { val: "1-3", label: "1–3 days" },
@@ -176,7 +176,7 @@ const Explore = () => {
                     <button
                       key={d.val}
                       onClick={() => setDurationFilter(d.val)}
-                      className={`px-3 h-8 rounded-xl text-xs font-semibold transition-colors ${durationFilter === d.val ? "bg-primary text-white" : "bg-muted hover:bg-muted/70"}`}
+                      className={`px-3 h-8 rounded-xl text-xs font-semibold shrink-0 whitespace-nowrap transition-colors ${durationFilter === d.val ? "bg-primary text-white" : "bg-muted hover:bg-muted/70"}`}
                     >
                       {d.label}
                     </button>
@@ -186,12 +186,12 @@ const Explore = () => {
 
               <div>
                 <p className="text-xs uppercase tracking-wider font-bold text-muted-foreground mb-2">Minimum Rating</p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-nowrap gap-2 overflow-x-auto scrollbar-hide pb-1">
                   {[0, 3.5, 4.0, 4.5, 4.8].map((r) => (
                     <button
                       key={r}
                       onClick={() => setRatingFilter(r)}
-                      className={`px-3 h-8 rounded-xl text-xs font-semibold transition-colors flex items-center gap-1 ${ratingFilter === r ? "bg-primary text-white" : "bg-muted hover:bg-muted/70"}`}
+                      className={`px-3 h-8 rounded-xl text-xs font-semibold shrink-0 whitespace-nowrap transition-colors flex items-center gap-1 ${ratingFilter === r ? "bg-primary text-white" : "bg-muted hover:bg-muted/70"}`}
                     >
                       {r === 0 ? "Any" : <><Star className="w-3 h-3 fill-current" /> {r}+</>}
                     </button>
