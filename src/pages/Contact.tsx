@@ -14,7 +14,7 @@ const Contact = () => {
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     setSent(true);
-    toast({ title: "Message sent ✅", description: "We'll get back to you within 24 hours." });
+    toast({ title: "Message sent", description: "We'll get back to you within 24 hours." });
   };
 
   return (

@@ -33,7 +33,7 @@ const Compare = () => {
     { label: "Duration", render: (t) => t.duration },
     { label: "Dates", render: (t) => t.dates },
     { label: "Location", render: (t) => t.location },
-    { label: "Rating", render: (t) => `⭐ ${t.rating}` },
+    { label: "Rating", render: (t) => `${t.rating} ★` },
     { label: "Bookings", render: (t) => `${t.booked}+ booked` },
     { label: "Pay now (25%)", render: (t) => `₹${Math.round(t.price * 0.25).toLocaleString("en-IN")}` },
   ];

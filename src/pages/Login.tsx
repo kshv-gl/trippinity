@@ -24,7 +24,7 @@ const Login = () => {
 
   const finish = (name: string, email: string, isLogin: boolean) => {
     login({ name, email });
-    toast.success(isLogin ? `Welcome back, ${name}!` : `Account created — welcome, ${name}!`);
+    toast.success(isLogin ? `Welcome back, ${name}!` : `Account created! Welcome, ${name}!`);
     if (next.startsWith("/.lovable/oauth/consent")) {
       window.location.href = next;
     } else {
