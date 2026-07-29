@@ -25,7 +25,7 @@ const TermsAndPrivacy = () => {
           <FileText className="w-4 h-4" /> Legal
         </div>
         <h1 className="font-display text-4xl sm:text-5xl font-extrabold mb-3">
-          Terms &amp; Privacy Policy — Trippinity
+          Terms &amp; Privacy Policy | Trippinity
         </h1>
         <p className="text-muted-foreground mb-8">
           Last updated: {new Date().toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" })}

@@ -2,17 +2,19 @@ import SEO from "@/components/SEO";
 import AIChatWidget from "@/components/AIChatWidget";
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Search, SlidersHorizontal, ArrowUpDown, Star, X } from "lucide-react";
+import { Search, SlidersHorizontal, ArrowUpDown, Star, X, MapPin } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
 import TripCard from "@/components/TripCard";
 import Footer from "@/components/Footer";
 import CompareBar from "@/components/CompareBar";
 import { useCompare } from "@/hooks/useCompare";
-import { mockTrips, destinations } from "@/data/mockTrips";
+import { useUserState } from "@/hooks/useUserState";
+import { mockTrips, destinations, companies } from "@/data/mockTrips";
 
 const Explore = () => {
   const { compareIds, toggle, clear, isSelected } = useCompare();
+  const { userState } = useUserState();
   const [searchParams] = useSearchParams();
   const [query, setQuery] = useState(() => searchParams.get("q") ?? "");
   const [destFilter, setDestFilter] = useState<string>("All");
@@ -30,7 +32,22 @@ const Explore = () => {
   const filtered = useMemo(() => {
     const result = mockTrips.filter((t) => {
       const q = query.trim().toLowerCase();
-      if (q && !t.title.toLowerCase().includes(q) && !t.location.toLowerCase().includes(q) && !t.destination.toLowerCase().includes(q)) return false;
+      if (q) {
+        const companyName = companies[t.companyId]?.name?.toLowerCase() ?? "";
+        const match =
+          t.title.toLowerCase().includes(q) ||
+          t.location.toLowerCase().includes(q) ||
+          t.destination.toLowerCase().includes(q) ||
+          t.plannerName.toLowerCase().includes(q) ||
+          t.companyId.toLowerCase().includes(q) ||
+          companyName.includes(q) ||
+          t.duration.toLowerCase().includes(q) ||
+          t.dates.toLowerCase().includes(q) ||
+          t.itinerary.some((item) => item.toLowerCase().includes(q));
+        if (!match) return false;
+      }
+      // If userState is set, only show trips departing from that state
+      if (userState && t.departureState !== userState) return false;
       if (destFilter !== "All" && t.destination !== destFilter) return false;
       if (t.price > maxPrice) return false;
       if (durationFilter !== "All") {
@@ -48,7 +65,7 @@ const Explore = () => {
     if (sortBy === "rating") return [...result].sort((a, b) => b.rating - a.rating);
     if (sortBy === "popular") return [...result].sort((a, b) => b.booked - a.booked);
     return result;
-  }, [query, destFilter, maxPrice, durationFilter, ratingFilter, sortBy]);
+  }, [query, destFilter, maxPrice, durationFilter, ratingFilter, sortBy, userState]);
 
   const hasActiveFilters = destFilter !== "All" || durationFilter !== "All" || ratingFilter > 0 || maxPrice < 30000;
   const resetAll = () => {
@@ -81,7 +98,7 @@ const Explore = () => {
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search trips, destinations..."
+                placeholder="Search destinations, trip names, planners, companies..."
                 className="w-full h-11 pl-9 pr-3 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
               />
             </div>
@@ -128,10 +145,10 @@ const Explore = () => {
             <div className="pt-3 border-t space-y-4 animate-fade-in">
               <div>
                 <p className="text-xs uppercase tracking-wider font-bold text-muted-foreground mb-2">Destination</p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-nowrap gap-2 overflow-x-auto scrollbar-hide pb-1">
                   <button
                     onClick={() => setDestFilter("All")}
-                    className={`px-3 h-8 rounded-xl text-xs font-semibold transition-colors ${destFilter === "All" ? "bg-primary text-white" : "bg-muted hover:bg-muted/70"}`}
+                    className={`px-3 h-8 rounded-xl text-xs font-semibold shrink-0 whitespace-nowrap transition-colors ${destFilter === "All" ? "bg-primary text-white" : "bg-muted hover:bg-muted/70"}`}
                   >
                     All
                   </button>
@@ -139,7 +156,7 @@ const Explore = () => {
                     <button
                       key={d.name}
                       onClick={() => setDestFilter(d.name)}
-                      className={`px-3 h-8 rounded-xl text-xs font-semibold transition-colors ${destFilter === d.name ? "bg-primary text-white" : "bg-muted hover:bg-muted/70"}`}
+                      className={`px-3 h-8 rounded-xl text-xs font-semibold shrink-0 whitespace-nowrap transition-colors ${destFilter === d.name ? "bg-primary text-white" : "bg-muted hover:bg-muted/70"}`}
                     >
                       {d.emoji} {d.name}
                     </button>
@@ -149,7 +166,7 @@ const Explore = () => {
 
               <div>
                 <p className="text-xs uppercase tracking-wider font-bold text-muted-foreground mb-2">Duration</p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-nowrap gap-2 overflow-x-auto scrollbar-hide pb-1">
                   {[
                     { val: "All", label: "Any duration" },
                     { val: "1-3", label: "1–3 days" },
@@ -159,7 +176,7 @@ const Explore = () => {
                     <button
                       key={d.val}
                       onClick={() => setDurationFilter(d.val)}
-                      className={`px-3 h-8 rounded-xl text-xs font-semibold transition-colors ${durationFilter === d.val ? "bg-primary text-white" : "bg-muted hover:bg-muted/70"}`}
+                      className={`px-3 h-8 rounded-xl text-xs font-semibold shrink-0 whitespace-nowrap transition-colors ${durationFilter === d.val ? "bg-primary text-white" : "bg-muted hover:bg-muted/70"}`}
                     >
                       {d.label}
                     </button>
@@ -169,12 +186,12 @@ const Explore = () => {
 
               <div>
                 <p className="text-xs uppercase tracking-wider font-bold text-muted-foreground mb-2">Minimum Rating</p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-nowrap gap-2 overflow-x-auto scrollbar-hide pb-1">
                   {[0, 3.5, 4.0, 4.5, 4.8].map((r) => (
                     <button
                       key={r}
                       onClick={() => setRatingFilter(r)}
-                      className={`px-3 h-8 rounded-xl text-xs font-semibold transition-colors flex items-center gap-1 ${ratingFilter === r ? "bg-primary text-white" : "bg-muted hover:bg-muted/70"}`}
+                      className={`px-3 h-8 rounded-xl text-xs font-semibold shrink-0 whitespace-nowrap transition-colors flex items-center gap-1 ${ratingFilter === r ? "bg-primary text-white" : "bg-muted hover:bg-muted/70"}`}
                     >
                       {r === 0 ? "Any" : <><Star className="w-3 h-3 fill-current" /> {r}+</>}
                     </button>
@@ -203,8 +220,22 @@ const Explore = () => {
           )}
         </div>
 
-        {filtered.length === 0 ? (
+        {filtered.length === 0 && userState ? (
+          <div className="text-center py-20">
+            <MapPin className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+            <p className="text-lg font-bold">No departures from {userState}</p>
+            <p className="text-sm text-muted-foreground mt-1 mb-6">
+              We don&apos;t have trips departing from your state yet, but here are some nearby options you might love.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+              {mockTrips.filter((t) => t.popular).slice(0, 3).map((trip) => (
+                <TripCard key={trip.id} trip={trip} compareSelected={isSelected(trip.id)} onToggleCompare={toggle} />
+              ))}
+            </div>
+          </div>
+        ) : filtered.length === 0 ? (
           <div className="text-center py-16 space-y-6">
+
             <div className="w-20 h-20 rounded-full bg-muted/60 flex items-center justify-center mx-auto">
               <Search className="w-8 h-8 text-muted-foreground" />
             </div>

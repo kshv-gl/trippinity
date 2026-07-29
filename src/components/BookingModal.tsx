@@ -128,7 +128,7 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-foreground/50 backdrop-blur-sm" onClick={close} />
-      <div className="relative w-full max-w-md bg-card rounded-2xl shadow-2xl overflow-hidden animate-scale-in max-h-[92vh] flex flex-col">
+      <div className="relative w-full max-w-md bg-card rounded-2xl shadow-2xl overflow-hidden animate-scale-in max-h-[90vh] overflow-y-auto flex flex-col">
         <div className="flex items-center justify-between p-5 border-b shrink-0">
           <div>
             <h2 className="text-lg font-bold">
@@ -212,7 +212,7 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
                       <div className="w-7 h-7 rounded-full bg-primary/15 text-primary flex items-center justify-center">
                         <User className="w-3.5 h-3.5" />
                       </div>
-                      <p className="text-sm font-bold">
+                      <p className="text-sm font-bold truncate">
                         Traveler {idx + 1}{isPrimary && <span className="text-muted-foreground font-medium"> (Primary)</span>}
                       </p>
                     </div>

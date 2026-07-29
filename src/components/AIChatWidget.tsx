@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { X, Send, Sparkles, Loader2 } from "lucide-react";
+import { X, Send, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { useLocation } from "react-router-dom";
 
 type Msg = { role: "user" | "assistant"; content: string };
+
+const GREETING =
+  "Hey, I'm Trippy — your Trippinity travel assistant. Tell me where you want to go, your budget, or ask anything about our trips.";
 
 const PERMANENT_SUGGESTIONS = [
   "Help me book a Kashmir trip",
@@ -78,8 +81,7 @@ const AIChatWidget = () => {
   const [messages, setMessages] = useState<Msg[]>([
     {
       role: "assistant",
-      content:
-        "Hey! I'm Trippy ✈️ — your AI travel concierge. Tell me your vibe (mountains, beach, adventure?) and I'll point you to the right trip.",
+      content: GREETING,
     },
   ]);
   const [input, setInput] = useState("");
@@ -186,7 +188,7 @@ const AIChatWidget = () => {
       </button>
 
       {open && (
-        <div className="fixed bottom-36 md:bottom-24 right-4 md:right-6 z-[60] w-[min(92vw,380px)] h-[520px] bg-card rounded-3xl shadow-elevated border flex flex-col overflow-hidden animate-scale-pop">
+        <div className="fixed bottom-36 md:bottom-24 right-4 md:right-6 z-[60] w-[min(92vw,380px)] h-[480px] bg-card rounded-3xl shadow-elevated border flex flex-col overflow-hidden animate-scale-pop">
           <div className="bg-foreground text-background p-4 flex items-center gap-3">
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -211,7 +213,7 @@ const AIChatWidget = () => {
                   className={`max-w-[85%] px-3.5 py-2.5 rounded-2xl text-sm ${
                     m.role === "user"
                       ? "bg-primary text-primary-foreground rounded-br-sm"
-                      : "bg-muted text-foreground rounded-tl-sm"
+                      : "bg-muted text-foreground rounded-tl-sm leading-relaxed text-sm whitespace-pre-wrap"
                   }`}
                 >
                   {m.content || (streaming && i === messages.length - 1 ? "…" : "")}
@@ -220,8 +222,14 @@ const AIChatWidget = () => {
             ))}
             {streaming && messages[messages.length - 1]?.role === "user" && (
               <div className="flex justify-start">
-                <div className="bg-muted px-3.5 py-2.5 rounded-2xl rounded-tl-sm">
-                  <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
+                <div className="flex gap-1 items-center px-3.5 py-3 bg-muted rounded-2xl rounded-tl-sm w-16">
+                  {[0, 1, 2].map((i) => (
+                    <span
+                      key={i}
+                      className="w-1.5 h-1.5 rounded-full bg-muted-foreground/60 animate-bounce"
+                      style={{ animationDelay: `${i * 150}ms` }}
+                    />
+                  ))}
                 </div>
               </div>
             )}
@@ -238,6 +246,17 @@ const AIChatWidget = () => {
                   {s}
                 </button>
               ))}
+            </div>
+          )}
+
+          {messages.length > 4 && (
+            <div className="px-3 pb-1 flex justify-center">
+              <button
+                onClick={() => setMessages([{ role: "assistant", content: GREETING }])}
+                className="text-[11px] text-muted-foreground hover:text-foreground border rounded-full px-3 py-1 transition-colors"
+              >
+                Start new topic
+              </button>
             </div>
           )}
 

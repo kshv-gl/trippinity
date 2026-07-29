@@ -143,7 +143,7 @@ const TripDetails = () => {
                 <MapPin className="w-3.5 h-3.5" /> {trip.location}
               </span>
             </div>
-            <h1 className="text-3xl sm:text-5xl font-extrabold font-display max-w-3xl leading-tight">{trip.title}</h1>
+            <h1 className="text-3xl sm:text-5xl font-extrabold font-display max-w-3xl leading-tight break-words">{trip.title}</h1>
             <div className="flex flex-wrap gap-x-5 gap-y-2 mt-4 text-sm">
               <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> {trip.duration}</span>
               <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> {trip.dates}</span>
@@ -333,7 +333,7 @@ const TripDetails = () => {
         <aside className="hidden lg:block">
           <div className="sticky top-24 bg-card border rounded-2xl shadow-card p-6 space-y-4">
             <div className="flex items-baseline justify-between">
-              <span className="text-3xl font-extrabold text-primary">₹{trip.price.toLocaleString("en-IN")}</span>
+              <span className="text-3xl font-extrabold text-primary shrink-0">₹{trip.price.toLocaleString("en-IN")}</span>
               <span className="text-xs text-muted-foreground">per person</span>
             </div>
             <div className="text-sm space-y-2 py-3 border-y">
@@ -381,7 +381,7 @@ const TripDetails = () => {
         <div className="container flex items-center justify-between py-3 gap-3">
           <div>
             <p className="text-xs text-muted-foreground">From</p>
-            <p className="text-xl font-extrabold text-primary">₹{trip.price.toLocaleString("en-IN")}</p>
+            <p className="text-xl font-extrabold text-primary shrink-0">₹{trip.price.toLocaleString("en-IN")}</p>
           </div>
           <button
             onClick={() => setBookingOpen(true)}
