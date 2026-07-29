@@ -2,14 +2,15 @@ import SEO from "@/components/SEO";
 import AIChatWidget from "@/components/AIChatWidget";
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Search, SlidersHorizontal, ArrowUpDown, Star, X } from "lucide-react";
+import { Search, SlidersHorizontal, ArrowUpDown, Star, X, MapPin } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
 import TripCard from "@/components/TripCard";
 import Footer from "@/components/Footer";
 import CompareBar from "@/components/CompareBar";
 import { useCompare } from "@/hooks/useCompare";
-import { mockTrips, destinations } from "@/data/mockTrips";
+import { useUserState } from "@/hooks/useUserState";
+import { mockTrips, destinations, companies } from "@/data/mockTrips";
 
 const Explore = () => {
   const { compareIds, toggle, clear, isSelected } = useCompare();
