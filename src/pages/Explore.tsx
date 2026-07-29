@@ -14,6 +14,7 @@ import { mockTrips, destinations, companies } from "@/data/mockTrips";
 
 const Explore = () => {
   const { compareIds, toggle, clear, isSelected } = useCompare();
+  const { userState } = useUserState();
   const [searchParams] = useSearchParams();
   const [query, setQuery] = useState(() => searchParams.get("q") ?? "");
   const [destFilter, setDestFilter] = useState<string>("All");
@@ -31,7 +32,22 @@ const Explore = () => {
   const filtered = useMemo(() => {
     const result = mockTrips.filter((t) => {
       const q = query.trim().toLowerCase();
-      if (q && !t.title.toLowerCase().includes(q) && !t.location.toLowerCase().includes(q) && !t.destination.toLowerCase().includes(q)) return false;
+      if (q) {
+        const companyName = companies[t.companyId]?.name?.toLowerCase() ?? "";
+        const match =
+          t.title.toLowerCase().includes(q) ||
+          t.location.toLowerCase().includes(q) ||
+          t.destination.toLowerCase().includes(q) ||
+          t.plannerName.toLowerCase().includes(q) ||
+          t.companyId.toLowerCase().includes(q) ||
+          companyName.includes(q) ||
+          t.duration.toLowerCase().includes(q) ||
+          t.dates.toLowerCase().includes(q) ||
+          t.itinerary.some((item) => item.toLowerCase().includes(q));
+        if (!match) return false;
+      }
+      // If userState is set, only show trips departing from that state
+      if (userState && t.departureState !== userState) return false;
       if (destFilter !== "All" && t.destination !== destFilter) return false;
       if (t.price > maxPrice) return false;
       if (durationFilter !== "All") {
@@ -49,7 +65,7 @@ const Explore = () => {
     if (sortBy === "rating") return [...result].sort((a, b) => b.rating - a.rating);
     if (sortBy === "popular") return [...result].sort((a, b) => b.booked - a.booked);
     return result;
-  }, [query, destFilter, maxPrice, durationFilter, ratingFilter, sortBy]);
+  }, [query, destFilter, maxPrice, durationFilter, ratingFilter, sortBy, userState]);
 
   const hasActiveFilters = destFilter !== "All" || durationFilter !== "All" || ratingFilter > 0 || maxPrice < 30000;
   const resetAll = () => {
