@@ -220,8 +220,22 @@ const Explore = () => {
           )}
         </div>
 
-        {filtered.length === 0 ? (
+        {filtered.length === 0 && userState ? (
+          <div className="text-center py-20">
+            <MapPin className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+            <p className="text-lg font-bold">No departures from {userState}</p>
+            <p className="text-sm text-muted-foreground mt-1 mb-6">
+              We don&apos;t have trips departing from your state yet, but here are some nearby options you might love.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+              {mockTrips.filter((t) => t.popular).slice(0, 3).map((trip) => (
+                <TripCard key={trip.id} trip={trip} compareSelected={isSelected(trip.id)} onToggleCompare={toggle} />
+              ))}
+            </div>
+          </div>
+        ) : filtered.length === 0 ? (
           <div className="text-center py-16 space-y-6">
+
             <div className="w-20 h-20 rounded-full bg-muted/60 flex items-center justify-center mx-auto">
               <Search className="w-8 h-8 text-muted-foreground" />
             </div>
