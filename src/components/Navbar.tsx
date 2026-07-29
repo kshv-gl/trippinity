@@ -94,6 +94,10 @@ const Navbar = () => {
           </span>
         </Link>
 
+        <LocationChip />
+
+
+
         <nav className="hidden md:flex items-center gap-1">
           <DropdownMenu open={destOpen} onOpenChange={setDestOpen}>
             <DropdownMenuTrigger className="px-4 py-2 rounded-xl text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-muted transition-colors inline-flex items-center gap-1 outline-none">
