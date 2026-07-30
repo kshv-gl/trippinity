@@ -74,6 +74,8 @@ export interface Trip {
   location: string;
   destination: string;
   departureState: string;
+  assemblyPoint: string;
+  transportMode: "Bus" | "Train" | "Flight" | "Self-drive" | "Bike";
   gallery: string[];
 }
 
@@ -121,6 +123,8 @@ export const mockTrips: Trip[] = [
     location: "Manali, Himachal Pradesh",
     destination: "Himachal",
     departureState: "New Delhi",
+    assemblyPoint: "Dhaula Kuan, New Delhi",
+    transportMode: "Bus",
     gallery: [
       "https://images.pexels.com/photos/33369518/pexels-photo-33369518.jpeg?cs=srgb&dl=pexels-ahad-hasan-1816309676-33369518.jpg&fm=jpg&_gl=1*1jon3ye*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzM4NTMkajQ5JGwwJGgw",
       "https://images.pexels.com/photos/31462170/pexels-photo-31462170.jpeg?cs=srgb&dl=pexels-eslames1-31462170.jpg&fm=jpg&_gl=1*yz7dwd*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzM4NTMkajQ5JGwwJGgw",
@@ -153,6 +157,8 @@ export const mockTrips: Trip[] = [
     location: "Goa",
     destination: "Goa",
     departureState: "New Delhi",
+    assemblyPoint: "Indira Gandhi International Airport, New Delhi",
+    transportMode: "Flight",
     gallery: [
       "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800&q=80",
       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
@@ -187,6 +193,8 @@ export const mockTrips: Trip[] = [
     location: "Kerala",
     destination: "Kerala",
     departureState: "Chandigarh",
+    assemblyPoint: "Sector 17 ISBT, Chandigarh",
+    transportMode: "Train",
     gallery: [
       "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800&q=80",
       "https://images.unsplash.com/photo-1545579133-99bb5ab189bd?w=800&q=80",
@@ -222,6 +230,8 @@ export const mockTrips: Trip[] = [
     location: "Rajasthan",
     destination: "Rajasthan",
     departureState: "Haryana",
+    assemblyPoint: "Dhaula Kuan, New Delhi",
+    transportMode: "Bus",
     gallery: [
       "https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&q=80",
       "https://images.pexels.com/photos/12758953/pexels-photo-12758953.jpeg?cs=srgb&dl=pexels-absoluteabhi-12758953.jpg&fm=jpg&_gl=1*9p85vn*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzQ5MDMkajU5JGwwJGgw",
@@ -256,6 +266,8 @@ export const mockTrips: Trip[] = [
     location: "Andaman Islands",
     destination: "Andaman",
     departureState: "Chandigarh",
+    assemblyPoint: "Sector 17 ISBT, Chandigarh",
+    transportMode: "Flight",
     gallery: [
       "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
@@ -292,6 +304,8 @@ export const mockTrips: Trip[] = [
     location: "Leh, Ladakh",
     destination: "Ladakh",
     departureState: "New Delhi",
+    assemblyPoint: "Dhaula Kuan, New Delhi",
+    transportMode: "Bike",
     gallery: [
       "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
       "https://images.pexels.com/photos/9940766/pexels-photo-9940766.jpeg?cs=srgb&dl=pexels-cottonbro-9940766.jpg&fm=jpg&_gl=1*1efbdyt*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzU1NDckajM0JGwwJGgw",

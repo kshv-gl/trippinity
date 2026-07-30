@@ -23,9 +23,21 @@ import {
   Moon,
   Compass,
   GitCompare,
+  Bus,
+  Train,
+  Car,
+  Bike,
 } from "lucide-react";
 import { toast } from "sonner";
 import { CancellationPolicy, PaymentPolicy } from "@/components/CancellationPolicy";
+
+const TRANSPORT_ICONS: Record<string, React.ElementType> = {
+  Bus: Bus,
+  Train: Train,
+  Flight: Plane,
+  "Self-drive": Car,
+  Bike: Bike,
+};
 
 const dayIcons = [Plane, Mountain, Camera, Sunset, Utensils, Home, Compass];
 import Navbar from "@/components/Navbar";
@@ -147,6 +159,19 @@ const TripDetails = () => {
             <div className="flex flex-wrap gap-x-5 gap-y-2 mt-4 text-sm">
               <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> {trip.duration}</span>
               <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> {trip.dates}</span>
+              {(() => {
+                const TransportIcon = TRANSPORT_ICONS[trip.transportMode] ?? Plane;
+                return (
+                  <>
+                    <span className="flex items-center gap-1.5">
+                      <TransportIcon className="w-4 h-4" /> {trip.transportMode}
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <MapPin className="w-4 h-4" /> Boards at: {trip.assemblyPoint}
+                    </span>
+                  </>
+                );
+              })()}
               <span className="flex items-center gap-1.5"><Star className="w-4 h-4 fill-secondary stroke-secondary" /> {trip.rating} · ({trip.booked} reviews)</span>
               <span className="flex items-center gap-1.5"><Users className="w-4 h-4" /> {trip.booked} people booked</span>
             </div>
@@ -335,6 +360,24 @@ const TripDetails = () => {
             <div className="flex items-baseline justify-between">
               <span className="text-3xl font-extrabold text-primary shrink-0">₹{trip.price.toLocaleString("en-IN")}</span>
               <span className="text-xs text-muted-foreground">per person</span>
+            </div>
+            <div className="flex items-start gap-2 p-3 rounded-xl bg-muted/50 border border-border/60">
+              <MapPin className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Assembly point</p>
+                <p className="text-sm font-semibold">{trip.assemblyPoint}</p>
+                <p className="text-[11px] text-muted-foreground mt-0.5">Arrive 30 min before departure</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              {(() => {
+                const TransportIcon = TRANSPORT_ICONS[trip.transportMode] ?? Plane;
+                return (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-xs font-bold">
+                    <TransportIcon className="w-3.5 h-3.5" /> {trip.transportMode} trip
+                  </span>
+                );
+              })()}
             </div>
             <div className="text-sm space-y-2 py-3 border-y">
               <p className="flex justify-between"><span className="text-muted-foreground">Duration</span><span className="font-medium">{trip.duration}</span></p>

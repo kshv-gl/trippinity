@@ -6,7 +6,7 @@ export const INDIAN_STATES = [
   "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram",
   "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana",
   "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal",
-  "Andaman and Nicobar Islands", "Chandigarh", "Delhi", "New Delhi", "Jammu & Kashmir", "Ladakh",
+  "Andaman and Nicobar Islands", "Chandigarh", "New Delhi", "Jammu & Kashmir", "Ladakh",
 ];
 
 const KEY = "trippinity_user_state";

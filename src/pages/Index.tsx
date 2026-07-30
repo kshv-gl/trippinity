@@ -19,6 +19,7 @@ import {
   CheckCircle2,
   Store,
   Compass,
+  ChevronDown,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
@@ -30,121 +31,203 @@ import { mockTrips, destinations, companies } from "@/data/mockTrips";
 import { reviews } from "@/data/reviews";
 import { useUserState } from "@/hooks/useUserState";
 
-const SLIDES = [
-  {
-    tag: "Community travel",
-    headline: "Group trips are the ultimate way to socialise.",
-    sub: "Meet your travel tribe before you even land. Same vibe, same dates, zero awkward silences.",
-    cta: "Browse group trips",
-    ctaHref: "/explore",
-    accent: "text-secondary",
-    stats: [
-      { value: "12K+", label: "Travelers" },
-      { value: "200+", label: "Group trips" },
-      { value: "4.8", label: "Avg rating" },
-    ],
-  },
-  {
-    tag: "Limited offer",
-    headline: "Early bird deal: Save up to ₹2,000 on Manali trips.",
-    sub: "Book any Manali or Himachal trip before May 31 and get an exclusive early bird discount applied at checkout.",
-    cta: "Claim this deal",
-    ctaHref: "/trip/1",
-    accent: "text-yellow-300",
-    stats: [
-      { value: "₹2,000", label: "Max saving" },
-      { value: "May 31", label: "Offer ends" },
-      { value: "3 trips", label: "Eligible" },
-    ],
-  },
-  {
-    tag: "Sponsored",
-    headline: "Himalayan Trails Co. — 8 years of Himalayan adventures.",
-    sub: "1,200+ travelers hosted. Verified planners. Discover their Manali, Spiti and Ladakh packages on Trippinity.",
-    cta: "See their trips",
-    ctaHref: "/planner/himalayan-trails",
-    accent: "text-blue-300",
-    stats: [
-      { value: "1,200+", label: "Travelers" },
-      { value: "4.8", label: "Rating" },
-      { value: "24", label: "Trips listed" },
-    ],
-  },
-  {
-    tag: "Weekend special",
-    headline: "Last-minute Goa getaway — seats still open.",
-    sub: "3 nights, 4 days. Beach resort, water sports, and a curated sunset boat ride. Departs May 1.",
-    cta: "Book Goa now",
-    ctaHref: "/trip/2",
-    accent: "text-teal-300",
-    stats: [
-      { value: "4", label: "Days" },
-      { value: "May 1", label: "Departure" },
-      { value: "₹8,499", label: "Per person" },
-    ],
-  },
-];
-
 const RotatingBanner = () => {
-  const [activeSlide, setActiveSlide] = useState(0);
+  const [active, setActive] = useState(0);
+  const total = 4;
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % SLIDES.length);
-    }, 5000);
-    return () => clearInterval(timer);
+    const t = setInterval(() => setActive((p) => (p + 1) % total), 6000);
+    return () => clearInterval(t);
   }, []);
-
-  const slide = SLIDES[activeSlide];
 
   return (
     <section className="container pt-10">
-      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[hsl(222_35%_12%)] via-primary to-accent text-primary-foreground p-8 sm:p-12">
-        <div aria-hidden className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-secondary/20 blur-3xl pointer-events-none" />
-        <div aria-hidden className="absolute -bottom-24 -left-16 w-72 h-72 rounded-full bg-accent/30 blur-3xl pointer-events-none" />
+      <div className="relative rounded-3xl overflow-hidden h-[340px] sm:h-[380px]">
 
-        <div className="relative grid lg:grid-cols-2 gap-8 items-center">
-          <div key={activeSlide} className="animate-fade-up">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-bold uppercase tracking-wider mb-4">
-              <Sparkles className="w-3.5 h-3.5" /> {slide.tag}
+        {/* SLIDE 0 — Community: Split photo layout */}
+        <div className={`absolute inset-0 transition-opacity duration-700 ${active === 0 ? "opacity-100 z-10" : "opacity-0 z-0"}`}>
+          <div className="absolute inset-0 grid grid-cols-2">
+            <img
+              src="https://images.pexels.com/photos/5329316/pexels-photo-5329316.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+            <div className="grid grid-rows-2">
+              <img
+                src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=600&q=80"
+                alt=""
+                className="w-full h-full object-cover"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=600&q=80"
+                alt=""
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/50 to-transparent" />
+          <div className="absolute inset-0 flex flex-col justify-center p-8 sm:p-12 max-w-lg">
+            <span className="inline-flex items-center gap-1.5 self-start px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-[11px] font-bold uppercase tracking-wider mb-4">
+              <Users className="w-3 h-3" /> Community travel
             </span>
-            <h2 className={`text-3xl sm:text-5xl font-extrabold font-display leading-[1.05] break-words ${slide.accent}`}>
-              {slide.headline}
+            <h2 className="text-3xl sm:text-4xl font-extrabold font-display text-white leading-tight">
+              Travel with strangers.<br />
+              <span className="text-secondary">Return as friends.</span>
             </h2>
-            <p className="mt-4 text-base sm:text-lg text-primary-foreground/85 max-w-md leading-relaxed">
-              {slide.sub}
+            <p className="mt-3 text-sm text-white/80 max-w-xs">
+              Every Trippinity trip is a group experience. Meet your people before you even pack.
             </p>
-            <Link
-              to={slide.ctaHref}
-              className="inline-flex items-center gap-2 mt-6 h-12 px-6 rounded-xl bg-secondary text-secondary-foreground font-bold hover:scale-[1.03] transition-transform shadow-elevated"
-            >
-              {slide.cta} <ArrowRight className="w-4 h-4" />
+            <Link to="/explore" className="mt-5 self-start inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-white text-foreground font-bold text-sm hover:scale-105 transition-transform shadow-elevated">
+              Browse group trips <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-
-          <div className="grid grid-cols-3 gap-3">
-            {slide.stats.map((s) => (
-              <div
-                key={s.label}
-                className="rounded-2xl bg-primary-foreground/10 backdrop-blur border border-primary-foreground/20 p-4 text-center hover:-translate-y-1 transition-transform"
-              >
-                <p className="text-xl sm:text-2xl font-extrabold font-display">{s.value}</p>
-                <p className="text-[11px] uppercase tracking-wider opacity-80 font-semibold">{s.label}</p>
+          <div className="absolute top-4 right-4 grid grid-cols-3 gap-2">
+            {[{ v: "12K+", l: "Travelers" }, { v: "4.8", l: "Rating" }, { v: "200+", l: "Trips" }].map((s) => (
+              <div key={s.l} className="rounded-xl bg-white/15 backdrop-blur border border-white/20 p-2 text-center text-white">
+                <p className="text-sm font-extrabold">{s.v}</p>
+                <p className="text-[9px] opacity-75 uppercase tracking-wide">{s.l}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-          {SLIDES.map((_, i) => (
+        {/* SLIDE 1 — Early Bird Offer */}
+        <div className={`absolute inset-0 transition-opacity duration-700 ${active === 1 ? "opacity-100 z-10" : "opacity-0 z-0"}`}>
+          <img
+            src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=1200&q=80"
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-orange-600/90 via-yellow-500/70 to-transparent" />
+          <div className="absolute inset-0 flex flex-col justify-between p-8 sm:p-12">
+            <div className="flex items-start justify-between">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur text-white text-[11px] font-bold uppercase tracking-wider">
+                Limited offer
+              </span>
+              <div className="bg-white rounded-2xl p-3 text-center shadow-elevated">
+                <p className="text-[10px] font-bold text-orange-600 uppercase">Offer ends</p>
+                <p className="text-xl font-extrabold text-foreground">May 31</p>
+              </div>
+            </div>
+            <div>
+              <p className="text-white/80 text-sm font-semibold mb-1">Himachal Pradesh trips</p>
+              <h2 className="text-4xl sm:text-5xl font-extrabold text-white font-display leading-none">
+                Save <span className="text-yellow-300">₹2,000</span>
+              </h2>
+              <p className="text-white/85 text-sm mt-2 max-w-xs">
+                Book any Manali or Himachal trip before May 31. Early bird discount auto-applied at checkout.
+              </p>
+              <div className="flex items-center gap-3 mt-5">
+                <Link to="/trip/1" className="inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-white text-foreground font-bold text-sm hover:scale-105 transition-transform shadow-elevated">
+                  Claim this deal <ArrowRight className="w-4 h-4" />
+                </Link>
+                <span className="text-white/70 text-xs">3 trips eligible</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* SLIDE 2 — Featured partner */}
+        <div className={`absolute inset-0 transition-opacity duration-700 ${active === 2 ? "opacity-100 z-10" : "opacity-0 z-0"}`}>
+          <img
+            src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1200&q=80"
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-foreground/95 via-foreground/40 to-foreground/10" />
+          <div className="absolute inset-0 flex flex-col justify-end p-8 sm:p-12">
+            <div className="flex items-end justify-between gap-4">
+              <div>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-500/30 border border-blue-400/40 text-blue-200 text-[10px] font-bold uppercase tracking-wider mb-3">
+                  Featured partner
+                </span>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-display leading-tight">
+                  Himalayan Trails Co.
+                </h2>
+                <p className="text-white/75 text-sm mt-1">8 years. 1,200+ travelers. India's most trusted mountain operator.</p>
+                <div className="flex items-center gap-4 mt-3">
+                  <span className="text-white text-sm font-bold flex items-center gap-1">
+                    <Star className="w-4 h-4 fill-secondary stroke-secondary" /> 4.8
+                  </span>
+                  <span className="text-white/60 text-xs">24 trips listed on Trippinity</span>
+                </div>
+              </div>
+              <Link to="/planner/himalayan-trails" className="shrink-0 inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-white text-foreground font-bold text-sm hover:scale-105 transition-transform shadow-elevated whitespace-nowrap">
+                View trips <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+          <div className="absolute top-5 right-5 flex items-center gap-2 bg-white/10 backdrop-blur border border-white/20 rounded-xl px-3 py-2">
+            <ShieldCheck className="w-4 h-4 text-blue-300" />
+            <span className="text-white text-[11px] font-bold">Verified partner</span>
+          </div>
+        </div>
+
+        {/* SLIDE 3 — Weekend Goa */}
+        <div className={`absolute inset-0 transition-opacity duration-700 ${active === 3 ? "opacity-100 z-10" : "opacity-0 z-0"}`}>
+          <img
+            src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=1200&q=80"
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-teal-900/85 via-teal-800/50 to-transparent" />
+          <div className="absolute inset-0 flex flex-col justify-center p-8 sm:p-12 max-w-xl">
+            <span className="inline-flex items-center gap-1.5 self-start px-3 py-1 rounded-full bg-teal-400/25 border border-teal-400/40 text-teal-200 text-[11px] font-bold uppercase tracking-wider mb-4">
+              Weekend special
+            </span>
+            <h2 className="text-4xl sm:text-5xl font-extrabold text-white font-display leading-tight">
+              Goa.<br />
+              <span className="text-teal-300">This weekend.</span>
+            </h2>
+            <div className="flex items-center gap-3 mt-4">
+              <div className="rounded-xl bg-white/15 backdrop-blur border border-white/20 px-4 py-2 text-center">
+                <p className="text-lg font-extrabold text-white">₹8,499</p>
+                <p className="text-[10px] text-white/70">per person</p>
+              </div>
+              <div className="rounded-xl bg-white/15 backdrop-blur border border-white/20 px-4 py-2 text-center">
+                <p className="text-lg font-extrabold text-white">3N / 4D</p>
+                <p className="text-[10px] text-white/70">duration</p>
+              </div>
+              <div className="rounded-xl bg-white/15 backdrop-blur border border-white/20 px-4 py-2 text-center">
+                <p className="text-lg font-extrabold text-white">May 1</p>
+                <p className="text-[10px] text-white/70">departure</p>
+              </div>
+            </div>
+            <p className="text-white/80 text-sm mt-3">Beach resort, water sports, curated sunset boat ride. Seats still open.</p>
+            <Link to="/trip/2" className="mt-5 self-start inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-teal-400 text-teal-900 font-bold text-sm hover:scale-105 transition-transform shadow-elevated">
+              Book Goa now <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+
+        {/* Dot indicators */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
+          {Array.from({ length: total }).map((_, i) => (
             <button
               key={i}
-              onClick={() => setActiveSlide(i)}
-              aria-label={`Show slide ${i + 1}`}
-              className={`w-2 h-2 rounded-full transition-all ${i === activeSlide ? "bg-white w-5" : "bg-white/40"}`}
+              onClick={() => setActive(i)}
+              aria-label={`Slide ${i + 1}`}
+              className={`rounded-full transition-all duration-300 ${
+                i === active ? "w-6 h-2 bg-white" : "w-2 h-2 bg-white/40 hover:bg-white/70"
+              }`}
             />
           ))}
         </div>
+
+        <button
+          onClick={() => setActive((p) => (p - 1 + total) % total)}
+          aria-label="Previous slide"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/20 backdrop-blur border border-white/30 flex items-center justify-center text-white hover:bg-white/35 transition-colors"
+        >
+          <ChevronDown className="w-4 h-4 rotate-90" />
+        </button>
+        <button
+          onClick={() => setActive((p) => (p + 1) % total)}
+          aria-label="Next slide"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/20 backdrop-blur border border-white/30 flex items-center justify-center text-white hover:bg-white/35 transition-colors"
+        >
+          <ChevronDown className="w-4 h-4 -rotate-90" />
+        </button>
       </div>
     </section>
   );
