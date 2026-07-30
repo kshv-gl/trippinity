@@ -159,6 +159,19 @@ const TripDetails = () => {
             <div className="flex flex-wrap gap-x-5 gap-y-2 mt-4 text-sm">
               <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> {trip.duration}</span>
               <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> {trip.dates}</span>
+              {(() => {
+                const TransportIcon = TRANSPORT_ICONS[trip.transportMode] ?? Plane;
+                return (
+                  <>
+                    <span className="flex items-center gap-1.5">
+                      <TransportIcon className="w-4 h-4" /> {trip.transportMode}
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <MapPin className="w-4 h-4" /> Boards at: {trip.assemblyPoint}
+                    </span>
+                  </>
+                );
+              })()}
               <span className="flex items-center gap-1.5"><Star className="w-4 h-4 fill-secondary stroke-secondary" /> {trip.rating} · ({trip.booked} reviews)</span>
               <span className="flex items-center gap-1.5"><Users className="w-4 h-4" /> {trip.booked} people booked</span>
             </div>
