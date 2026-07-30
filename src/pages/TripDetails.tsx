@@ -23,9 +23,21 @@ import {
   Moon,
   Compass,
   GitCompare,
+  Bus,
+  Train,
+  Car,
+  Bike,
 } from "lucide-react";
 import { toast } from "sonner";
 import { CancellationPolicy, PaymentPolicy } from "@/components/CancellationPolicy";
+
+const TRANSPORT_ICONS: Record<string, React.ElementType> = {
+  Bus: Bus,
+  Train: Train,
+  Flight: Plane,
+  "Self-drive": Car,
+  Bike: Bike,
+};
 
 const dayIcons = [Plane, Mountain, Camera, Sunset, Utensils, Home, Compass];
 import Navbar from "@/components/Navbar";
