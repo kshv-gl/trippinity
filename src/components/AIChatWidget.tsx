@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 type Msg = { role: "user" | "assistant"; content: string };
 
 const GREETING =
-  "Hey, I'm Trippy — your Trippinity travel assistant. Tell me where you want to go, your budget, or ask anything about our trips.";
+  "Hey, I'm Trippy! Your Trippinity travel assistant. Tell me where you want to go, your budget, or ask anything about our trips.";
 
 const PERMANENT_SUGGESTIONS = [
   "Help me book a Kashmir trip",
@@ -27,7 +27,7 @@ const PAGE_SUGGESTIONS: Record<string, string[]> = {
   "/destinations": [
     "Which destination is best in summer?",
     "Hidden gems in India",
-    "Ladakh vs Spiti — which to pick?",
+    "Ladakh vs Spiti: which to pick?",
   ],
   "/about": [
     "Who built Trippinity?",
@@ -127,7 +127,7 @@ const AIChatWidget = () => {
         body: JSON.stringify({ messages: next }),
       });
 
-      if (resp.status === 429) { toast.error("Too many requests — please try again in a moment."); setStreaming(false); return; }
+      if (resp.status === 429) { toast.error("Too many requests. Please try again in a moment."); setStreaming(false); return; }
       if (resp.status === 402) { toast.error("AI credits exhausted."); setStreaming(false); return; }
       if (!resp.ok || !resp.body) throw new Error("Failed to start stream");
 
