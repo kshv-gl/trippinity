@@ -1,5 +1,5 @@
 import AIChatWidget from "@/components/AIChatWidget";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Lock,
@@ -11,11 +11,15 @@ import {
   Send,
   CheckCircle,
   Sparkles,
+  Siren,
+  Phone,
+  X,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BottomNav from "@/components/BottomNav";
 import { useBookingState } from "@/hooks/useBookingState";
+import { toast } from "sonner";
 
 const travelers = [
   { name: "Aanya Kapoor", age: 26, city: "Mumbai" },
@@ -46,6 +50,34 @@ const TripHub = () => {
     { from: "planner", text: "Hi! Welcome aboard. Let me know if you have any questions 🙌", time: "09:00" },
   ]);
   const [plannerInput, setPlannerInput] = useState("");
+  const [sosOpen, setSosOpen] = useState(false);
+  const [countdown, setCountdown] = useState(5);
+  const [sosSent, setSosSent] = useState(false);
+
+  useEffect(() => {
+    if (!sosOpen || sosSent) return;
+    if (countdown <= 0) {
+      setSosSent(true);
+      toast.success("SOS alert sent", {
+        description: "Your trip leader and emergency contacts have been notified with your live location.",
+      });
+      return;
+    }
+    const t = setTimeout(() => setCountdown((c) => c - 1), 1000);
+    return () => clearTimeout(t);
+  }, [sosOpen, countdown, sosSent]);
+
+  const openSos = () => {
+    setCountdown(5);
+    setSosSent(false);
+    setSosOpen(true);
+  };
+
+  const cancelSos = () => {
+    setSosOpen(false);
+    setSosSent(false);
+    setCountdown(5);
+  };
 
   const sendGroup = (e: React.FormEvent) => {
     e.preventDefault();
@@ -201,9 +233,17 @@ const TripHub = () => {
             </h1>
             <p className="text-sm text-muted-foreground">Magical Manali & Solang Valley · Apr 15 – Apr 19</p>
           </div>
-          <button onClick={() => setBooked(false)} className="text-xs text-muted-foreground hover:text-destructive underline underline-offset-2">
-            Reset demo (lock again)
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={openSos}
+              className="h-11 px-5 rounded-xl bg-destructive text-destructive-foreground font-extrabold text-sm inline-flex items-center gap-2 shadow-elevated hover:bg-destructive/90 transition-colors animate-pulse"
+            >
+              <Siren className="w-4 h-4" /> SOS
+            </button>
+            <button onClick={() => setBooked(false)} className="text-xs text-muted-foreground hover:text-destructive underline underline-offset-2">
+              Reset demo (lock again)
+            </button>
+          </div>
         </div>
 
         {/* Tabs */}
@@ -335,6 +375,55 @@ const TripHub = () => {
           )}
         </div>
       </div>
+      {sosOpen && (
+        <div className="fixed inset-0 z-[90] flex items-end sm:items-center justify-center bg-foreground/60 backdrop-blur-sm p-0 sm:p-4">
+          <div className="w-full sm:max-w-md bg-card rounded-t-3xl sm:rounded-3xl border shadow-elevated p-6 text-center space-y-4">
+            {!sosSent ? (
+              <>
+                <div className="w-20 h-20 rounded-full bg-destructive/10 flex items-center justify-center mx-auto">
+                  <span className="text-3xl font-extrabold text-destructive">{countdown}</span>
+                </div>
+                <h3 className="text-xl font-extrabold font-display">Sending SOS alert</h3>
+                <p className="text-sm text-muted-foreground">
+                  Your trip leader, group members and emergency contacts will receive your live location in {countdown} second{countdown === 1 ? "" : "s"}.
+                </p>
+                <button
+                  onClick={() => { setCountdown(0); }}
+                  className="w-full h-12 rounded-xl bg-destructive text-destructive-foreground font-bold text-sm inline-flex items-center justify-center gap-2 hover:bg-destructive/90 transition-colors"
+                >
+                  <Siren className="w-4 h-4" /> Send SOS Alert Now
+                </button>
+                <button
+                  onClick={cancelSos}
+                  className="w-full h-11 rounded-xl border-2 font-bold text-sm inline-flex items-center justify-center gap-2 hover:bg-muted transition-colors"
+                >
+                  <X className="w-4 h-4" /> Cancel
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="w-20 h-20 rounded-full bg-success/10 flex items-center justify-center mx-auto">
+                  <CheckCircle className="w-9 h-9 text-success" />
+                </div>
+                <h3 className="text-xl font-extrabold font-display">Help is on the way</h3>
+                <p className="text-sm text-muted-foreground">
+                  Your trip leader has been alerted with your live location. Stay where you are if it is safe to do so.
+                </p>
+                <a
+                  href="tel:112"
+                  className="w-full h-12 rounded-xl bg-destructive text-destructive-foreground font-bold text-sm inline-flex items-center justify-center gap-2 hover:bg-destructive/90 transition-colors"
+                >
+                  <Phone className="w-4 h-4" /> Call emergency services (112)
+                </a>
+                <button onClick={cancelSos} className="w-full h-11 rounded-xl border-2 font-bold text-sm hover:bg-muted transition-colors">
+                  Close
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
       <Footer />
       <BottomNav />
       <AIChatWidget />
