@@ -156,24 +156,16 @@ const TripDetails = () => {
               </span>
             </div>
             <h1 className="text-3xl sm:text-5xl font-extrabold font-display max-w-3xl leading-tight break-words">{trip.title}</h1>
-            <div className="flex flex-wrap gap-x-5 gap-y-2 mt-4 text-sm">
-              <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> {trip.duration}</span>
-              <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> {trip.dates}</span>
-              {(() => {
-                const TransportIcon = TRANSPORT_ICONS[trip.transportMode] ?? Plane;
-                return (
-                  <>
-                    <span className="flex items-center gap-1.5">
-                      <TransportIcon className="w-4 h-4" /> {trip.transportMode}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <MapPin className="w-4 h-4" /> Boards at: {trip.assemblyPoint}
-                    </span>
-                  </>
-                );
-              })()}
-              <span className="flex items-center gap-1.5"><Star className="w-4 h-4 fill-secondary stroke-secondary" /> {trip.rating} · ({trip.booked} reviews)</span>
-              <span className="flex items-center gap-1.5"><Users className="w-4 h-4" /> {trip.booked} people booked</span>
+            <div className="flex flex-wrap items-center gap-2 mt-4 text-sm">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/15 backdrop-blur font-medium">
+                <Clock className="w-4 h-4" /> {trip.duration}
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/15 backdrop-blur font-medium">
+                <Calendar className="w-4 h-4" /> {trip.dates}
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/15 backdrop-blur font-medium">
+                <Star className="w-4 h-4 fill-secondary stroke-secondary" /> {trip.rating} · {trip.booked} reviews
+              </span>
             </div>
           </div>
         </div>
