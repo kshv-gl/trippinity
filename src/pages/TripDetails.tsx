@@ -230,12 +230,6 @@ const TripDetails = () => {
             ))}
           </div>
 
-          {/* Cancellation & Payment policies */}
-          <div className="space-y-3">
-            <CancellationPolicy />
-            <PaymentPolicy />
-          </div>
-
           {/* Sold by — prominent brand identity */}
           <Link
             to={`/planner/${company?.id ?? ""}`}
@@ -258,6 +252,12 @@ const TripDetails = () => {
               <ChevronRight className="w-5 h-5 text-muted-foreground" />
             </div>
           </Link>
+
+          {/* Cancellation & Payment policies */}
+          <div className="space-y-3">
+            <CancellationPolicy />
+            <PaymentPolicy />
+          </div>
 
           {/* Tabs */}
           <div className="flex bg-muted p-1 rounded-xl overflow-x-auto scrollbar-hide">
