@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Star, Flame, Heart, ShieldCheck, Clock } from "lucide-react";
+import { Star, Flame, Heart, ShieldCheck, Clock, Sparkles } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { type Trip, companies } from "@/data/mockTrips";
 import { useFavourites } from "@/hooks/useFavourites";
@@ -11,7 +11,7 @@ interface Props {
   womensOnly?: boolean;
 }
 
-const TripCard = ({ trip, compareSelected, onToggleCompare }: Props) => {
+const TripCard = ({ trip, compareSelected, onToggleCompare, womensOnly }: Props) => {
   const { isFav, toggle } = useFavourites();
   const navigate = useNavigate();
   const [hover, setHover] = useState(false);
@@ -113,6 +113,12 @@ const TripCard = ({ trip, compareSelected, onToggleCompare }: Props) => {
         >
           <Heart className={`w-[18px] h-[18px] transition-colors ${fav ? "fill-destructive stroke-destructive" : "stroke-foreground"}`} />
         </button>
+
+        {(womensOnly ?? trip.womensOnly) && (
+          <span className="absolute top-14 right-3 z-10 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-pink-500 text-white text-[11px] font-extrabold shadow-soft">
+            <Sparkles className="w-3 h-3" /> Women Only
+          </span>
+        )}
 
         <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
           <span className="px-2.5 py-1 rounded-lg bg-background/90 backdrop-blur text-xs font-medium inline-flex items-center gap-1">
