@@ -80,7 +80,7 @@ var mockTrips = [
     dates: "Apr 15 \u2013 Apr 19, 2026",
     itinerary: [
       "Arrive in Manali, check-in, explore Mall Road & local cafes.",
-      "Visit Solang Valley \u2013 paragliding, zorbing, and snow activities.",
+      "Visit Solang Valley: paragliding, zorbing, and snow activities.",
       "Trek to Jogini Waterfall, visit Vashisht Temple & hot springs.",
       "Day trip to Rohtang Pass (subject to permits), scenic views.",
       "Visit Hadimba Temple, souvenir shopping, departure."
@@ -115,8 +115,8 @@ var mockTrips = [
     dates: "May 1 \u2013 May 4, 2026",
     itinerary: [
       "Arrive in Goa, check-in at beach resort, sunset at Calangute.",
-      "North Goa tour \u2013 Aguada Fort, Baga Beach, Anjuna Flea Market.",
-      "South Goa exploration \u2013 Palolem Beach, boat ride, seafood dinner.",
+      "North Goa tour: Aguada Fort, Baga Beach, Anjuna Flea Market.",
+      "South Goa exploration: Palolem Beach, boat ride, seafood dinner.",
       "Water sports at Baina Beach, departure."
     ],
     image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=1200&q=80",
@@ -149,8 +149,8 @@ var mockTrips = [
     dates: "Jun 10 \u2013 Jun 15, 2026",
     itinerary: [
       "Arrive in Kochi, Fort Kochi walk, Chinese fishing nets.",
-      "Drive to Munnar \u2013 tea plantation visit, Mattupetty Dam.",
-      "Munnar sightseeing \u2013 Eravikulam Park, Top Station.",
+      "Drive to Munnar. Tea plantation visit, Mattupetty Dam.",
+      "Munnar sightseeing: Eravikulam Park, Top Station.",
       "Drive to Alleppey, board houseboat, backwater cruise.",
       "Kovalam Beach, lighthouse visit, Ayurvedic spa.",
       "Trivandrum city tour, departure."
@@ -184,10 +184,10 @@ var mockTrips = [
     duration: "6N / 7D",
     dates: "Oct 5 \u2013 Oct 11, 2026",
     itinerary: [
-      "Arrive Jaipur \u2013 Hawa Mahal, City Palace.",
+      "Arrive Jaipur. Explore Hawa Mahal and City Palace.",
       "Amber Fort, Nahargarh Fort, local bazaar.",
-      "Drive to Jodhpur \u2013 Mehrangarh Fort, blue city walk.",
-      "Jodhpur to Jaisalmer \u2013 Sam Sand Dunes, camel safari.",
+      "Drive to Jodhpur. Mehrangarh Fort and the blue city walk.",
+      "Jodhpur to Jaisalmer. Sam Sand Dunes and camel safari.",
       "Desert camping under the stars, folk music evening.",
       "Jaisalmer Fort, Patwon ki Haveli.",
       "Return to Jaipur, departure."
@@ -224,7 +224,7 @@ var mockTrips = [
       "Arrive Port Blair, Cellular Jail visit, light & sound show.",
       "Ferry to Havelock Island, Radhanagar Beach sunset.",
       "Scuba diving at Elephant Beach, snorkeling.",
-      "Neil Island \u2013 Laxmanpur Beach, natural rock formations.",
+      "Neil Island: Laxmanpur Beach and natural rock formations.",
       "Glass-bottom boat ride, mangrove kayaking.",
       "Return to Port Blair, shopping, departure."
     ],
@@ -258,9 +258,9 @@ var mockTrips = [
     dates: "Jul 1 \u2013 Jul 8, 2026",
     itinerary: [
       "Arrive Leh, acclimatization, Shanti Stupa visit.",
-      "Leh sightseeing \u2013 Leh Palace, local monasteries.",
+      "Leh sightseeing: Leh Palace and local monasteries.",
       "Ride to Nubra Valley via Khardung La.",
-      "Nubra Valley \u2013 Diskit Monastery, double-hump camel ride.",
+      "Nubra Valley: Diskit Monastery and double-hump camel ride.",
       "Ride to Pangong Lake, lakeside camping.",
       "Pangong to Leh via Chang La.",
       "Magnetic Hill, Confluence point, local market.",
