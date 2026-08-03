@@ -42,6 +42,7 @@ const TRANSPORT_ICONS: Record<string, React.ElementType> = {
 const dayIcons = [Plane, Mountain, Camera, Sunset, Utensils, Home, Compass];
 import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
+import ExitIntent from "@/components/ExitIntent";
 import BookingModal from "@/components/BookingModal";
 import Footer from "@/components/Footer";
 import InclusionsExclusions from "@/components/InclusionsExclusions";
@@ -461,6 +462,7 @@ const TripDetails = () => {
       <BookingModal trip={trip} open={bookingOpen} onClose={() => setBookingOpen(false)} />
       <BottomNav />
       <AIChatWidget />
+      <ExitIntent trip={trip} />
     </div>
   );
 };
