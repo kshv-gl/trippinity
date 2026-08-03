@@ -8,6 +8,7 @@ interface Props {
   trip: Trip;
   compareSelected?: boolean;
   onToggleCompare?: (id: string) => void;
+  womensOnly?: boolean;
 }
 
 const TripCard = ({ trip, compareSelected, onToggleCompare }: Props) => {

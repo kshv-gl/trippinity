@@ -14,6 +14,7 @@ import Contact from "./pages/Contact";
 import Profile from "./pages/Profile";
 import Favourites from "./pages/Favourites";
 import TripHub from "./pages/TripHub";
+import TripPass from "./pages/TripPass";
 import Testimonials from "./pages/Testimonials";
 import Compare from "./pages/Compare";
 import TermsAndPrivacy from "./pages/TermsAndPrivacy";
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/profile" element={<Profile />} />
           <Route path="/favourites" element={<Favourites />} />
           <Route path="/trip-hub" element={<TripHub />} />
+          <Route path="/trip-pass" element={<TripPass />} />
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/compare" element={<Compare />} />
           <Route path="/terms-and-privacy" element={<TermsAndPrivacy />} />
