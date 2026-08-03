@@ -354,10 +354,7 @@ const TripDetails = () => {
                             <Moon className="w-3.5 h-3.5" />
                           </div>
                         </div>
-                        <p className="text-sm text-foreground/90 font-semibold leading-snug">{day.split("–")[0]?.trim()}</p>
-                        {day.includes("–") && (
-                          <p className="text-sm text-foreground/70 leading-relaxed mt-1">{day.split("–").slice(1).join("–").trim()}</p>
-                        )}
+                        <p className="text-sm text-foreground/90 font-semibold leading-snug">{day}</p>
                         <div className="flex flex-wrap gap-1.5 mt-3">
                           {day.split(/[,&]/).slice(0, 3).map((activity, ai) => (
                             <span key={ai} className="text-[11px] px-2 py-1 rounded-full bg-muted text-foreground/80 font-medium">
