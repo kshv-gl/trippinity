@@ -42,6 +42,7 @@ const TRANSPORT_ICONS: Record<string, React.ElementType> = {
 const dayIcons = [Plane, Mountain, Camera, Sunset, Utensils, Home, Compass];
 import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
+import ExitIntent from "@/components/ExitIntent";
 import BookingModal from "@/components/BookingModal";
 import Footer from "@/components/Footer";
 import InclusionsExclusions from "@/components/InclusionsExclusions";
@@ -156,25 +157,68 @@ const TripDetails = () => {
               </span>
             </div>
             <h1 className="text-3xl sm:text-5xl font-extrabold font-display max-w-3xl leading-tight break-words">{trip.title}</h1>
-            <div className="flex flex-wrap gap-x-5 gap-y-2 mt-4 text-sm">
-              <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> {trip.duration}</span>
-              <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> {trip.dates}</span>
-              {(() => {
-                const TransportIcon = TRANSPORT_ICONS[trip.transportMode] ?? Plane;
-                return (
-                  <>
-                    <span className="flex items-center gap-1.5">
-                      <TransportIcon className="w-4 h-4" /> {trip.transportMode}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <MapPin className="w-4 h-4" /> Boards at: {trip.assemblyPoint}
-                    </span>
-                  </>
-                );
-              })()}
-              <span className="flex items-center gap-1.5"><Star className="w-4 h-4 fill-secondary stroke-secondary" /> {trip.rating} · ({trip.booked} reviews)</span>
-              <span className="flex items-center gap-1.5"><Users className="w-4 h-4" /> {trip.booked} people booked</span>
+            <div className="flex flex-wrap items-center gap-2 mt-4 text-sm">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/15 backdrop-blur font-medium">
+                <Clock className="w-4 h-4" /> {trip.duration}
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/15 backdrop-blur font-medium">
+                <Calendar className="w-4 h-4" /> {trip.dates}
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/15 backdrop-blur font-medium">
+                <Star className="w-4 h-4 fill-secondary stroke-secondary" /> {trip.rating} · {trip.booked} reviews
+              </span>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Trip Passport — at-a-glance summary */}
+      <div className="container max-w-6xl pt-10">
+        <div className="rounded-2xl border bg-card shadow-card p-5 sm:p-6">
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <p className="text-sm font-extrabold font-display flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-accent" /> Trip at a Glance
+            </p>
+            {trip.popular && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-secondary text-secondary-foreground text-[11px] font-bold">
+                <Flame className="w-3.5 h-3.5" /> Trending
+              </span>
+            )}
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            {[
+              { icon: Clock, label: "Duration", value: trip.duration },
+              { icon: Calendar, label: "Dates", value: trip.dates },
+              { icon: TRANSPORT_ICONS[trip.transportMode] ?? Plane, label: "Transport", value: trip.transportMode },
+              { icon: MapPin, label: "Boards at", value: trip.assemblyPoint },
+              { icon: Users, label: "Group size", value: `${trip.booked}+ booked` },
+              { icon: Star, label: "Rating", value: `${trip.rating} / 5` },
+            ].map((item) => {
+              const Icon = item.icon as React.ElementType;
+              return (
+                <div key={item.label} className="p-3 rounded-xl bg-muted/40 border border-border/60">
+                  <Icon className="w-4 h-4 text-primary mb-1.5" />
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{item.label}</p>
+                  <p className="text-sm font-semibold break-words leading-snug">{item.value}</p>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Price + CTA inline at bottom of passport */}
+          <div className="mt-5 pt-5 border-t flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Price per person</p>
+              <p className="text-lg font-extrabold text-primary">
+                ₹{trip.price.toLocaleString("en-IN")} · Pay ₹{Math.round(trip.price * 0.25).toLocaleString("en-IN")} now
+              </p>
+            </div>
+            <button
+              onClick={() => setBookingOpen(true)}
+              className="h-11 px-6 rounded-xl bg-primary text-primary-foreground font-bold hover:bg-primary/90 transition-colors shadow-elevated"
+            >
+              Book This Trip
+            </button>
           </div>
         </div>
       </div>
@@ -230,12 +274,6 @@ const TripDetails = () => {
             ))}
           </div>
 
-          {/* Cancellation & Payment policies */}
-          <div className="space-y-3">
-            <CancellationPolicy />
-            <PaymentPolicy />
-          </div>
-
           {/* Sold by — prominent brand identity */}
           <Link
             to={`/planner/${company?.id ?? ""}`}
@@ -258,6 +296,12 @@ const TripDetails = () => {
               <ChevronRight className="w-5 h-5 text-muted-foreground" />
             </div>
           </Link>
+
+          {/* Cancellation & Payment policies */}
+          <div className="space-y-3">
+            <CancellationPolicy />
+            <PaymentPolicy />
+          </div>
 
           {/* Tabs */}
           <div className="flex bg-muted p-1 rounded-xl overflow-x-auto scrollbar-hide">
@@ -311,10 +355,7 @@ const TripDetails = () => {
                             <Moon className="w-3.5 h-3.5" />
                           </div>
                         </div>
-                        <p className="text-sm text-foreground/90 font-semibold leading-snug">{day.split("–")[0]?.trim()}</p>
-                        {day.includes("–") && (
-                          <p className="text-sm text-foreground/70 leading-relaxed mt-1">{day.split("–").slice(1).join("–").trim()}</p>
-                        )}
+                        <p className="text-sm text-foreground/90 font-semibold leading-snug">{day}</p>
                         <div className="flex flex-wrap gap-1.5 mt-3">
                           {day.split(/[,&]/).slice(0, 3).map((activity, ai) => (
                             <span key={ai} className="text-[11px] px-2 py-1 rounded-full bg-muted text-foreground/80 font-medium">
@@ -360,24 +401,6 @@ const TripDetails = () => {
             <div className="flex items-baseline justify-between">
               <span className="text-3xl font-extrabold text-primary shrink-0">₹{trip.price.toLocaleString("en-IN")}</span>
               <span className="text-xs text-muted-foreground">per person</span>
-            </div>
-            <div className="flex items-start gap-2 p-3 rounded-xl bg-muted/50 border border-border/60">
-              <MapPin className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Assembly point</p>
-                <p className="text-sm font-semibold">{trip.assemblyPoint}</p>
-                <p className="text-[11px] text-muted-foreground mt-0.5">Arrive 30 min before departure</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              {(() => {
-                const TransportIcon = TRANSPORT_ICONS[trip.transportMode] ?? Plane;
-                return (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-xs font-bold">
-                    <TransportIcon className="w-3.5 h-3.5" /> {trip.transportMode} trip
-                  </span>
-                );
-              })()}
             </div>
             <div className="text-sm space-y-2 py-3 border-y">
               <p className="flex justify-between"><span className="text-muted-foreground">Duration</span><span className="font-medium">{trip.duration}</span></p>
@@ -439,6 +462,7 @@ const TripDetails = () => {
       <BookingModal trip={trip} open={bookingOpen} onClose={() => setBookingOpen(false)} />
       <BottomNav />
       <AIChatWidget />
+      <ExitIntent trip={trip} />
     </div>
   );
 };
