@@ -171,6 +171,57 @@ const TripDetails = () => {
         </div>
       </div>
 
+      {/* Trip Passport — at-a-glance summary */}
+      <div className="container max-w-6xl pt-10">
+        <div className="rounded-2xl border bg-card shadow-card p-5 sm:p-6">
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <p className="text-sm font-extrabold font-display flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-accent" /> Trip at a Glance
+            </p>
+            {trip.popular && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-secondary text-secondary-foreground text-[11px] font-bold">
+                <Flame className="w-3.5 h-3.5" /> Trending
+              </span>
+            )}
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            {[
+              { icon: Clock, label: "Duration", value: trip.duration },
+              { icon: Calendar, label: "Dates", value: trip.dates },
+              { icon: TRANSPORT_ICONS[trip.transportMode] ?? Plane, label: "Transport", value: trip.transportMode },
+              { icon: MapPin, label: "Boards at", value: trip.assemblyPoint },
+              { icon: Users, label: "Group size", value: `${trip.booked}+ booked` },
+              { icon: Star, label: "Rating", value: `${trip.rating} / 5` },
+            ].map((item) => {
+              const Icon = item.icon as React.ElementType;
+              return (
+                <div key={item.label} className="p-3 rounded-xl bg-muted/40 border border-border/60">
+                  <Icon className="w-4 h-4 text-primary mb-1.5" />
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{item.label}</p>
+                  <p className="text-sm font-semibold break-words leading-snug">{item.value}</p>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Price + CTA inline at bottom of passport */}
+          <div className="mt-5 pt-5 border-t flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Price per person</p>
+              <p className="text-lg font-extrabold text-primary">
+                ₹{trip.price.toLocaleString("en-IN")} · Pay ₹{Math.round(trip.price * 0.25).toLocaleString("en-IN")} now
+              </p>
+            </div>
+            <button
+              onClick={() => setBookingOpen(true)}
+              className="h-11 px-6 rounded-xl bg-primary text-primary-foreground font-bold hover:bg-primary/90 transition-colors shadow-elevated"
+            >
+              Book This Trip
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Photo gallery — emotional connect */}
       <div className="container max-w-6xl py-10">
         <div className="flex items-end justify-between mb-4">
