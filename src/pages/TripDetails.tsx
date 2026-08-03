@@ -361,24 +361,6 @@ const TripDetails = () => {
               <span className="text-3xl font-extrabold text-primary shrink-0">₹{trip.price.toLocaleString("en-IN")}</span>
               <span className="text-xs text-muted-foreground">per person</span>
             </div>
-            <div className="flex items-start gap-2 p-3 rounded-xl bg-muted/50 border border-border/60">
-              <MapPin className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Assembly point</p>
-                <p className="text-sm font-semibold">{trip.assemblyPoint}</p>
-                <p className="text-[11px] text-muted-foreground mt-0.5">Arrive 30 min before departure</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              {(() => {
-                const TransportIcon = TRANSPORT_ICONS[trip.transportMode] ?? Plane;
-                return (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-xs font-bold">
-                    <TransportIcon className="w-3.5 h-3.5" /> {trip.transportMode} trip
-                  </span>
-                );
-              })()}
-            </div>
             <div className="text-sm space-y-2 py-3 border-y">
               <p className="flex justify-between"><span className="text-muted-foreground">Duration</span><span className="font-medium">{trip.duration}</span></p>
               <p className="flex justify-between"><span className="text-muted-foreground">Dates</span><span className="font-medium">{trip.dates}</span></p>
