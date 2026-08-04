@@ -23,6 +23,7 @@ const Explore = () => {
   const [durationFilter, setDurationFilter] = useState("All");
   const [ratingFilter, setRatingFilter] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
+  const [goGirls, setGoGirls] = useState(false);
 
   useEffect(() => {
     const q = searchParams.get("q");
