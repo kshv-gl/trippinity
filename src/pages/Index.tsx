@@ -273,13 +273,15 @@ const Index = () => {
   const featuredReviews = reviews.slice(0, 3);
 
   return (
-    <div className="min-h-screen pb-20 md:pb-0">
+    <div className={`min-h-screen pb-20 md:pb-0 ${goGirls ? "gogirls-mode bg-pink-50/40" : ""}`}>
       <SEO
         title="Trippinity – Curated Group Trips & Local Planners in India"
         description="Discover curated group trips from verified local planners across India. Transparent pricing, day-wise itineraries, and 25% upfront booking."
         path="/"
       />
       <Navbar />
+      <GoGirlsBanner active={goGirls} onToggle={() => setGoGirls((v) => !v)} />
+      {goGirls && <GoGirlsHero />}
       <Hero />
 
 
