@@ -693,10 +693,15 @@ const Index = () => {
       <section className="container py-10">
         <div className="flex items-end justify-between mb-5">
           <div>
-            <h2 className="text-2xl font-extrabold font-display flex items-center gap-2">
-              <Map className="w-6 h-6 text-accent" /> {query ? `Results for "${query}"` : "Popular this season"}
+            <h2 className={`text-2xl font-extrabold font-display flex items-center gap-2 ${goGirls ? "text-pink-600" : ""}`}>
+              <Map className={`w-6 h-6 ${goGirls ? "text-pink-500" : "text-accent"}`} />{" "}
+              {goGirls ? "Trips made for you" : query ? `Results for "${query}"` : "Popular this season"}
             </h2>
-            <p className="text-sm text-muted-foreground">{filtered.length} trips · curated by verified planners</p>
+            <p className="text-sm text-muted-foreground">
+              {goGirls
+                ? "All trips are women-only with verified female leaders"
+                : `${filtered.length} trips · curated by verified planners`}
+            </p>
           </div>
           <Link to="/explore" className="text-sm font-medium text-primary hover:underline">See all →</Link>
         </div>
