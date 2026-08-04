@@ -2,17 +2,18 @@ import { useEffect, useRef, useState } from "react";
 import { X, Bell, MessageCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { type Trip } from "@/data/mockTrips";
+import { useAuth, getAgeFromDob } from "@/hooks/useAuth";
 
 interface Props {
   trip: Trip;
-  userAge?: number;
 }
 
 const DISMISSED_KEY = "trippinity_exit_dismissed";
 
-const ExitIntent = ({ trip, userAge }: Props) => {
+const ExitIntent = ({ trip }: Props) => {
+  const { user } = useAuth();
+  const age = getAgeFromDob(user?.dob);
   const [show, setShow] = useState(false);
-  const [age, setAge] = useState<number | null>(userAge ?? null);
   const [phone, setPhone] = useState("");
   const [sent, setSent] = useState(false);
   const [priceDrop, setPriceDrop] = useState(false);
