@@ -8,6 +8,7 @@ import BottomNav from "@/components/BottomNav";
 import TripCard from "@/components/TripCard";
 import Footer from "@/components/Footer";
 import CompareBar from "@/components/CompareBar";
+import GoGirlsBanner from "@/components/GoGirlsBanner";
 import { useCompare } from "@/hooks/useCompare";
 import { useUserState } from "@/hooks/useUserState";
 import { mockTrips, destinations, companies } from "@/data/mockTrips";
@@ -33,6 +34,7 @@ const Explore = () => {
   const filtered = useMemo(() => {
     const result = mockTrips.filter((t) => {
       const q = query.trim().toLowerCase();
+      if (goGirls && !t.womensOnly) return false;
       if (q) {
         const companyName = companies[t.companyId]?.name?.toLowerCase() ?? "";
         const match =
@@ -66,7 +68,7 @@ const Explore = () => {
     if (sortBy === "rating") return [...result].sort((a, b) => b.rating - a.rating);
     if (sortBy === "popular") return [...result].sort((a, b) => b.booked - a.booked);
     return result;
-  }, [query, destFilter, maxPrice, durationFilter, ratingFilter, sortBy, userState]);
+  }, [query, destFilter, maxPrice, durationFilter, ratingFilter, sortBy, userState, goGirls]);
 
   const hasActiveFilters = destFilter !== "All" || durationFilter !== "All" || ratingFilter > 0 || maxPrice < 30000;
   const resetAll = () => {
@@ -82,6 +84,7 @@ const Explore = () => {
         path="/explore"
       />
       <Navbar />
+      <GoGirlsBanner active={goGirls} onToggle={() => setGoGirls((v) => !v)} />
 
       <div className="container py-8">
         <div className="flex items-end justify-between mb-6">
