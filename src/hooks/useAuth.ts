@@ -10,7 +10,19 @@ const EVT = "trippinity:auth-changed";
 export interface MockUser {
   name: string;
   email: string;
+  dob?: string; // ISO string "YYYY-MM-DD"
 }
+
+export const getAgeFromDob = (dob?: string): number | null => {
+  if (!dob) return null;
+  const birth = new Date(dob);
+  if (Number.isNaN(birth.getTime())) return null;
+  const today = new Date();
+  let age = today.getFullYear() - birth.getFullYear();
+  const m = today.getMonth() - birth.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+  return age;
+};
 
 const read = (): MockUser | null => {
   if (typeof window === "undefined") return null;
