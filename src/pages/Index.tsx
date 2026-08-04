@@ -701,27 +701,8 @@ const Index = () => {
           <Link to="/explore" className="text-sm font-medium text-primary hover:underline">See all →</Link>
         </div>
 
-        {/* Go Girls toggle */}
-        <div className="flex items-center justify-between gap-4 mb-5 p-4 rounded-2xl border bg-gradient-to-r from-pink-50 to-purple-50">
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="w-10 h-10 rounded-xl bg-pink-500/15 flex items-center justify-center shrink-0">
-              <Sparkles className="w-5 h-5 text-pink-600" />
-            </div>
-            <div className="min-w-0">
-              <p className="font-bold font-display text-sm">Go Girls</p>
-              <p className="text-xs text-muted-foreground">Show only women-only trips with female trip leaders</p>
-            </div>
-          </div>
-          <button
-            role="switch"
-            aria-checked={goGirls}
-            aria-label="Toggle women only trips"
-            onClick={() => setGoGirls((v) => !v)}
-            className={`relative w-14 h-8 rounded-full transition-colors shrink-0 ${goGirls ? "bg-pink-500" : "bg-muted-foreground/30"}`}
-          >
-            <span className={`absolute top-1 left-1 w-6 h-6 rounded-full bg-white shadow-soft transition-transform ${goGirls ? "translate-x-6" : ""}`} />
-          </button>
-        </div>
+
+
 
         {filtered.length === 0 ? (
           <div className="text-center py-20 text-muted-foreground">No trips found. Try a different search.</div>
