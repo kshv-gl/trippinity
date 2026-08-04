@@ -289,6 +289,142 @@ var mockTrips = [
       "https://images.pexels.com/photos/35328601/pexels-photo-35328601.jpeg?cs=srgb&dl=pexels-zikriyeah-35328601.jpg&fm=jpg&_gl=1*cxehbl*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzU1MjIkajU5JGwwJGgw",
       "https://images.pexels.com/photos/13004767/pexels-photo-13004767.jpeg?cs=srgb&dl=pexels-kevin-kleber-64080845-13004767.jpg&fm=jpg&_gl=1*15rny3t*_ga*MTUzNzUzNzM5Ny4xNzc1NDg5NzU1*_ga_8JE65Q40S6*czE3NzkxMzM4NDIkbzUkZzEkdDE3NzkxMzU1NzkkajIkbDAkaDA."
     ]
+  },
+  {
+    id: "7",
+    title: "Coorg Coffee & Waterfalls Retreat",
+    price: 10499,
+    duration: "3N / 4D",
+    dates: "May 10 to May 13, 2026",
+    itinerary: [
+      "Arrive Coorg, check in to a coffee estate stay, welcome bonfire.",
+      "Abbey Falls trek, Rajah's Seat sunrise, Omkareshwara Temple.",
+      "Coffee plantation walk, Raja's Seat sunset, local Coorgi dinner.",
+      "Departure after breakfast with fresh estate coffee as a takeaway."
+    ],
+    image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=1200&q=80",
+    videoUrl: VID.backwaters,
+    plannerName: "Priya Nair",
+    plannerAbout: "Coorg native who runs slow-travel escapes through Karnataka's hill country.",
+    companyId: "kerala-trails",
+    rating: 4.7,
+    booked: 52,
+    popular: true,
+    location: "Coorg, Karnataka",
+    destination: "Karnataka",
+    departureState: "Karnataka",
+    assemblyPoint: "Mysuru Railway Station, Mysore",
+    transportMode: "Bus",
+    womensOnly: false,
+    gallery: [
+      "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800&q=80",
+      "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800&q=80",
+      "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80",
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
+    ]
+  },
+  {
+    id: "8",
+    title: "Rishikesh Girls' Yoga & Rafting Weekend",
+    price: 9499,
+    duration: "2N / 3D",
+    dates: "Jun 6 to Jun 8, 2026",
+    itinerary: [
+      "Arrive Rishikesh, sunset aarti at Triveni Ghat, group introductions.",
+      "Morning yoga session, white-water rafting on the Ganga, cliff jumping.",
+      "Guided meditation, Laxman Jhula walk, market exploration, departure."
+    ],
+    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&q=80",
+    videoUrl: VID.beach,
+    plannerName: "Kavya Sharma",
+    plannerAbout: "Certified yoga instructor and adventure guide based in Rishikesh. 300+ women hosted.",
+    companyId: "kerala-trails",
+    rating: 4.9,
+    booked: 143,
+    popular: true,
+    location: "Rishikesh, Uttarakhand",
+    destination: "Uttarakhand",
+    departureState: "New Delhi",
+    assemblyPoint: "Dhaula Kuan, New Delhi",
+    transportMode: "Bus",
+    womensOnly: true,
+    gallery: [
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+      "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80",
+      "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80"
+    ]
+  },
+  {
+    id: "9",
+    title: "Meghalaya Living Roots & Waterfalls Trek",
+    price: 17999,
+    duration: "5N / 6D",
+    dates: "Aug 1 to Aug 6, 2026",
+    itinerary: [
+      "Fly to Shillong, transfer to Cherrapunji, check in to jungle resort.",
+      "Trek to Double Decker Living Root Bridge, swimming at natural pools.",
+      "Nohkalikai Falls, Seven Sisters Falls, local village walk.",
+      "Dawki River boat ride, crystal-clear water photography, border market.",
+      "Mawlynnong village tour, Asia's cleanest village, balancing rock.",
+      "Shillong local cafes, Don Bosco Museum, departure."
+    ],
+    image: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1200&q=80",
+    videoUrl: VID.backwaters,
+    plannerName: "Rina Laloo",
+    plannerAbout: "Meghalaya native, documentary photographer and trek guide for 7 years.",
+    companyId: "kerala-trails",
+    rating: 4.8,
+    booked: 38,
+    popular: false,
+    location: "Cherrapunji, Meghalaya",
+    destination: "Meghalaya",
+    departureState: "Assam",
+    assemblyPoint: "Guwahati Airport, Assam",
+    transportMode: "Flight",
+    womensOnly: false,
+    gallery: [
+      "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80",
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
+      "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80"
+    ]
+  },
+  {
+    id: "10",
+    title: "Women of the Himalayas: Spiti Overland",
+    price: 21999,
+    duration: "6N / 7D",
+    dates: "Sep 5 to Sep 11, 2026",
+    itinerary: [
+      "Board overnight bus from Delhi, arrive Shimla morning.",
+      "Drive Shimla to Narkanda to Nako Village, riverside camp.",
+      "Tabo Monastery, Pin Valley National Park meadow walk.",
+      "Kaza town, Key Monastery, Kibber Village, highest post office.",
+      "Langza Buddha statue, fossil fields, stargazing camp.",
+      "Chandratal Lake day hike, golden hour at the lake.",
+      "Drive back to Manali, hot showers, group dinner, departure."
+    ],
+    image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=1200&q=80",
+    videoUrl: VID.mountains,
+    plannerName: "Simran Kaur",
+    plannerAbout: "High-altitude trek leader, photographer, feminist traveler. 500+ women taken to the mountains.",
+    companyId: "himalayan-trails",
+    rating: 5,
+    booked: 72,
+    popular: true,
+    location: "Spiti Valley, Himachal Pradesh",
+    destination: "Spiti Valley",
+    departureState: "New Delhi",
+    assemblyPoint: "Dhaula Kuan, New Delhi",
+    transportMode: "Bus",
+    womensOnly: true,
+    gallery: [
+      "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800&q=80",
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+      "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80"
+    ]
   }
 ];
 var destinations = [

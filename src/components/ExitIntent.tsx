@@ -2,17 +2,18 @@ import { useEffect, useRef, useState } from "react";
 import { X, Bell, MessageCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { type Trip } from "@/data/mockTrips";
+import { useAuth, getAgeFromDob } from "@/hooks/useAuth";
 
 interface Props {
   trip: Trip;
-  userAge?: number;
 }
 
 const DISMISSED_KEY = "trippinity_exit_dismissed";
 
-const ExitIntent = ({ trip, userAge }: Props) => {
+const ExitIntent = ({ trip }: Props) => {
+  const { user } = useAuth();
+  const age = getAgeFromDob(user?.dob);
   const [show, setShow] = useState(false);
-  const [age, setAge] = useState<number | null>(userAge ?? null);
   const [phone, setPhone] = useState("");
   const [sent, setSent] = useState(false);
   const [priceDrop, setPriceDrop] = useState(false);
@@ -43,7 +44,7 @@ const ExitIntent = ({ trip, userAge }: Props) => {
 
   if (!show) return null;
 
-  const isYoung = age !== null && age <= 22;
+  const showYoungFlow = age !== null && age <= 22;
 
   const handleSendToParent = () => {
     if (!phone.trim()) return;
@@ -66,29 +67,7 @@ const ExitIntent = ({ trip, userAge }: Props) => {
           <div className="w-10 h-1.5 rounded-full bg-muted" />
         </div>
 
-        {age === null ? (
-          <div className="space-y-4 text-center">
-            <h3 className="text-xl font-extrabold font-display">Before you go...</h3>
-            <p className="text-sm text-muted-foreground">How old are you? We'll personalise what comes next.</p>
-            <div className="flex gap-3">
-              <button
-                onClick={() => setAge(20)}
-                className="flex-1 h-12 rounded-xl border-2 font-bold text-sm hover:border-primary hover:text-primary transition-colors"
-              >
-                22 or younger
-              </button>
-              <button
-                onClick={() => setAge(25)}
-                className="flex-1 h-12 rounded-xl border-2 font-bold text-sm hover:border-primary hover:text-primary transition-colors"
-              >
-                23 or older
-              </button>
-            </div>
-            <button onClick={dismissForever} className="w-full text-xs text-muted-foreground hover:text-foreground py-2">
-              Not relevant for me. Never show again
-            </button>
-          </div>
-        ) : isYoung ? (
+        {showYoungFlow ? (
           <div className="space-y-4">
             <button
               onClick={() => setShow(false)}

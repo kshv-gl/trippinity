@@ -30,6 +30,63 @@ import AIChatWidget from "@/components/AIChatWidget";
 import { mockTrips, destinations, companies } from "@/data/mockTrips";
 import { reviews } from "@/data/reviews";
 import { useUserState } from "@/hooks/useUserState";
+import GoGirlsBanner from "@/components/GoGirlsBanner";
+
+const AFFIRMATIONS = [
+  "Solo doesn't mean alone. Your tribe is waiting.",
+  "Safe stays. Verified leaders. Zero bs.",
+  "You planned the trip. Now someone else handles the logistics.",
+  "Women who travel together, grow together.",
+  "This is your sign. Book the trip.",
+];
+
+const GoGirlsHero = () => {
+  const [affIdx, setAffIdx] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setAffIdx((i) => (i + 1) % AFFIRMATIONS.length), 3500);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <section className="container pt-5">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-pink-500 via-fuchsia-500 to-purple-600 text-white p-8 sm:p-12">
+        <div className="absolute -top-16 -left-10 w-56 h-56 rounded-full bg-white/15 blur-3xl" />
+        <div className="absolute -bottom-20 -right-10 w-72 h-72 rounded-full bg-white/10 blur-3xl" />
+
+        <div className="relative">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur text-xs font-bold">
+            <Sparkles className="w-3.5 h-3.5" /> Go Girls Mode
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-extrabold font-display mt-4 leading-tight max-w-2xl">
+            Your trip, your rules. No compromise.
+          </h2>
+          <p className="mt-3 text-white/85 max-w-xl text-sm sm:text-base">
+            Every trip here is curated by verified female leaders, designed for women who travel on their own terms.
+          </p>
+
+          <div className="mt-6 min-h-[52px]">
+            <p key={affIdx} className="animate-fade-in text-base sm:text-lg font-display italic text-white/95">
+              "{AFFIRMATIONS[affIdx]}"
+            </p>
+          </div>
+
+          <div className="mt-6 grid grid-cols-3 gap-3 max-w-md">
+            {[
+              { value: "2,400+", label: "Women traveled" },
+              { value: "100%", label: "Verified leaders" },
+              { value: "4.9", label: "Avg safety rating" },
+            ].map((s) => (
+              <div key={s.label} className="rounded-2xl bg-white/15 backdrop-blur border border-white/20 p-3 text-center">
+                <p className="text-xl font-extrabold font-display">{s.value}</p>
+                <p className="text-[11px] text-white/80 leading-tight mt-0.5">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const RotatingBanner = () => {
   const [active, setActive] = useState(0);
@@ -273,13 +330,15 @@ const Index = () => {
   const featuredReviews = reviews.slice(0, 3);
 
   return (
-    <div className="min-h-screen pb-20 md:pb-0">
+    <div className={`min-h-screen pb-20 md:pb-0 ${goGirls ? "gogirls-mode bg-pink-50/40" : ""}`}>
       <SEO
         title="Trippinity – Curated Group Trips & Local Planners in India"
         description="Discover curated group trips from verified local planners across India. Transparent pricing, day-wise itineraries, and 25% upfront booking."
         path="/"
       />
       <Navbar />
+      <GoGirlsBanner active={goGirls} onToggle={() => setGoGirls((v) => !v)} />
+      {goGirls && <GoGirlsHero />}
       <Hero />
 
 
@@ -693,35 +752,21 @@ const Index = () => {
       <section className="container py-10">
         <div className="flex items-end justify-between mb-5">
           <div>
-            <h2 className="text-2xl font-extrabold font-display flex items-center gap-2">
-              <Map className="w-6 h-6 text-accent" /> {query ? `Results for "${query}"` : "Popular this season"}
+            <h2 className={`text-2xl font-extrabold font-display flex items-center gap-2 ${goGirls ? "text-pink-600" : ""}`}>
+              <Map className={`w-6 h-6 ${goGirls ? "text-pink-500" : "text-accent"}`} />{" "}
+              {goGirls ? "Trips made for you" : query ? `Results for "${query}"` : "Popular this season"}
             </h2>
-            <p className="text-sm text-muted-foreground">{filtered.length} trips · curated by verified planners</p>
+            <p className="text-sm text-muted-foreground">
+              {goGirls
+                ? "All trips are women-only with verified female leaders"
+                : `${filtered.length} trips · curated by verified planners`}
+            </p>
           </div>
           <Link to="/explore" className="text-sm font-medium text-primary hover:underline">See all →</Link>
         </div>
 
-        {/* Go Girls toggle */}
-        <div className="flex items-center justify-between gap-4 mb-5 p-4 rounded-2xl border bg-gradient-to-r from-pink-50 to-purple-50">
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="w-10 h-10 rounded-xl bg-pink-500/15 flex items-center justify-center shrink-0">
-              <Sparkles className="w-5 h-5 text-pink-600" />
-            </div>
-            <div className="min-w-0">
-              <p className="font-bold font-display text-sm">Go Girls</p>
-              <p className="text-xs text-muted-foreground">Show only women-only trips with female trip leaders</p>
-            </div>
-          </div>
-          <button
-            role="switch"
-            aria-checked={goGirls}
-            aria-label="Toggle women only trips"
-            onClick={() => setGoGirls((v) => !v)}
-            className={`relative w-14 h-8 rounded-full transition-colors shrink-0 ${goGirls ? "bg-pink-500" : "bg-muted-foreground/30"}`}
-          >
-            <span className={`absolute top-1 left-1 w-6 h-6 rounded-full bg-white shadow-soft transition-transform ${goGirls ? "translate-x-6" : ""}`} />
-          </button>
-        </div>
+
+
 
         {filtered.length === 0 ? (
           <div className="text-center py-20 text-muted-foreground">No trips found. Try a different search.</div>

@@ -27,6 +27,7 @@ import {
   Train,
   Car,
   Bike,
+  Sparkles,
 } from "lucide-react";
 import { toast } from "sonner";
 import { CancellationPolicy, PaymentPolicy } from "@/components/CancellationPolicy";
@@ -432,6 +433,12 @@ const TripDetails = () => {
             >
               <GitCompare className="w-4 h-4" /> Add to Compare
             </button>
+            <Link
+              to={`/trip-pass?trip=${trip.id}`}
+              className="w-full h-10 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white text-sm font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+            >
+              <Sparkles className="w-4 h-4" /> Get Permission Slip
+            </Link>
             <div className="text-[11px] text-center text-muted-foreground space-y-1">
               <p>Pay just 25% (₹{Math.round(trip.price * 0.25).toLocaleString("en-IN")}) to confirm</p>
               <p className="flex items-center justify-center gap-1 font-semibold text-foreground/70">

@@ -19,11 +19,11 @@ const Login = () => {
   const next = safeNext(params.get("next"));
   const { login } = useAuth();
   const [mode, setMode] = useState<"login" | "signup">("login");
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [form, setForm] = useState({ name: "", email: "", password: "", dob: "" });
   const [busy, setBusy] = useState(false);
 
   const finish = (name: string, email: string, isLogin: boolean) => {
-    login({ name, email });
+    login({ name, email, dob: form.dob || undefined });
     toast.success(isLogin ? `Welcome back, ${name}!` : `Account created! Welcome, ${name}!`);
     if (next.startsWith("/.lovable/oauth/consent")) {
       window.location.href = next;
@@ -173,6 +173,20 @@ const Login = () => {
                   className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
                   placeholder="Your name"
                 />
+              </div>
+            )}
+            {mode === "signup" && (
+              <div>
+                <label className="text-sm font-medium mb-1 block">Date of Birth</label>
+                <input
+                  type="date"
+                  value={form.dob}
+                  onChange={(e) => setForm({ ...form, dob: e.target.value })}
+                  className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                />
+                <p className="text-[11px] text-muted-foreground mt-1">
+                  Used to personalise your Trippinity experience. Never shared.
+                </p>
               </div>
             )}
             <div>
