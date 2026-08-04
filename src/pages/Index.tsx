@@ -30,6 +30,63 @@ import AIChatWidget from "@/components/AIChatWidget";
 import { mockTrips, destinations, companies } from "@/data/mockTrips";
 import { reviews } from "@/data/reviews";
 import { useUserState } from "@/hooks/useUserState";
+import GoGirlsBanner from "@/components/GoGirlsBanner";
+
+const AFFIRMATIONS = [
+  "Solo doesn't mean alone. Your tribe is waiting.",
+  "Safe stays. Verified leaders. Zero bs.",
+  "You planned the trip. Now someone else handles the logistics.",
+  "Women who travel together, grow together.",
+  "This is your sign. Book the trip.",
+];
+
+const GoGirlsHero = () => {
+  const [affIdx, setAffIdx] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setAffIdx((i) => (i + 1) % AFFIRMATIONS.length), 3500);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <section className="container pt-5">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-pink-500 via-fuchsia-500 to-purple-600 text-white p-8 sm:p-12">
+        <div className="absolute -top-16 -left-10 w-56 h-56 rounded-full bg-white/15 blur-3xl" />
+        <div className="absolute -bottom-20 -right-10 w-72 h-72 rounded-full bg-white/10 blur-3xl" />
+
+        <div className="relative">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur text-xs font-bold">
+            <Sparkles className="w-3.5 h-3.5" /> Go Girls Mode
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-extrabold font-display mt-4 leading-tight max-w-2xl">
+            Your trip, your rules. No compromise.
+          </h2>
+          <p className="mt-3 text-white/85 max-w-xl text-sm sm:text-base">
+            Every trip here is curated by verified female leaders, designed for women who travel on their own terms.
+          </p>
+
+          <div className="mt-6 min-h-[52px]">
+            <p key={affIdx} className="animate-fade-in text-base sm:text-lg font-display italic text-white/95">
+              "{AFFIRMATIONS[affIdx]}"
+            </p>
+          </div>
+
+          <div className="mt-6 grid grid-cols-3 gap-3 max-w-md">
+            {[
+              { value: "2,400+", label: "Women traveled" },
+              { value: "100%", label: "Verified leaders" },
+              { value: "4.9", label: "Avg safety rating" },
+            ].map((s) => (
+              <div key={s.label} className="rounded-2xl bg-white/15 backdrop-blur border border-white/20 p-3 text-center">
+                <p className="text-xl font-extrabold font-display">{s.value}</p>
+                <p className="text-[11px] text-white/80 leading-tight mt-0.5">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const RotatingBanner = () => {
   const [active, setActive] = useState(0);
