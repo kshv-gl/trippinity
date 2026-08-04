@@ -44,7 +44,7 @@ const ExitIntent = ({ trip }: Props) => {
 
   if (!show) return null;
 
-  const isYoung = age !== null && age <= 22;
+  const showYoungFlow = age !== null && age <= 22;
 
   const handleSendToParent = () => {
     if (!phone.trim()) return;
