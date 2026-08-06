@@ -2,7 +2,7 @@ import SEO from "@/components/SEO";
 import AIChatWidget from "@/components/AIChatWidget";
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Search, SlidersHorizontal, ArrowUpDown, Star, X, MapPin } from "lucide-react";
+import { Search, SlidersHorizontal, ArrowUpDown, Star, X, MapPin, Sparkles } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
 import TripCard from "@/components/TripCard";
@@ -84,7 +84,6 @@ const Explore = () => {
         path="/explore"
       />
       <Navbar />
-      <GoGirlsBanner active={goGirls} onToggle={() => setGoGirls((v) => !v)} />
 
       <div className="container py-8">
         <div className="flex items-end justify-between mb-6">
@@ -96,7 +95,7 @@ const Explore = () => {
 
         {/* Filter bar */}
         <div className="bg-card border rounded-2xl p-4 shadow-soft mb-8 space-y-3">
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <div className="relative flex-1 min-w-[200px]">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <input
@@ -111,7 +110,7 @@ const Explore = () => {
               aria-label="Sort trips"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-              className="h-11 px-3 rounded-xl border bg-background text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/30 cursor-pointer"
+              className="h-11 px-3 rounded-xl border bg-background text-sm font-medium max-w-[140px] sm:max-w-none focus:outline-none focus:ring-2 focus:ring-primary/30 cursor-pointer"
             >
               <option value="relevance">Sort: Relevance</option>
               <option value="price-asc">Price: Low → High</option>
@@ -165,6 +164,7 @@ const Explore = () => {
                       {d.emoji} {d.name}
                     </button>
                   ))}
+                  <GoGirlsBanner active={goGirls} onToggle={() => setGoGirls((v) => !v)} />
                 </div>
               </div>
 
@@ -265,6 +265,18 @@ const Explore = () => {
             </div>
           </div>
         ) : (
+          <>
+          {goGirls && (
+            <div className="flex items-center gap-2 mb-4 px-3 py-2 rounded-xl bg-gradient-to-r from-pink-500/10 to-purple-500/10 border border-pink-300/40">
+              <Sparkles className="w-3.5 h-3.5 text-pink-500 shrink-0" />
+              <p className="text-[11px] font-semibold text-purple-700">
+                Showing {filtered.length} women-only trip{filtered.length !== 1 ? "s" : ""} with verified female leaders
+              </p>
+              <button onClick={() => setGoGirls(false)} className="ml-auto text-[10px] text-purple-500 hover:text-purple-700 font-bold transition-colors">
+                Clear
+              </button>
+            </div>
+          )}
           <div className="trip-card-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((trip, i) => (
               <div key={trip.id} className="animate-fade-up opacity-0" style={{ animationDelay: `${i * 60}ms`, animationFillMode: "forwards" }}>
@@ -276,6 +288,7 @@ const Explore = () => {
               </div>
             ))}
           </div>
+          </>
         )}
       </div>
       <Footer />
