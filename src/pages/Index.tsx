@@ -476,7 +476,7 @@ const Index = () => {
 
 
       {/* Trust strip */}
-      <section className="container py-10 grid sm:grid-cols-3 gap-4">
+      <section className="container py-10 grid sm:grid-cols-3 gap-3">
         {[
           { icon: ShieldCheck, title: "Verified planners", desc: "Every company is vetted & rated" },
           { icon: Store, title: "Real marketplace", desc: "Multiple planners, your choice" },
@@ -484,7 +484,8 @@ const Index = () => {
         ].map((item, i) => (
           <div
             key={item.title}
-            className="flex items-start gap-3 p-4 rounded-2xl bg-muted/40 animate-fade-up opacity-0 hover:-translate-y-1 transition-transform"
+            className="flex items-start gap-3 p-4 rounded-2xl bg-muted/40 min-w-0 overflow-hidden animate-fade-up opacity-0 hover:-translate-y-1 transition-transform"
+
             style={{ animationDelay: `${i * 100}ms`, animationFillMode: "forwards" }}
           >
             <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
