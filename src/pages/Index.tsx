@@ -661,7 +661,7 @@ const Index = () => {
           </div>
           <Link to="/destinations" className="text-sm font-medium text-primary hover:underline">View all →</Link>
         </div>
-        <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+        <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
           {destinations.map((d, i) => (
             <Link
               key={d.name}
