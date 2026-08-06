@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { X, Bell, MessageCircle } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { X, Check, MessageCircle } from "lucide-react";
 import { type Trip } from "@/data/mockTrips";
 import { useAuth, getAgeFromDob } from "@/hooks/useAuth";
 
@@ -15,12 +14,13 @@ const ExitIntent = ({ trip }: Props) => {
   const age = getAgeFromDob(user?.dob);
   const [show, setShow] = useState(false);
   const [phone, setPhone] = useState("");
-  const [sent, setSent] = useState(false);
-  const [priceDrop, setPriceDrop] = useState(false);
+  const [step, setStep] = useState<"idle" | "phone" | "sent">("idle");
+  const [priceSaved, setPriceSaved] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const navigate = useNavigate();
 
-  const dismissForever = () => {
+  const isYoung = age !== null && age <= 22;
+
+  const dismiss = () => {
     localStorage.setItem(DISMISSED_KEY, "true");
     setShow(false);
   };
@@ -28,147 +28,158 @@ const ExitIntent = ({ trip }: Props) => {
   useEffect(() => {
     if (localStorage.getItem(DISMISSED_KEY) === "true") return;
 
-    const handleMouseLeave = (e: MouseEvent) => {
+    const handleLeave = (e: MouseEvent) => {
       if (e.clientY <= 0) setShow(true);
     };
 
     timerRef.current = setTimeout(() => {
-      document.addEventListener("mouseleave", handleMouseLeave, { once: true });
+      document.addEventListener("mouseleave", handleLeave, { once: true });
     }, 30000);
 
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
-      document.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener("mouseleave", handleLeave);
     };
   }, []);
 
+  const sendToParent = () => {
+    const origin = window.location.origin;
+    const message = `Hi! Your child wants to go on a trip with Trippinity.
+
+Trip: ${trip.title}
+Destination: ${trip.destination}
+Dates: ${trip.dates}
+Price: ₹${trip.price.toLocaleString("en-IN")}/person
+
+Give Permission: ${origin}/parent-approve?trip=${trip.id}&user=${encodeURIComponent(user?.email ?? "")}
+Not This Time: ${origin}/parent-decline?trip=${trip.id}`;
+
+    // Fire-and-forget notification request; UI does not block on it.
+    void fetch("/api/whatsapp-permission", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ phone: `+91${phone}`, message, tripId: trip.id }),
+    }).catch(() => undefined);
+
+    setStep("sent");
+  };
+
   if (!show) return null;
 
-  const showYoungFlow = age !== null && age <= 22;
-
-  const handleSendToParent = () => {
-    if (!phone.trim()) return;
-    setSent(true);
-    setTimeout(() => setShow(false), 3000);
-  };
-
-  const handlePriceDrop = () => {
-    setPriceDrop(true);
-    setTimeout(() => {
-      setPriceDrop(false);
-      setShow(false);
-    }, 2500);
-  };
-
   return (
-    <div className="fixed inset-0 z-[80] flex items-end sm:items-center justify-center bg-foreground/50 backdrop-blur-sm p-0 sm:p-4 animate-fade-in">
-      <div className="relative w-full sm:max-w-md bg-card rounded-t-3xl sm:rounded-3xl border shadow-elevated p-6 max-h-[90vh] overflow-y-auto">
-        <div className="flex justify-center mb-4 sm:hidden">
-          <div className="w-10 h-1.5 rounded-full bg-muted" />
-        </div>
+    <div className="fixed bottom-20 md:bottom-6 right-4 z-[70] w-[calc(100%-2rem)] sm:w-[340px] animate-fade-up">
+      <div className="rounded-2xl border bg-card shadow-elevated overflow-hidden">
+        <div className="h-1 w-full bg-gradient-to-r from-primary via-pink-500 to-purple-500" />
 
-        {showYoungFlow ? (
-          <div className="space-y-4">
+        <div className="p-4 space-y-3">
+          <div className="flex items-start gap-2">
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-bold leading-snug">
+                {isYoung
+                  ? "Want your parents to give you the green light?"
+                  : "Save this trip before you go"}
+              </p>
+              <p className="text-[11px] text-muted-foreground truncate mt-0.5">
+                {trip.title} · ₹{trip.price.toLocaleString("en-IN")}
+              </p>
+            </div>
             <button
               onClick={() => setShow(false)}
               aria-label="Close"
-              className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center hover:bg-muted"
+              className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-muted transition-colors shrink-0"
             >
-              <X className="w-4 h-4" />
+              <X className="w-3.5 h-3.5" />
             </button>
-            {!sent ? (
-              <>
-                <div className="text-center space-y-2">
-                  <h3 className="text-xl font-extrabold font-display">Want to send this trip to your parents?</h3>
-                  <p className="text-sm text-muted-foreground">
-                    They'll receive a WhatsApp message with full trip details from Trippinity, with a Grant Permission button.
+          </div>
+
+          {isYoung && (
+            <>
+              {step === "idle" && (
+                <div className="space-y-2">
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">
+                    We'll send a quick WhatsApp to your parent with the trip details and two simple buttons.
                   </p>
+                  <button
+                    onClick={() => setStep("phone")}
+                    className="w-full h-10 rounded-xl bg-primary text-white text-sm font-bold flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors"
+                  >
+                    <MessageCircle className="w-4 h-4" /> Send to parent on WhatsApp
+                  </button>
+                  <button onClick={dismiss} className="w-full text-[11px] text-center text-muted-foreground hover:text-foreground transition-colors py-0.5">
+                    Not relevant for me, don't show again
+                  </button>
                 </div>
-                <div className="p-4 rounded-2xl bg-muted/50 border">
-                  <p className="font-bold text-sm">{trip.title}</p>
-                  <p className="text-xs text-muted-foreground">{trip.destination} · {trip.dates}</p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    By {trip.plannerName} · ₹{trip.price.toLocaleString("en-IN")} per person
-                  </p>
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold">Parent's WhatsApp number</label>
+              )}
+
+              {step === "phone" && (
+                <div className="space-y-2">
                   <div className="flex items-center gap-2">
-                    <span className="h-11 px-3 rounded-xl border bg-muted inline-flex items-center text-sm font-semibold">+91</span>
+                    <span className="h-10 px-2.5 rounded-xl border bg-muted inline-flex items-center text-xs font-semibold shrink-0">+91</span>
                     <input
                       value={phone}
                       onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
-                      placeholder="Parent's mobile number"
-                      className="flex-1 h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                      placeholder="Parent's WhatsApp number"
+                      className="flex-1 h-10 px-3 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
                     />
                   </div>
-                </div>
-                <button
-                  onClick={handleSendToParent}
-                  className="w-full h-12 rounded-xl bg-primary text-primary-foreground font-bold text-sm hover:bg-primary/90 transition-colors inline-flex items-center justify-center gap-2"
-                >
-                  <MessageCircle className="w-4 h-4" /> Send via WhatsApp
-                </button>
-                <button onClick={dismissForever} className="w-full text-xs text-muted-foreground hover:text-foreground py-1">
-                  Not relevant for me. Never show again
-                </button>
-              </>
-            ) : (
-              <div className="text-center space-y-2 py-6">
-                <h3 className="text-xl font-extrabold font-display">Sent!</h3>
-                <p className="text-sm text-muted-foreground">
-                  Your parent will receive a WhatsApp message with the trip details and a permission button. You'll get a notification once they approve.
-                </p>
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className="space-y-4">
-            <button
-              onClick={() => setShow(false)}
-              aria-label="Close"
-              className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center hover:bg-muted"
-            >
-              <X className="w-4 h-4" />
-            </button>
-            {!priceDrop ? (
-              <>
-                <div className="text-center space-y-2">
-                  <h3 className="text-xl font-extrabold font-display">Don't lose this trip</h3>
-                  <p className="text-sm text-muted-foreground">Save it to your favourites or get notified if the price drops.</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-muted/50 border">
-                  <p className="font-bold text-sm">{trip.title}</p>
-                  <p className="text-xs text-muted-foreground">{trip.destination} · {trip.dates}</p>
-                  <p className="text-xs text-muted-foreground mt-1">₹{trip.price.toLocaleString("en-IN")} per person</p>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
                   <button
-                    onClick={() => { navigate("/favourites"); setShow(false); }}
-                    className="h-12 rounded-xl border-2 border-primary text-primary font-bold text-sm hover:bg-primary/5 transition-colors"
+                    disabled={phone.length !== 10}
+                    onClick={sendToParent}
+                    className="w-full h-10 rounded-xl bg-green-500 text-white text-sm font-bold disabled:opacity-40 hover:bg-green-600 transition-colors flex items-center justify-center gap-2"
                   >
-                    Save Trip
+                    Send now
                   </button>
-                  <button
-                    onClick={handlePriceDrop}
-                    className="h-12 rounded-xl bg-primary text-primary-foreground font-bold text-sm hover:bg-primary/90 transition-colors inline-flex items-center justify-center gap-2"
-                  >
-                    <Bell className="w-4 h-4" /> Price Alert
+                  <button onClick={() => setStep("idle")} className="w-full text-[11px] text-center text-muted-foreground hover:text-foreground transition-colors py-0.5">
+                    Go back
                   </button>
                 </div>
-                <button onClick={dismissForever} className="w-full text-xs text-muted-foreground hover:text-foreground py-1">
-                  Not relevant for me. Never show again
-                </button>
-              </>
-            ) : (
-              <div className="text-center space-y-2 py-6">
-                <Bell className="w-8 h-8 text-primary mx-auto" />
-                <h3 className="text-xl font-extrabold font-display">Price alert set!</h3>
-                <p className="text-sm text-muted-foreground">We'll notify you if the price of {trip.title} drops.</p>
-              </div>
-            )}
-          </div>
-        )}
+              )}
+
+              {step === "sent" && (
+                <div className="flex items-center gap-3 py-1">
+                  <div className="w-9 h-9 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0">
+                    <Check className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-sm font-bold">Sent!</p>
+                    <p className="text-[11px] text-muted-foreground">We'll notify you the moment they approve.</p>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+
+          {!isYoung && (
+            <>
+              {!priceSaved ? (
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => { setPriceSaved(true); setTimeout(() => setShow(false), 2500); }}
+                    className="flex-1 h-10 rounded-xl bg-primary text-white text-sm font-bold hover:bg-primary/90 transition-colors"
+                  >
+                    Price alert
+                  </button>
+                  <button
+                    onClick={() => setShow(false)}
+                    className="h-10 px-4 rounded-xl border text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Not now
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-3 py-1">
+                  <div className="w-9 h-9 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0">
+                    <Check className="w-4 h-4" />
+                  </div>
+                  <p className="text-xs font-semibold">We'll notify you if the price drops!</p>
+                </div>
+              )}
+              <button onClick={dismiss} className="w-full text-[11px] text-center text-muted-foreground hover:text-foreground transition-colors py-0.5">
+                Not relevant for me, don't show again
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
