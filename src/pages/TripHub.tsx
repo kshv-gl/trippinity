@@ -226,89 +226,163 @@ const TripHub = () => {
     <div className="min-h-screen pb-20 md:pb-0">
       <Navbar />
       <div className="container py-8 max-w-5xl">
-        <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
-          <div>
-            <h1 className="text-3xl font-extrabold font-display flex items-center gap-2">
-              Trip Hub <CheckCircle className="w-6 h-6 text-success" />
-            </h1>
-            <p className="text-sm text-muted-foreground">Magical Manali & Solang Valley · Apr 15 – Apr 19</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={openSos}
-              className="h-11 px-5 rounded-xl bg-destructive text-destructive-foreground font-extrabold text-sm inline-flex items-center gap-2 shadow-elevated hover:bg-destructive/90 transition-colors animate-pulse"
-            >
-              <Siren className="w-4 h-4" /> SOS
-            </button>
-            <button onClick={() => setBooked(false)} className="text-xs text-muted-foreground hover:text-destructive underline underline-offset-2">
-              Reset demo (lock again)
-            </button>
+        {/* Trip identity hero strip */}
+        <div className="relative rounded-2xl overflow-hidden mb-6 h-36 sm:h-44">
+          <img
+            src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=1200&q=80"
+            alt="Trip cover"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+          <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6">
+            <div className="flex items-end justify-between gap-3 flex-wrap">
+              <div className="min-w-0">
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-green-500/20 border border-green-400/30 text-green-300 text-[10px] font-bold uppercase tracking-wider mb-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" /> Live trip
+                </span>
+                <h1 className="text-xl sm:text-2xl font-extrabold font-display text-white leading-tight break-words">
+                  Magical Manali &amp; Solang Valley
+                </h1>
+                <p className="text-white/70 text-sm mt-0.5">Apr 15 to Apr 19 · Himalayan Trails Co.</p>
+              </div>
+              <button
+                onClick={openSos}
+                className="shrink-0 h-10 px-4 rounded-xl bg-red-500 text-white font-extrabold text-sm inline-flex items-center gap-1.5 shadow-elevated hover:bg-red-600 transition-colors"
+              >
+                <Siren className="w-4 h-4" /> SOS
+              </button>
+            </div>
           </div>
         </div>
 
+        <div className="flex justify-end mb-4">
+          <button onClick={() => setBooked(false)} className="text-xs text-muted-foreground hover:text-destructive underline underline-offset-2">
+            Reset demo (lock again)
+          </button>
+        </div>
+
         {/* Tabs */}
-        <div className="flex bg-muted p-1 rounded-xl mb-6 overflow-x-auto scrollbar-hide">
+        <div className="flex border-b border-border mb-6 overflow-x-auto scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
           {[
-            { id: "travelers", label: "Travelers", icon: Users },
-            { id: "group", label: "Group Chat", icon: MessagesSquare },
-            { id: "planner", label: "Planner Chat", icon: MessageCircle },
-            { id: "docs", label: "Documents", icon: FileText },
+            { id: "travelers", label: "Crew", icon: Users },
+            { id: "group", label: "Chat", icon: MessagesSquare },
+            { id: "planner", label: "Leader", icon: MessageCircle },
+            { id: "docs", label: "Docs", icon: FileText },
           ].map((t) => (
             <button
               key={t.id}
               onClick={() => setTab(t.id as Tab)}
-              className={`flex-1 min-w-[120px] h-11 rounded-lg text-sm font-medium inline-flex items-center justify-center gap-2 transition-colors ${
-                tab === t.id ? "bg-background shadow-soft" : "text-muted-foreground"
+              className={`flex items-center justify-center gap-2 min-w-[44px] px-4 py-3 text-sm font-semibold border-b-2 transition-all whitespace-nowrap ${
+                tab === t.id
+                  ? "border-primary text-primary"
+                  : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
               }`}
             >
-              <t.icon className="w-4 h-4" /> {t.label}
+              <t.icon className="w-4 h-4 shrink-0" />
+              <span>{t.label}</span>
             </button>
           ))}
         </div>
 
-        <div className="bg-card border rounded-2xl shadow-soft p-6 animate-fade-in">
+        <div className="bg-card border rounded-2xl shadow-soft p-4 sm:p-6 animate-fade-in">
           {tab === "travelers" && (
-            <div className="grid sm:grid-cols-2 gap-3">
-              {travelers.map((t) => (
-                <div key={t.name} className="flex items-center gap-3 p-3 rounded-xl bg-muted/40">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold">
-                    {t.name[0]}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between gap-2 flex-wrap mb-4">
+                <p className="text-sm font-bold">{travelers.length + 1} travelers going</p>
+                <span className="text-xs text-muted-foreground bg-muted px-3 py-1 rounded-full">
+                  {travelers.length + 1} / 12 seats filled
+                </span>
+              </div>
+
+              <div className="w-full h-2 bg-muted rounded-full overflow-hidden mb-5">
+                <div
+                  className="h-full bg-gradient-to-r from-primary to-accent rounded-full transition-all"
+                  style={{ width: `${((travelers.length + 1) / 12) * 100}%` }}
+                />
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-3">
+                <div className="flex items-center gap-3 p-4 rounded-2xl border-2 border-primary/20 bg-primary/5">
+                  <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-extrabold text-lg shrink-0">
+                    Y
                   </div>
-                  <div>
-                    <p className="font-semibold">{t.name}</p>
-                    <p className="text-xs text-muted-foreground">Age {t.age} · {t.city}</p>
+                  <div className="min-w-0">
+                    <p className="font-bold text-sm">You</p>
+                    <p className="text-xs text-muted-foreground">Primary traveler</p>
                   </div>
+                  <span className="ml-auto text-[10px] font-bold text-primary bg-primary/10 px-2 py-1 rounded-full shrink-0">You</span>
                 </div>
-              ))}
+
+                {travelers.map((t, i) => {
+                  const colors = ["bg-violet-500", "bg-teal-500", "bg-amber-500", "bg-rose-500"];
+                  return (
+                    <div key={t.name} className="flex items-center gap-3 p-4 rounded-2xl border bg-card hover:border-primary/30 transition-colors">
+                      <div className={`w-12 h-12 rounded-full ${colors[i % colors.length]} text-white flex items-center justify-center font-extrabold text-lg shrink-0`}>
+                        {t.name[0]}
+                      </div>
+                      <div className="min-w-0">
+                        <p className="font-bold text-sm truncate">{t.name}</p>
+                        <p className="text-xs text-muted-foreground truncate">{t.city} · {t.age} yrs</p>
+                      </div>
+                      <div className="w-2 h-2 rounded-full bg-green-400 shrink-0 ml-auto" title="Ready to go" />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           )}
 
           {tab === "group" && (
             <div className="flex flex-col h-[480px]">
+              <div className="flex items-center gap-3 pb-3 border-b mb-3">
+                <div className="flex -space-x-2">
+                  {["V", "R", "I", "K"].map((l, i) => (
+                    <div key={l} className={`w-7 h-7 rounded-full border-2 border-card flex items-center justify-center text-[11px] font-bold text-white ${["bg-violet-500","bg-teal-500","bg-amber-500","bg-rose-500"][i]}`}>{l}</div>
+                  ))}
+                </div>
+                <div>
+                  <p className="text-xs font-bold">5 members</p>
+                  <p className="text-[10px] text-green-500 font-semibold flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-green-500 inline-block" /> 3 online</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-primary/10 border border-primary/15 mb-3 text-xs text-primary font-medium">
+                <Sparkles className="w-3.5 h-3.5 shrink-0" />
+                <span className="break-words">
+                  Welcome to your group chat! Your trip is in {Math.ceil((new Date("2026-04-15").getTime() - Date.now()) / (1000 * 60 * 60 * 24))} days.
+                </span>
+              </div>
+
               <div className="flex-1 space-y-3 overflow-y-auto pr-2">
                 {groupMessages.map((m, i) => {
                   const isYou = m.from === "You";
                   return (
-                    <div key={i} className={`flex ${isYou ? "justify-end" : "justify-start"}`}>
-                      <div className={`max-w-[75%] p-3 rounded-2xl text-sm ${
+                    <div key={i} className={`flex ${isYou ? "justify-end" : "justify-start"} gap-2`}>
+                      {!isYou && (
+                        <div className="w-7 h-7 rounded-full bg-violet-500 text-white flex items-center justify-center text-xs font-bold shrink-0 mt-auto">
+                          {m.from[0]}
+                        </div>
+                      )}
+                      <div className={`max-w-[75%] px-3.5 py-2.5 rounded-2xl text-sm break-words ${
                         isYou ? "bg-primary text-primary-foreground rounded-br-sm" : "bg-muted rounded-bl-sm"
                       }`}>
-                        {!isYou && <p className="text-[11px] font-semibold mb-0.5 opacity-80">{m.from}</p>}
-                        <p>{m.text}</p>
-                        <p className="text-[10px] opacity-70 mt-1">{m.time}</p>
+                        {!isYou && <p className="text-[10px] font-bold mb-0.5 opacity-70">{m.from}</p>}
+                        <p className="leading-relaxed break-words">{m.text}</p>
+                        <p className="text-[10px] opacity-60 mt-1 text-right">{m.time}</p>
                       </div>
                     </div>
                   );
                 })}
               </div>
-              <form onSubmit={sendGroup} className="mt-4 flex gap-2">
+
+              <form onSubmit={sendGroup} className="flex gap-2 mt-3 pt-3 border-t">
                 <input
                   value={groupInput}
                   onChange={(e) => setGroupInput(e.target.value)}
-                  placeholder="Message the group..."
+                  placeholder="Say something to your crew..."
                   className="flex-1 h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
                 />
-                <button type="submit" className="h-11 px-4 rounded-xl bg-primary text-primary-foreground inline-flex items-center gap-1 font-medium hover:bg-primary/90 transition-colors">
+                <button type="submit" className="w-11 h-11 rounded-xl bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary/90 transition-colors shrink-0">
                   <Send className="w-4 h-4" />
                 </button>
               </form>
@@ -329,10 +403,10 @@ const TripHub = () => {
                   const isYou = m.from === "you";
                   return (
                     <div key={i} className={`flex ${isYou ? "justify-end" : "justify-start"}`}>
-                      <div className={`max-w-[75%] p-3 rounded-2xl text-sm ${
+                      <div className={`max-w-[75%] p-3 rounded-2xl text-sm break-words ${
                         isYou ? "bg-primary text-primary-foreground rounded-br-sm" : "bg-muted rounded-bl-sm"
                       }`}>
-                        <p>{m.text}</p>
+                        <p className="break-words">{m.text}</p>
                         <p className="text-[10px] opacity-70 mt-1">{m.time}</p>
                       </div>
                     </div>
@@ -354,26 +428,33 @@ const TripHub = () => {
           )}
 
           {tab === "docs" && (
-            <div className="space-y-2">
-              {documents.map((d) => (
-                <div key={d.name} className="flex items-center justify-between p-4 rounded-xl bg-muted/40 hover:bg-muted/70 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
-                      <FileText className="w-5 h-5" />
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 p-3 rounded-xl bg-amber-50 border border-amber-200/60 text-xs text-amber-700 font-medium">
+                <FileText className="w-4 h-4 shrink-0" />
+                All documents are shared by your trip leader. Download and save before departure.
+              </div>
+              {documents.map((d) => {
+                const ext = d.name.split(".").pop()?.toUpperCase();
+                const extColors: Record<string, string> = { PDF: "bg-red-100 text-red-600", JPG: "bg-blue-100 text-blue-600", DOCX: "bg-blue-100 text-blue-700" };
+                return (
+                  <div key={d.name} className="flex items-center gap-4 p-4 rounded-2xl border bg-card hover:border-primary/30 hover:shadow-soft transition-all group">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-black text-xs shrink-0 ${extColors[ext ?? ""] ?? "bg-muted text-muted-foreground"}`}>
+                      {ext}
                     </div>
-                    <div>
-                      <p className="font-semibold text-sm">{d.name}</p>
-                      <p className="text-xs text-muted-foreground">{d.size}</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-sm truncate">{d.name}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">{d.size}</p>
                     </div>
+                    <button className="h-9 px-4 rounded-xl border font-semibold text-xs flex items-center gap-1.5 hover:bg-primary hover:text-white hover:border-primary transition-all group-hover:border-primary/40 shrink-0">
+                      <Download className="w-3.5 h-3.5" /> Save
+                    </button>
                   </div>
-                  <button className="h-9 px-4 rounded-lg bg-background border text-sm font-medium hover:bg-muted inline-flex items-center gap-1">
-                    <Download className="w-4 h-4" /> Download
-                  </button>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
+
       </div>
       {sosOpen && (
         <div className="fixed inset-0 z-[90] flex items-end sm:items-center justify-center bg-foreground/60 backdrop-blur-sm p-0 sm:p-4">
