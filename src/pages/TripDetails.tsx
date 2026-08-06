@@ -200,7 +200,7 @@ const TripDetails = () => {
                 <div key={item.label} className="p-3 rounded-xl bg-muted/40 border border-border/60">
                   <Icon className="w-4 h-4 text-primary mb-1.5" />
                   <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{item.label}</p>
-                  <p className="text-sm font-semibold break-words leading-snug">{item.value}</p>
+                  <p className="text-sm leading-tight font-semibold break-words">{item.value}</p>
                 </div>
               );
             })}
@@ -314,7 +314,7 @@ const TripDetails = () => {
               <button
                 key={t.id}
                 onClick={() => setTab(t.id as Tab)}
-                className={`flex-1 min-w-[140px] h-11 rounded-lg text-sm font-medium inline-flex items-center justify-center gap-2 transition-colors ${
+                className={`flex-1 min-w-[44px] sm:min-w-[140px] h-11 px-3 rounded-lg text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 whitespace-nowrap transition-colors ${
                   tab === t.id ? "bg-background shadow-soft" : "text-muted-foreground"
                 }`}
               >
@@ -435,9 +435,9 @@ const TripDetails = () => {
             </button>
             <Link
               to={`/trip-pass?trip=${trip.id}`}
-              className="w-full h-10 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white text-sm font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+              className="w-full h-10 rounded-xl border border-dashed border-muted-foreground/30 text-muted-foreground text-xs font-semibold hover:border-primary hover:text-primary transition-all flex items-center justify-center gap-2"
             >
-              <Sparkles className="w-4 h-4" /> Get Permission Slip
+              <Sparkles className="w-3.5 h-3.5" /> Need a permission slip?
             </Link>
             <div className="text-[11px] text-center text-muted-foreground space-y-1">
               <p>Pay just 25% (₹{Math.round(trip.price * 0.25).toLocaleString("en-IN")}) to confirm</p>

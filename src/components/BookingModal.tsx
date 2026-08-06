@@ -128,7 +128,7 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-foreground/50 backdrop-blur-sm" onClick={close} />
-      <div className="relative w-full max-w-md bg-card rounded-2xl shadow-2xl overflow-hidden animate-scale-in max-h-[90vh] overflow-y-auto flex flex-col">
+      <div className="relative w-full max-w-md bg-card rounded-2xl shadow-2xl overflow-hidden animate-scale-in max-h-[90dvh] overflow-y-auto flex flex-col">
         <div className="flex items-center justify-between p-5 border-b shrink-0">
           <div>
             <h2 className="text-lg font-bold">
@@ -185,7 +185,7 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="text-sm font-medium mb-1 block">Contact Email</label>
                 <input required type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -226,7 +226,7 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
                         placeholder="As per government ID"
                       />
                     </div>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label className="text-xs font-medium mb-1 block">Contact Number</label>
                         <input
@@ -362,7 +362,7 @@ const BookingModal = ({ trip, open, onClose }: BookingModalProps) => {
                   <input required value={card.name} onChange={(e) => setCard({ ...card, name: e.target.value })}
                     className="w-full h-11 px-4 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="Name on card" />
                 </div>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="text-sm font-medium mb-1 block">Expiry</label>
                     <input required value={card.exp} onChange={(e) => setCard({ ...card, exp: e.target.value })}
