@@ -139,6 +139,11 @@
    ============================================================ */
 @media (max-width: 768px) {
   html, body { overflow-x: hidden; }
+  .container { padding-left: 1rem; padding-right: 1rem; }
+  h1 { word-break: break-word; }
+  img { max-width: 100%; }
+
+
 
   /* Prevent bottom nav (h-16 ≈ 64px) from overlapping content */
   main { padding-bottom: 80px; }

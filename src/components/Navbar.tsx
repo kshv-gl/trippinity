@@ -14,7 +14,6 @@ import {
   MapPin,
   Search,
   CheckCircle2,
-  FileText,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -284,9 +283,6 @@ const Navbar = () => {
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => navigate("/trip-hub")}>
                 <Compass className="w-4 h-4 mr-2" /> Trip Hub
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate("/trip-pass")}>
-                <FileText className="w-4 h-4 mr-2" /> Trip Pass
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => navigate("/testimonials")}>
                 <Quote className="w-4 h-4 mr-2" /> Testimonials

@@ -30,63 +30,6 @@ import AIChatWidget from "@/components/AIChatWidget";
 import { mockTrips, destinations, companies } from "@/data/mockTrips";
 import { reviews } from "@/data/reviews";
 import { useUserState } from "@/hooks/useUserState";
-import GoGirlsBanner from "@/components/GoGirlsBanner";
-
-const AFFIRMATIONS = [
-  "Solo doesn't mean alone. Your tribe is waiting.",
-  "Safe stays. Verified leaders. Zero bs.",
-  "You planned the trip. Now someone else handles the logistics.",
-  "Women who travel together, grow together.",
-  "This is your sign. Book the trip.",
-];
-
-const GoGirlsHero = () => {
-  const [affIdx, setAffIdx] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => setAffIdx((i) => (i + 1) % AFFIRMATIONS.length), 3500);
-    return () => clearInterval(t);
-  }, []);
-
-  return (
-    <section className="container pt-5">
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-pink-500 via-fuchsia-500 to-purple-600 text-white p-8 sm:p-12">
-        <div className="absolute -top-16 -left-10 w-56 h-56 rounded-full bg-white/15 blur-3xl" />
-        <div className="absolute -bottom-20 -right-10 w-72 h-72 rounded-full bg-white/10 blur-3xl" />
-
-        <div className="relative">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur text-xs font-bold">
-            <Sparkles className="w-3.5 h-3.5" /> Go Girls Mode
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-extrabold font-display mt-4 leading-tight max-w-2xl">
-            Your trip, your rules. No compromise.
-          </h2>
-          <p className="mt-3 text-white/85 max-w-xl text-sm sm:text-base">
-            Every trip here is curated by verified female leaders, designed for women who travel on their own terms.
-          </p>
-
-          <div className="mt-6 min-h-[52px]">
-            <p key={affIdx} className="animate-fade-in text-base sm:text-lg font-display italic text-white/95">
-              "{AFFIRMATIONS[affIdx]}"
-            </p>
-          </div>
-
-          <div className="mt-6 grid grid-cols-3 gap-3 max-w-md">
-            {[
-              { value: "2,400+", label: "Women traveled" },
-              { value: "100%", label: "Verified leaders" },
-              { value: "4.9", label: "Avg safety rating" },
-            ].map((s) => (
-              <div key={s.label} className="rounded-2xl bg-white/15 backdrop-blur border border-white/20 p-3 text-center">
-                <p className="text-xl font-extrabold font-display">{s.value}</p>
-                <p className="text-[11px] text-white/80 leading-tight mt-0.5">{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
 
 const RotatingBanner = () => {
   const [active, setActive] = useState(0);
@@ -99,17 +42,17 @@ const RotatingBanner = () => {
 
   return (
     <section className="container pt-10">
-      <div className="relative rounded-3xl overflow-hidden h-[340px] sm:h-[380px]">
+      <div className="relative rounded-3xl overflow-hidden h-[280px] sm:h-[340px] md:h-[380px]">
 
         {/* SLIDE 0 — Community: Split photo layout */}
         <div className={`absolute inset-0 transition-opacity duration-700 ${active === 0 ? "opacity-100 z-10" : "opacity-0 z-0"}`}>
-          <div className="absolute inset-0 grid grid-cols-2">
+          <div className="absolute inset-0 grid grid-cols-1 sm:grid-cols-2">
             <img
               src="https://images.pexels.com/photos/5329316/pexels-photo-5329316.jpeg?auto=compress&cs=tinysrgb&w=800"
               alt=""
               className="w-full h-full object-cover"
             />
-            <div className="grid grid-rows-2">
+            <div className="hidden sm:grid grid-rows-2">
               <img
                 src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=600&q=80"
                 alt=""
@@ -123,7 +66,7 @@ const RotatingBanner = () => {
             </div>
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/50 to-transparent" />
-          <div className="absolute inset-0 flex flex-col justify-center p-8 sm:p-12 max-w-lg">
+          <div className="absolute inset-0 flex flex-col justify-center p-5 sm:p-8 md:p-12 max-w-lg">
             <span className="inline-flex items-center gap-1.5 self-start px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-[11px] font-bold uppercase tracking-wider mb-4">
               <Users className="w-3 h-3" /> Community travel
             </span>
@@ -138,7 +81,7 @@ const RotatingBanner = () => {
               Browse group trips <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-          <div className="absolute top-4 right-4 grid grid-cols-3 gap-2">
+          <div className="absolute top-4 right-4 hidden sm:grid grid-cols-3 gap-2">
             {[{ v: "12K+", l: "Travelers" }, { v: "4.8", l: "Rating" }, { v: "200+", l: "Trips" }].map((s) => (
               <div key={s.l} className="rounded-xl bg-white/15 backdrop-blur border border-white/20 p-2 text-center text-white">
                 <p className="text-sm font-extrabold">{s.v}</p>
@@ -156,7 +99,7 @@ const RotatingBanner = () => {
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-orange-600/90 via-yellow-500/70 to-transparent" />
-          <div className="absolute inset-0 flex flex-col justify-between p-8 sm:p-12">
+          <div className="absolute inset-0 flex flex-col justify-between p-5 sm:p-8 md:p-12">
             <div className="flex items-start justify-between">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur text-white text-[11px] font-bold uppercase tracking-wider">
                 Limited offer
@@ -192,7 +135,7 @@ const RotatingBanner = () => {
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-foreground/95 via-foreground/40 to-foreground/10" />
-          <div className="absolute inset-0 flex flex-col justify-end p-8 sm:p-12">
+          <div className="absolute inset-0 flex flex-col justify-end p-5 sm:p-8 md:p-12">
             <div className="flex items-end justify-between gap-4">
               <div>
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-500/30 border border-blue-400/40 text-blue-200 text-[10px] font-bold uppercase tracking-wider mb-3">
@@ -228,7 +171,7 @@ const RotatingBanner = () => {
             className="absolute inset-0 w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-teal-900/85 via-teal-800/50 to-transparent" />
-          <div className="absolute inset-0 flex flex-col justify-center p-8 sm:p-12 max-w-xl">
+          <div className="absolute inset-0 flex flex-col justify-center p-5 sm:p-8 md:p-12 max-w-xl">
             <span className="inline-flex items-center gap-1.5 self-start px-3 py-1 rounded-full bg-teal-400/25 border border-teal-400/40 text-teal-200 text-[11px] font-bold uppercase tracking-wider mb-4">
               Weekend special
             </span>
@@ -311,34 +254,29 @@ const Index = () => {
     );
   };
 
-  const [goGirls, setGoGirls] = useState(false);
-
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return mockTrips.filter((t) => {
-      if (goGirls && !t.womensOnly) return false;
       if (q && !matchesQuery(t, q)) return false;
       // If userState is set, only show trips departing from that state
       if (userState && t.departureState !== userState) return false;
       return true;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, userState, goGirls]);
+  }, [query, userState]);
 
-  const popular = filtered.filter((t) => t.popular || goGirls);
+  const popular = filtered.filter((t) => t.popular);
   const featuredCompanies = Object.values(companies).slice(0, 4);
   const featuredReviews = reviews.slice(0, 3);
 
   return (
-    <div className={`min-h-screen pb-20 md:pb-0 ${goGirls ? "gogirls-mode bg-pink-50/40" : ""}`}>
+    <div className="min-h-screen pb-20 md:pb-0">
       <SEO
         title="Trippinity – Curated Group Trips & Local Planners in India"
         description="Discover curated group trips from verified local planners across India. Transparent pricing, day-wise itineraries, and 25% upfront booking."
         path="/"
       />
       <Navbar />
-      <GoGirlsBanner active={goGirls} onToggle={() => setGoGirls((v) => !v)} />
-      {goGirls && <GoGirlsHero />}
       <Hero />
 
 
@@ -476,7 +414,7 @@ const Index = () => {
 
 
       {/* Trust strip */}
-      <section className="container py-10 grid sm:grid-cols-3 gap-4">
+      <section className="container py-10 grid sm:grid-cols-3 gap-3">
         {[
           { icon: ShieldCheck, title: "Verified planners", desc: "Every company is vetted & rated" },
           { icon: Store, title: "Real marketplace", desc: "Multiple planners, your choice" },
@@ -484,7 +422,8 @@ const Index = () => {
         ].map((item, i) => (
           <div
             key={item.title}
-            className="flex items-start gap-3 p-4 rounded-2xl bg-muted/40 animate-fade-up opacity-0 hover:-translate-y-1 transition-transform"
+            className="flex items-start gap-3 p-4 rounded-2xl bg-muted/40 min-w-0 overflow-hidden animate-fade-up opacity-0 hover:-translate-y-1 transition-transform"
+
             style={{ animationDelay: `${i * 100}ms`, animationFillMode: "forwards" }}
           >
             <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
@@ -661,7 +600,7 @@ const Index = () => {
           </div>
           <Link to="/destinations" className="text-sm font-medium text-primary hover:underline">View all →</Link>
         </div>
-        <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+        <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
           {destinations.map((d, i) => (
             <Link
               key={d.name}
@@ -752,27 +691,22 @@ const Index = () => {
       <section className="container py-10">
         <div className="flex items-end justify-between mb-5">
           <div>
-            <h2 className={`text-2xl font-extrabold font-display flex items-center gap-2 ${goGirls ? "text-pink-600" : ""}`}>
-              <Map className={`w-6 h-6 ${goGirls ? "text-pink-500" : "text-accent"}`} />{" "}
-              {goGirls ? "Trips made for you" : query ? `Results for "${query}"` : "Popular this season"}
+            <h2 className="text-2xl font-extrabold font-display flex items-center gap-2">
+              <Map className="w-6 h-6 text-accent" />{" "}
+              {query ? `Results for "${query}"` : "Popular this season"}
             </h2>
             <p className="text-sm text-muted-foreground">
-              {goGirls
-                ? "All trips are women-only with verified female leaders"
-                : `${filtered.length} trips · curated by verified planners`}
+              {filtered.length} trips · curated by verified planners
             </p>
           </div>
           <Link to="/explore" className="text-sm font-medium text-primary hover:underline">See all →</Link>
         </div>
 
-
-
-
         {filtered.length === 0 ? (
           <div className="text-center py-20 text-muted-foreground">No trips found. Try a different search.</div>
         ) : (
           <div className="trip-card-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {(query || goGirls ? filtered : popular).map((trip, i) => (
+            {(query ? filtered : popular).map((trip, i) => (
               <div key={trip.id} style={{ animationDelay: `${i * 60}ms` }}>
                 <TripCard trip={trip} />
               </div>
@@ -780,6 +714,7 @@ const Index = () => {
           </div>
         )}
       </section>
+
 
       {/* TRIP HUB — premium teaser with real avatars + chat preview */}
       <section className="relative my-16 overflow-hidden">
