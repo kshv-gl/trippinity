@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Star, Flame, Heart, ShieldCheck, Clock, Sparkles } from "lucide-react";
+import { Star, Flame, Heart, ShieldCheck, Clock, Sparkles, Crown } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { type Trip, companies } from "@/data/mockTrips";
 import { useFavourites } from "@/hooks/useFavourites";
@@ -9,9 +9,10 @@ interface Props {
   compareSelected?: boolean;
   onToggleCompare?: (id: string) => void;
   womensOnly?: boolean;
+  isElite?: boolean;
 }
 
-const TripCard = ({ trip, compareSelected, onToggleCompare, womensOnly }: Props) => {
+const TripCard = ({ trip, compareSelected, onToggleCompare, womensOnly, isElite }: Props) => {
   const { isFav, toggle } = useFavourites();
   const navigate = useNavigate();
   const [hover, setHover] = useState(false);
@@ -49,7 +50,11 @@ const TripCard = ({ trip, compareSelected, onToggleCompare, womensOnly }: Props)
       to={`/trip/${trip.id}`}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
-      className="trip-card group relative block rounded-2xl bg-white shadow-soft hover:shadow-elevated hover:-translate-y-2 hover:border-primary/30 active:scale-[0.98] transition-all duration-300 overflow-hidden animate-fade-up border border-border"
+      className={`trip-card group relative block rounded-2xl bg-white shadow-soft hover:shadow-elevated hover:-translate-y-2 active:scale-[0.98] transition-all duration-300 overflow-hidden animate-fade-up border ${
+        (isElite ?? trip.isElite)
+          ? "border-yellow-400/60 shadow-[0_0_0_1px_rgba(234,179,8,0.3)] hover:shadow-[0_8px_32px_rgba(234,179,8,0.25)]"
+          : "border-border hover:border-primary/30"
+      }`}
     >
       {onToggleCompare && (
         <button
@@ -120,6 +125,12 @@ const TripCard = ({ trip, compareSelected, onToggleCompare, womensOnly }: Props)
           </span>
         )}
 
+        {(isElite ?? trip.isElite) && (
+          <span className="absolute top-14 right-3 z-10 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-gradient-to-r from-yellow-500 to-amber-600 text-white text-[11px] font-extrabold shadow-soft">
+            <Crown className="w-3 h-3" /> Elite
+          </span>
+        )}
+
         <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
           <span className="px-2.5 py-1 rounded-lg bg-background/90 backdrop-blur text-xs font-medium inline-flex items-center gap-1">
             <Clock className="w-3 h-3" /> {trip.duration}
@@ -167,15 +178,34 @@ const TripCard = ({ trip, compareSelected, onToggleCompare, womensOnly }: Props)
           </span>
         </div>
 
-        <div className="flex items-center justify-between pt-1 border-t border-border/60 text-xs">
-          <span className="flex items-center gap-1 font-semibold">
-            <Star className="w-3.5 h-3.5 fill-secondary stroke-secondary" />
-            {trip.rating}
-          </span>
-          <span className="flex items-center gap-1 text-muted-foreground">
-            <Flame className="w-3.5 h-3.5 text-destructive" /> {trip.booked} booked
-          </span>
-        </div>
+        {(() => {
+          const total = trip.totalSeats ?? 20;
+          const left = Math.max(0, total - trip.booked);
+          const pct = Math.min(100, (trip.booked / total) * 100);
+          const isUrgent = left <= Math.ceil(total * 0.3);
+
+          return (
+            <div className="pt-2 border-t border-border/60 space-y-2">
+              <div className="flex items-center justify-between text-xs gap-2">
+                <span className="flex items-center gap-1 font-semibold shrink-0">
+                  <Star className="w-3.5 h-3.5 fill-secondary stroke-secondary" />
+                  {trip.rating}
+                </span>
+                <span className={`flex items-center gap-1 min-w-0 truncate ${isUrgent ? "text-destructive font-semibold" : "text-muted-foreground"}`}>
+                  <Flame className="w-3.5 h-3.5 text-destructive shrink-0" />
+                  {trip.booked} booked of {total}
+                  {isUrgent && ` · ${left} left!`}
+                </span>
+              </div>
+              <div className="h-1.5 w-full rounded-full bg-muted overflow-hidden">
+                <div
+                  className={`h-full rounded-full transition-all ${isUrgent ? "bg-destructive" : "bg-primary"}`}
+                  style={{ width: `${pct}%` }}
+                />
+              </div>
+            </div>
+          );
+        })()}
       </div>
     </Link>
   );

@@ -21,6 +21,8 @@ import Compare from "./pages/Compare";
 import TermsAndPrivacy from "./pages/TermsAndPrivacy";
 import NotFound from "./pages/NotFound";
 import OAuthConsent from "./pages/OAuthConsent";
+import PlannerOnboarding from "./pages/PlannerOnboarding";
+import PlannerDashboard from "./pages/PlannerDashboard";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +56,8 @@ const App = () => (
           <Route path="/trip-pass" element={<TripPass />} />
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/compare" element={<Compare />} />
+          <Route path="/planner-onboarding" element={<PlannerOnboarding />} />
+          <Route path="/planner-dashboard" element={<PlannerDashboard />} />
           <Route path="/terms-and-privacy" element={<TermsAndPrivacy />} />
           <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
           <Route path="*" element={<NotFound />} />

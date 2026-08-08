@@ -2,13 +2,14 @@ import SEO from "@/components/SEO";
 import AIChatWidget from "@/components/AIChatWidget";
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Search, SlidersHorizontal, ArrowUpDown, Star, X, MapPin, Sparkles } from "lucide-react";
+import { Search, SlidersHorizontal, ArrowUpDown, Star, X, MapPin, Sparkles, Crown } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
 import TripCard from "@/components/TripCard";
 import Footer from "@/components/Footer";
 import CompareBar from "@/components/CompareBar";
 import GoGirlsBanner from "@/components/GoGirlsBanner";
+import GoEliteBanner from "@/components/GoEliteBanner";
 import { useCompare } from "@/hooks/useCompare";
 import { useUserState } from "@/hooks/useUserState";
 import { mockTrips, destinations, companies } from "@/data/mockTrips";
@@ -25,6 +26,7 @@ const Explore = () => {
   const [ratingFilter, setRatingFilter] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
   const [goGirls, setGoGirls] = useState(false);
+  const [goElite, setGoElite] = useState(false);
 
   useEffect(() => {
     const q = searchParams.get("q");
@@ -35,6 +37,7 @@ const Explore = () => {
     const result = mockTrips.filter((t) => {
       const q = query.trim().toLowerCase();
       if (goGirls && !t.womensOnly) return false;
+      if (goElite && !t.isElite) return false;
       if (q) {
         const companyName = companies[t.companyId]?.name?.toLowerCase() ?? "";
         const match =
@@ -52,7 +55,7 @@ const Explore = () => {
       // If userState is set, only show trips departing from that state
       if (userState && t.departureState !== userState) return false;
       if (destFilter !== "All" && t.destination !== destFilter) return false;
-      if (t.price > maxPrice) return false;
+      if (!goElite && t.price > maxPrice) return false;
       if (durationFilter !== "All") {
         const days = parseInt(t.duration);
         if (durationFilter === "1-3" && (days < 1 || days > 3)) return false;
@@ -68,7 +71,7 @@ const Explore = () => {
     if (sortBy === "rating") return [...result].sort((a, b) => b.rating - a.rating);
     if (sortBy === "popular") return [...result].sort((a, b) => b.booked - a.booked);
     return result;
-  }, [query, destFilter, maxPrice, durationFilter, ratingFilter, sortBy, userState, goGirls]);
+  }, [query, destFilter, maxPrice, durationFilter, ratingFilter, sortBy, userState, goGirls, goElite]);
 
   const hasActiveFilters = destFilter !== "All" || durationFilter !== "All" || ratingFilter > 0 || maxPrice < 30000;
   const resetAll = () => {
@@ -165,6 +168,7 @@ const Explore = () => {
                     </button>
                   ))}
                   <GoGirlsBanner active={goGirls} onToggle={() => setGoGirls((v) => !v)} />
+                  <GoEliteBanner active={goElite} onToggle={() => setGoElite((v) => !v)} />
                 </div>
               </div>
 
@@ -266,6 +270,22 @@ const Explore = () => {
           </div>
         ) : (
           <>
+          {goElite && (
+            <div className="relative overflow-hidden flex items-center gap-3 mb-4 px-4 py-3 rounded-2xl bg-gradient-to-r from-neutral-900 via-neutral-800 to-neutral-900 border border-yellow-500/40">
+              <div className="absolute -top-8 -left-6 w-32 h-32 rounded-full bg-yellow-500/20 blur-3xl" />
+              <div className="absolute -bottom-10 right-0 w-40 h-40 rounded-full bg-amber-400/10 blur-3xl" />
+              <Crown className="relative w-5 h-5 text-yellow-400 shrink-0" />
+              <div className="relative min-w-0">
+                <p className="text-xs font-extrabold text-yellow-300 tracking-wide">Go Elite Mode</p>
+                <p className="text-[11px] text-yellow-100/70">
+                  Showing {filtered.length} exclusive luxury {filtered.length !== 1 ? "experiences" : "experience"} with handpicked elite planners
+                </p>
+              </div>
+              <button onClick={() => setGoElite(false)} className="relative ml-auto text-[10px] text-yellow-400/70 hover:text-yellow-300 font-bold transition-colors">
+                Clear
+              </button>
+            </div>
+          )}
           {goGirls && (
             <div className="flex items-center gap-2 mb-4 px-3 py-2 rounded-xl bg-gradient-to-r from-pink-500/10 to-purple-500/10 border border-pink-300/40">
               <Sparkles className="w-3.5 h-3.5 text-pink-500 shrink-0" />
@@ -282,6 +302,7 @@ const Explore = () => {
               <div key={trip.id} className="animate-fade-up opacity-0" style={{ animationDelay: `${i * 60}ms`, animationFillMode: "forwards" }}>
                 <TripCard
                   trip={trip}
+                  isElite={trip.isElite}
                   compareSelected={isSelected(trip.id)}
                   onToggleCompare={toggle}
                 />
