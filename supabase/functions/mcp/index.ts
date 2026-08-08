@@ -435,6 +435,117 @@ var mockTrips = [
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
       "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80"
     ]
+  },
+  {
+    id: "11",
+    title: "Kashmir Houseboat & Gulmarg Luxury Escape",
+    price: 68999,
+    duration: "5N / 6D",
+    dates: "Sep 10 to Sep 15, 2026",
+    itinerary: [
+      "Private transfer from Srinagar Airport to a heritage houseboat on Dal Lake.",
+      "Shikara sunrise, Mughal Gardens, private floating market tour.",
+      "Helicopter transfer to Gulmarg, Gondola ride to Phase 2, luxury alpine lunch.",
+      "Horse riding on the meadows, bonfire dinner under the stars.",
+      "Pahalgam valley drive, private trout fishing experience, gourmet dinner.",
+      "Departure with a saffron breakfast and souvenir box."
+    ],
+    image: "https://images.unsplash.com/photo-1566837945700-30057527ade0?w=1200&q=80",
+    videoUrl: "",
+    plannerName: "Arjun Raina",
+    plannerAbout: "Luxury travel curator with 12 years specializing in Himalayan premium experiences.",
+    companyId: "himalayan-trails",
+    rating: 4.97,
+    booked: 6,
+    totalSeats: 8,
+    popular: false,
+    isElite: true,
+    location: "Srinagar & Gulmarg, Kashmir",
+    destination: "Kashmir",
+    departureState: "New Delhi",
+    assemblyPoint: "Terminal 3, IGI Airport, New Delhi",
+    transportMode: "Flight",
+    womensOnly: false,
+    gallery: [
+      "https://images.unsplash.com/photo-1566837945700-30057527ade0?w=800&q=80",
+      "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800&q=80",
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
+    ]
+  },
+  {
+    id: "12",
+    title: "Udaipur Royal Palace Stay & Lake Experience",
+    price: 54999,
+    duration: "4N / 5D",
+    dates: "Oct 5 to Oct 9, 2026",
+    itinerary: [
+      "Private car from Udaipur Airport to a 5-star heritage palace hotel on Lake Pichola.",
+      "Sunset boat cruise on Lake Pichola with private butler and champagne service.",
+      "Vintage car tour of the old city, private audience with a royal historian.",
+      "Day trip to Kumbhalgarh Fort, wildlife sanctuary drive, rooftop gala dinner.",
+      "Cooking masterclass with a royal chef, spa session, departure with luxury hamper."
+    ],
+    image: "https://images.unsplash.com/photo-1599661046827-dacff0c0f09a?w=1200&q=80",
+    videoUrl: "",
+    plannerName: "Meera Singhania",
+    plannerAbout: "Former hospitality director turned luxury travel designer. 8 years, 600+ elite travelers hosted.",
+    companyId: "royal-rajasthan",
+    rating: 4.95,
+    booked: 9,
+    totalSeats: 10,
+    popular: false,
+    isElite: true,
+    location: "Udaipur, Rajasthan",
+    destination: "Rajasthan",
+    departureState: "New Delhi",
+    assemblyPoint: "Terminal 3, IGI Airport, New Delhi",
+    transportMode: "Flight",
+    womensOnly: false,
+    gallery: [
+      "https://images.unsplash.com/photo-1599661046827-dacff0c0f09a?w=800&q=80",
+      "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800&q=80",
+      "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80",
+      "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80"
+    ]
+  },
+  {
+    id: "13",
+    title: "Andaman Private Island & Seaplane Experience",
+    price: 89999,
+    duration: "6N / 7D",
+    dates: "Nov 1 to Nov 7, 2026",
+    itinerary: [
+      "Seaplane transfer from Port Blair to a private resort island, welcome with butler.",
+      "Private speedboat to Radhanagar Beach, underwater sea-walk experience.",
+      "Chartered catamaran day cruise with snorkeling, lobster BBQ on a sandbar.",
+      "Deep sea diving with a certified PADI instructor, evening bioluminescence kayaking.",
+      "Private island picnic, sunset photography session with a professional photographer.",
+      "Spa day at the overwater treatment centre, farewell gala dinner.",
+      "Seaplane departure, premium transit lounge access at Port Blair."
+    ],
+    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&q=80",
+    videoUrl: "",
+    plannerName: "Rohan D'Costa",
+    plannerAbout: "Marine biologist turned luxury island curator. Creator of India's most exclusive island experiences.",
+    companyId: "coastal-escapes",
+    rating: 5,
+    booked: 4,
+    totalSeats: 6,
+    popular: false,
+    isElite: true,
+    location: "Andaman Islands",
+    destination: "Andaman",
+    departureState: "New Delhi",
+    assemblyPoint: "Terminal 3, IGI Airport, New Delhi",
+    transportMode: "Flight",
+    womensOnly: false,
+    gallery: [
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
+      "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800&q=80",
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
+      "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80"
+    ]
   }
 ];
 var destinations = [
