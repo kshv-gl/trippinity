@@ -70,7 +70,9 @@ export interface Trip {
   companyId: string;
   rating: number;
   booked: number;
+  totalSeats: number;
   popular: boolean;
+  isElite?: boolean;
   location: string;
   destination: string;
   departureState: string;
@@ -120,6 +122,7 @@ export const mockTrips: Trip[] = [
     companyId: "himalayan-trails",
     rating: 4.8,
     booked: 47,
+    totalSeats: 20,
     popular: true,
     location: "Manali, Himachal Pradesh",
     destination: "Himachal",
@@ -154,6 +157,7 @@ export const mockTrips: Trip[] = [
     companyId: "coastal-escapes",
     rating: 4.6,
     booked: 32,
+    totalSeats: 24,
     popular: true,
     location: "Goa",
     destination: "Goa",
@@ -190,6 +194,7 @@ export const mockTrips: Trip[] = [
     companyId: "kerala-trails",
     rating: 4.9,
     booked: 63,
+    totalSeats: 16,
     popular: true,
     womensOnly: true,
     location: "Kerala",
@@ -228,6 +233,7 @@ export const mockTrips: Trip[] = [
     companyId: "royal-rajasthan",
     rating: 4.7,
     booked: 28,
+    totalSeats: 18,
     popular: false,
     location: "Rajasthan",
     destination: "Rajasthan",
@@ -264,6 +270,7 @@ export const mockTrips: Trip[] = [
     companyId: "coastal-escapes",
     rating: 4.5,
     booked: 19,
+    totalSeats: 14,
     popular: false,
     womensOnly: true,
     location: "Andaman Islands",
@@ -303,6 +310,7 @@ export const mockTrips: Trip[] = [
     companyId: "ride-india",
     rating: 4.9,
     booked: 85,
+    totalSeats: 12,
     popular: true,
     location: "Leh, Ladakh",
     destination: "Ladakh",
@@ -337,6 +345,7 @@ export const mockTrips: Trip[] = [
     companyId: "kerala-trails",
     rating: 4.7,
     booked: 52,
+    totalSeats: 16,
     popular: true,
     location: "Coorg, Karnataka",
     destination: "Karnataka",
@@ -369,6 +378,7 @@ export const mockTrips: Trip[] = [
     companyId: "kerala-trails",
     rating: 4.9,
     booked: 143,
+    totalSeats: 20,
     popular: true,
     location: "Rishikesh, Uttarakhand",
     destination: "Uttarakhand",
@@ -404,6 +414,7 @@ export const mockTrips: Trip[] = [
     companyId: "kerala-trails",
     rating: 4.8,
     booked: 38,
+    totalSeats: 14,
     popular: false,
     location: "Cherrapunji, Meghalaya",
     destination: "Meghalaya",
@@ -440,6 +451,7 @@ export const mockTrips: Trip[] = [
     companyId: "himalayan-trails",
     rating: 5.0,
     booked: 72,
+    totalSeats: 12,
     popular: true,
     location: "Spiti Valley, Himachal Pradesh",
     destination: "Spiti Valley",
