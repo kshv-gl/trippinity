@@ -180,7 +180,7 @@ const PlannerDashboard = () => {
                 <div className="space-y-3">
                   {plannerTrips.slice(0, 2).map((t) => {
                     const total = t.totalSeats ?? 20;
-                    const pct = Math.min(100, (t.booked / total) * 100);
+                    const pct = Math.min(100, ((t.currentBatchBooked ?? t.booked) / total) * 100);
                     return (
                       <div key={t.id} className="flex items-center gap-3 p-3 rounded-xl border">
                         <img src={t.image} alt={t.title} className="w-16 h-16 rounded-xl object-cover shrink-0" loading="lazy" />
@@ -217,8 +217,8 @@ const PlannerDashboard = () => {
               <div className="grid sm:grid-cols-2 gap-4">
                 {plannerTrips.map((t) => {
                   const total = t.totalSeats ?? 20;
-                  const left = Math.max(0, total - t.booked);
-                  const pct = Math.min(100, (t.booked / total) * 100);
+                  const left = Math.max(0, total - (t.currentBatchBooked ?? t.booked));
+                  const pct = Math.min(100, ((t.currentBatchBooked ?? t.booked) / total) * 100);
                   return (
                     <div key={t.id} className="rounded-2xl border bg-card overflow-hidden">
                       <div className="relative h-32">
