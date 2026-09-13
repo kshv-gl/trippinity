@@ -491,7 +491,7 @@ export const mockTrips: Trip[] = [
       "Pahalgam valley drive, private trout fishing experience, gourmet dinner.",
       "Departure with a saffron breakfast and souvenir box.",
     ],
-    image: "https://unsplash.com/https://images.unsplash.com/photo-1598091383021-15ddea10925d?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=praneet-kumar-H8dcf-v98mA-unsplash.jpg",
+    image: "https://images.unsplash.com/photo-1598091383021-15ddea10925d?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=praneet-kumar-H8dcf-v98mA-unsplash.jpg",
     videoUrl: "",
     plannerName: "Arjun Raina",
     plannerAbout: "Luxury travel curator with 12 years specializing in Himalayan premium experiences.",
