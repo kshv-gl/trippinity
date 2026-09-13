@@ -194,7 +194,7 @@ const TripCard = ({ trip, compareSelected, onToggleCompare, womensOnly, isElite 
                 </span>
                 <span className={`flex items-center gap-1 min-w-0 truncate ${isUrgent ? "text-destructive font-semibold" : "text-muted-foreground"}`}>
                   <Flame className="w-3.5 h-3.5 text-destructive shrink-0" />
-                  {trip.booked} booked of {total}
+                  {filled} booked of {total}
                   {isUrgent && ` · ${left} left!`}
                 </span>
               </div>
