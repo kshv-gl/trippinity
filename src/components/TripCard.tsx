@@ -180,8 +180,9 @@ const TripCard = ({ trip, compareSelected, onToggleCompare, womensOnly, isElite 
 
         {(() => {
           const total = trip.totalSeats ?? 20;
-          const left = Math.max(0, total - trip.booked);
-          const pct = Math.min(100, (trip.booked / total) * 100);
+          const filled = trip.currentBatchBooked ?? Math.min(trip.booked, total - 1);
+          const left = Math.max(0, total - filled);
+          const pct = Math.min(100, (filled / total) * 100);
           const isUrgent = left <= Math.ceil(total * 0.3);
 
           return (
